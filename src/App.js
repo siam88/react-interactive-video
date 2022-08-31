@@ -33,6 +33,9 @@ function App() {
     //   console.log("args progress fired=======", args);
     // });
     video.addEventListener("canplay", (...args) => {
+      const videoTwo = document.getElementById("video_two");
+
+      videoTwo.currentTime = videoNode.currentTime;
       console.log("args canplay fired=======", args);
     });
     video.addEventListener("canplaythrough", (...args) => {
@@ -58,13 +61,13 @@ function App() {
       video.networkState,
       video.NETWORK_LOADING
     );
+    console.log(
+      "readyState & HAVE_FUTURE_DATA",
+      video.HAVE_FUTURE_DATA,
+      video.readyState
+    );
     if (video.readyState < video.HAVE_FUTURE_DATA) {
       // console.log("There is not enough data to keep playing from this point");
-      console.log(
-        "readyState & HAVE_FUTURE_DATA",
-        video.HAVE_FUTURE_DATA,
-        video.readyState
-      );
     }
     setVideoNode(video);
   }, [readyState1]);
@@ -77,6 +80,7 @@ function App() {
   }, [volume]);
 
   const timeUpdateHandler = (e) => {
+    console.log("hello==>", videoNode.currentTime);
     const percent = (videoNode.currentTime / videoNode.duration) * 100;
 
     setVideoProgress(percent);
