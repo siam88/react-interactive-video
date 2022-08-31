@@ -15,7 +15,6 @@ function App() {
   const [readyState1, setReadyState1] = useState(false);
   const [readyState2, setReadyState2] = useState(false);
   useEffect(() => {
-    console.log("just to check deployed correctly or not");
     const video = document.getElementById("video_one");
     const video2 = document.getElementById("video_two");
     video.addEventListener("loadstart", (...args) => {
@@ -52,11 +51,20 @@ function App() {
       }
     });
     if (video.networkState === video.NETWORK_LOADING) {
-      console.log("The user agent is actively trying to download data.");
+      // console.log("The user agent is actively trying to download data.");
     }
-    console.log("video=>", video.networkState, video.NETWORK_LOADING);
+    console.log(
+      "video networkState and NETWORK_LOADING=>",
+      video.networkState,
+      video.NETWORK_LOADING
+    );
     if (video.readyState < video.HAVE_FUTURE_DATA) {
-      console.log("There is not enough data to keep playing from this point");
+      // console.log("There is not enough data to keep playing from this point");
+      console.log(
+        "readyState & HAVE_FUTURE_DATA",
+        video.HAVE_FUTURE_DATA,
+        video.readyState
+      );
     }
     setVideoNode(video);
   }, [readyState1]);
@@ -82,7 +90,6 @@ function App() {
     Array.from(videos).forEach((video) => {
       if (video.paused) {
         video.play();
-        console.log({ video });
         setPlaying(true);
       } else {
         video.pause();
@@ -176,7 +183,9 @@ function App() {
                       onTimeUpdate={timeUpdateHandler}
                       onEnded={() => setPlaying(false)}
                       preload="auto"
-                      onStalled={(e) => console.log("hello", e)}
+                      onStalled={(e) =>
+                        console.log("+++++++++hello i am stalled+++++++++", e)
+                      }
                       // onCanPlayThrough={(e) => console.log("helllo", e)}
                       // autoPlay={readyState1}
                       // muted="muted"
