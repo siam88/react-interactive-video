@@ -15,29 +15,30 @@ function App() {
   const [readyState1, setReadyState1] = useState(false);
   const [readyState2, setReadyState2] = useState(false);
   useEffect(() => {
+    console.log("just to check deployed correctly or not");
     const video = document.getElementById("video_one");
     const video2 = document.getElementById("video_two");
-    video.addEventListener("loadstart",(...args)=>{
-      console.log("args loadstart fired=======",args)
-    })
-    video.addEventListener("durationchange",(...args)=>{
-      console.log("args durationchange fired=======",args)
-    })
-    video.addEventListener("loadedmetadata",(...args)=>{
-      console.log("args loadedmetadata fired=======",args)
-    })
-    video.addEventListener("loadeddata",(...args)=>{
-      console.log("args loadeddata fired=======",args)
-    })
-    video.addEventListener("progress",(...args)=>{
-      console.log("args progress fired=======",args)
-    })
-    video.addEventListener("canplay",(...args)=>{
-      console.log("args canplay fired=======",args)
-    })
-    video.addEventListener("canplaythrough",(...args)=>{
-      console.log("args canplaythrough fired=======",args)
-    })
+    video.addEventListener("loadstart", (...args) => {
+      console.log("args loadstart fired=======", args);
+    });
+    video.addEventListener("durationchange", (...args) => {
+      console.log("args durationchange fired=======", args);
+    });
+    video.addEventListener("loadedmetadata", (...args) => {
+      console.log("args loadedmetadata fired=======", args);
+    });
+    video.addEventListener("loadeddata", (...args) => {
+      console.log("args loadeddata fired=======", args);
+    });
+    video.addEventListener("progress", (...args) => {
+      console.log("args progress fired=======", args);
+    });
+    video.addEventListener("canplay", (...args) => {
+      console.log("args canplay fired=======", args);
+    });
+    video.addEventListener("canplaythrough", (...args) => {
+      console.log("args canplaythrough fired=======", args);
+    });
     video.addEventListener("loadeddata", (...args) => {
       // console.log("args canplay fired=======",args)
 
@@ -81,7 +82,7 @@ function App() {
     Array.from(videos).forEach((video) => {
       if (video.paused) {
         video.play();
-        console.log({video})
+        console.log({ video });
         setPlaying(true);
       } else {
         video.pause();
