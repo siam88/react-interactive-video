@@ -8,6 +8,7 @@ const TIMETOSHOW = 3;
 function App() {
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
+  const [videoNode2, setVideoNode2] = useState();
   const [videoProgress, setVideoProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
@@ -58,6 +59,7 @@ function App() {
       console.log("There is not enough data to keep playing from this point");
     }
     setVideoNode(video);
+    setVideoNode2(video2);
   }, [readyState1]);
 
   useEffect(() => {
@@ -175,7 +177,13 @@ function App() {
                       onTimeUpdate={timeUpdateHandler}
                       onEnded={() => setPlaying(false)}
                       preload="auto"
-                      onStalled={(e) => console.log("hello", e)}
+                      onStalled={(e) => console.log("video 1 stalled", e)}
+                      onloadeddata={(e) => {
+                        if (videoNode.readyState >= 2) {
+                          setReadyState1(true);
+                        }
+                        console.log("videoNode==>", videoNode.readyState);
+                      }}
                       // onCanPlayThrough={(e) => console.log("helllo", e)}
                       // autoPlay={readyState1}
                       // muted="muted"
@@ -192,6 +200,13 @@ function App() {
                       preload="auto"
                       // autoPlay={readyState2}
                       // muted="muted"
+                      onStalled={(e) => console.log("video 2 stalled", e)}
+                      onloadeddata={(e) => {
+                        if (videoNode2.readyState >= 2) {
+                          setReadyState2(true);
+                        }
+                        console.log("videoNode2==>", videoNode2.readyState);
+                      }}
                     >
                       <source src="/videos/Tamim 6.mp4" type="video/mp4" />
                     </video>{" "}
