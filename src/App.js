@@ -29,9 +29,9 @@ function App() {
     video.addEventListener("loadeddata", (...args) => {
       console.log("args loadeddata fired=======", args);
     });
-    video.addEventListener("progress", (...args) => {
-      console.log("args progress fired=======", args);
-    });
+    // video.addEventListener("progress", (...args) => {
+    //   console.log("args progress fired=======", args);
+    // });
     video.addEventListener("canplay", (...args) => {
       console.log("args canplay fired=======", args);
     });
