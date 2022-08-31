@@ -25,11 +25,13 @@ function App() {
     if (videoTime > videoTime2) {
       videoNode.pause();
       video2.addEventListener("canplay", (...args) => {
+        videoNode.play();
         console.log("video2 args canplay fired=======", args);
       });
     } else if (videoTime2 > videoTime) {
       videoNode2.pause();
       video.addEventListener("canplay", (...args) => {
+        videoNode2.play();
         console.log("video args canplay fired=======", args);
       });
     }
@@ -50,9 +52,9 @@ function App() {
     // });
     console.log("video playing time =>", video.currentTime);
     console.log("video2 playing time =>", video2.currentTime);
-    video.addEventListener("canplay", (...args) => {
-      console.log("video args canplay fired=======", args);
-    });
+    // video.addEventListener("canplay", (...args) => {
+    //   console.log("video args canplay fired=======", args);
+    // });
     // video2.addEventListener("canplay", (...args) => {
     //   console.log("video2 args canplay fired=======", args);
     // });
@@ -217,7 +219,7 @@ function App() {
                       onEnded={() => setPlaying(false)}
                       preload="auto"
                       onStalled={(e) =>
-                        console.log("+++++++++hello i am stalled+++++++++", e)
+                        console.log("+++++++++hello i am video1 stalled", e)
                       }
                       // onCanPlayThrough={(e) => console.log("helllo", e)}
                       // autoPlay={readyState1}
@@ -236,6 +238,9 @@ function App() {
                       preload="auto"
                       // autoPlay={readyState2}
                       // muted="muted"
+                      onStalled={(e) =>
+                        console.log("+++++++++hello i am video2 stalled", e)
+                      }
                     >
                       <source src="/videos/Tamim 6.mp4" type="video/mp4" />
                     </video>{" "}
