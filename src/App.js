@@ -192,6 +192,9 @@ function App() {
                       onTimeUpdate={timeUpdateHandler}
                       onEnded={() => setPlaying(false)}
                       preload="auto"
+                      onwaiting={() => {
+                        console.log(" video ,i am waiting");
+                      }}
                       onStalled={(e) => console.log("hello", e)}
                       // onCanPlayThrough={(e) => console.log("helllo", e)}
                       // autoPlay={readyState1}
@@ -212,6 +215,9 @@ function App() {
                       preload="auto"
                       // autoPlay={readyState2}
                       // muted="muted"
+                      onwaiting={() => {
+                        console.log(" video 2,i am waiting");
+                      }}
                     >
                       <source
                         src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_1.mp4"
