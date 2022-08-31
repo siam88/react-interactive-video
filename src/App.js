@@ -8,7 +8,6 @@ const TIMETOSHOW = 3;
 function App() {
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
-  const [videoNode2, setVideoNode2] = useState();
   const [videoProgress, setVideoProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
@@ -18,49 +17,53 @@ function App() {
   useEffect(() => {
     const video = document.getElementById("video_one");
     const video2 = document.getElementById("video_two");
-    video.addEventListener("loadstart", (...args) => {
-      console.log("args loadstart fired=======", args);
-    });
-    video.addEventListener("durationchange", (...args) => {
-      console.log("args durationchange fired=======", args);
-    });
-    video.addEventListener("loadedmetadata", (...args) => {
-      console.log("args loadedmetadata fired=======", args);
-    });
+    // video.addEventListener("loadstart", (...args) => {
+    //   console.log("args loadstart fired=======", args);
+    // });
+    // video.addEventListener("durationchange", (...args) => {
+    //   console.log("args durationchange fired=======", args);
+    // });
+    // video.addEventListener("loadedmetadata", (...args) => {
+    //   console.log("args loadedmetadata fired=======", args);
+    // });
+    // video.addEventListener("loadeddata", (...args) => {
+    //   console.log("args loadeddata fired=======", args);
+    // });
+    // video.addEventListener("progress", (...args) => {
+    //   console.log("args progress fired=======", args);
+    // });
+
+    // video.addEventListener("canplaythrough", (...args) => {
+    //   console.log("args canplaythrough fired=======", args);
+    // });
+    console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
     video.addEventListener("loadeddata", (...args) => {
-      console.log("args loadeddata fired=======", args);
-    });
-    video.addEventListener("progress", (...args) => {
-      console.log("args progress fired=======", args);
-    });
-    video.addEventListener("canplay", (...args) => {
-      console.log("args canplay fired=======", args);
-    });
-    video.addEventListener("canplaythrough", (...args) => {
-      console.log("args canplaythrough fired=======", args);
-    });
-    video.addEventListener("loadeddata", (...args) => {
-      // console.log("args canplay fired=======",args)
+      console.log("args loadeddata video=======", args);
 
       if (video.readyState >= 2) {
         setReadyState1(true);
       }
     });
-    video2.addEventListener("loadeddata", () => {
+    video2.addEventListener("loadeddata", (...args) => {
+      console.log("args loadeddata video2=======", args);
+
       if (video2.readyState >= 2) {
         setReadyState2(true);
       }
     });
-    if (video.networkState === video.NETWORK_LOADING) {
-      console.log("The user agent is actively trying to download data.");
-    }
-    console.log("video=>", video.networkState, video.NETWORK_LOADING);
-    if (video.readyState < video.HAVE_FUTURE_DATA) {
-      console.log("There is not enough data to keep playing from this point");
-    }
+    // if (video.networkState === video.NETWORK_LOADING) {
+    //   console.log("The user agent is actively trying to download data.");
+    // }
+    // console.log("video=>", video.networkState, video.NETWORK_LOADING);
+    // if (video.readyState < video.HAVE_FUTURE_DATA) {
+    //   console.log("There is not enough data to keep playing from this point");
+    // }
     setVideoNode(video);
-    setVideoNode2(video2);
   }, [readyState1]);
+
+  useEffect(() => {
+    console.log(videoNode.readyState);
+  });
 
   useEffect(() => {
     const videos = document.querySelectorAll("video");
@@ -177,13 +180,7 @@ function App() {
                       onTimeUpdate={timeUpdateHandler}
                       onEnded={() => setPlaying(false)}
                       preload="auto"
-                      onStalled={(e) => console.log("video 1 stalled", e)}
-                      onloadeddata={(e) => {
-                        if (videoNode.readyState >= 2) {
-                          setReadyState1(true);
-                        }
-                        console.log("videoNode==>", videoNode.readyState);
-                      }}
+                      onStalled={(e) => console.log("hello", e)}
                       // onCanPlayThrough={(e) => console.log("helllo", e)}
                       // autoPlay={readyState1}
                       // muted="muted"
@@ -200,13 +197,6 @@ function App() {
                       preload="auto"
                       // autoPlay={readyState2}
                       // muted="muted"
-                      onStalled={(e) => console.log("video 2 stalled", e)}
-                      onloadeddata={(e) => {
-                        if (videoNode2.readyState >= 2) {
-                          setReadyState2(true);
-                        }
-                        console.log("videoNode2==>", videoNode2.readyState);
-                      }}
                     >
                       <source src="/videos/Tamim 6.mp4" type="video/mp4" />
                     </video>{" "}
