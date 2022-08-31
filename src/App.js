@@ -8,59 +8,36 @@ const TIMETOSHOW = 3;
 function App() {
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
-  const [videoNode2, setVideoNode2] = useState();
   const [videoProgress, setVideoProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [readyState1, setReadyState1] = useState(false);
   const [readyState2, setReadyState2] = useState(false);
-  const [videoTime, setVideoTime] = useState(0);
-  const [videoTime2, setVideoTime2] = useState(0);
   useEffect(() => {
     const video = document.getElementById("video_one");
     const video2 = document.getElementById("video_two");
-    setVideoNode(video);
-    setVideoNode2(video2);
-    if (videoTime > videoTime2) {
-      videoNode.pause();
-      video2.addEventListener("canplay", (...args) => {
-        videoNode.play();
-        console.log("video2 args canplay fired=======", args);
-      });
-    } else if (videoTime2 > videoTime) {
-      videoNode2.pause();
-      video.addEventListener("canplay", (...args) => {
-        videoNode2.play();
-        console.log("video args canplay fired=======", args);
-      });
-    }
-    // video.addEventListener("loadstart", (...args) => {
-    //   console.log("args loadstart fired=======", args);
-    // });
-    // video.addEventListener("durationchange", (...args) => {
-    //   console.log("args durationchange fired=======", args);
-    // });
-    // video.addEventListener("loadedmetadata", (...args) => {
-    //   console.log("args loadedmetadata fired=======", args);
-    // });
-    // video.addEventListener("loadeddata", (...args) => {
-    //   console.log("args loadeddata fired=======", args);
-    // });
-    // video.addEventListener("progress", (...args) => {
-    //   console.log("args progress fired=======", args);
-    // });
-    console.log("video playing time =>", video.currentTime);
-    console.log("video2 playing time =>", video2.currentTime);
-    // video.addEventListener("canplay", (...args) => {
-    //   console.log("video args canplay fired=======", args);
-    // });
-    // video2.addEventListener("canplay", (...args) => {
-    //   console.log("video2 args canplay fired=======", args);
-    // });
-    // video.addEventListener("canplaythrough", (...args) => {
-    //   console.log("args canplaythrough fired=======", args);
-    // });
+    video.addEventListener("loadstart", (...args) => {
+      console.log("args loadstart fired=======", args);
+    });
+    video.addEventListener("durationchange", (...args) => {
+      console.log("args durationchange fired=======", args);
+    });
+    video.addEventListener("loadedmetadata", (...args) => {
+      console.log("args loadedmetadata fired=======", args);
+    });
+    video.addEventListener("loadeddata", (...args) => {
+      console.log("args loadeddata fired=======", args);
+    });
+    video.addEventListener("progress", (...args) => {
+      console.log("args progress fired=======", args);
+    });
+    video.addEventListener("canplay", (...args) => {
+      console.log("args canplay fired=======", args);
+    });
+    video.addEventListener("canplaythrough", (...args) => {
+      console.log("args canplaythrough fired=======", args);
+    });
     video.addEventListener("loadeddata", (...args) => {
       // console.log("args canplay fired=======",args)
 
@@ -74,21 +51,13 @@ function App() {
       }
     });
     if (video.networkState === video.NETWORK_LOADING) {
-      // console.log("The user agent is actively trying to download data.");
+      console.log("The user agent is actively trying to download data.");
     }
-    console.log(
-      "video networkState and NETWORK_LOADING=>",
-      video.networkState,
-      video.NETWORK_LOADING
-    );
-    console.log(
-      "readyState & HAVE_FUTURE_DATA",
-      video.HAVE_FUTURE_DATA,
-      video.readyState
-    );
+    console.log("video=>", video.networkState, video.NETWORK_LOADING);
     if (video.readyState < video.HAVE_FUTURE_DATA) {
-      // console.log("There is not enough data to keep playing from this point");
+      console.log("There is not enough data to keep playing from this point");
     }
+    setVideoNode(video);
   }, [readyState1]);
 
   useEffect(() => {
@@ -98,26 +67,13 @@ function App() {
     });
   }, [volume]);
 
-  useEffect(() => {}, [videoTime, videoTime2]);
-
   const timeUpdateHandler = (e) => {
     const percent = (videoNode.currentTime / videoNode.duration) * 100;
-    console.log("videoNode ~~~~~~~~~>", videoNode.currentTime.toFixed(4));
-    setVideoTime(videoNode.currentTime.toFixed(2));
+
     setVideoProgress(percent);
     if (Math.floor(videoNode.currentTime) >= TIMETOSHOW) {
       setShowInfo(true);
     }
-  };
-  const timeUpdateHandler2 = (e) => {
-    // videoNode2.currentTime ;
-    console.log("videoNode2 ==========>", videoNode2.currentTime.toFixed(4));
-    setVideoTime2(videoNode2.currentTime.toFixed(2));
-
-    // setVideoProgress(percent);
-    // if (Math.floor(videoNode2.currentTime) >= TIMETOSHOW) {
-    //   setShowInfo(true);
-    // }
   };
 
   const playHandler = () => {
@@ -125,6 +81,7 @@ function App() {
     Array.from(videos).forEach((video) => {
       if (video.paused) {
         video.play();
+        console.log({ video });
         setPlaying(true);
       } else {
         video.pause();
@@ -218,9 +175,7 @@ function App() {
                       onTimeUpdate={timeUpdateHandler}
                       onEnded={() => setPlaying(false)}
                       preload="auto"
-                      onStalled={(e) =>
-                        console.log("+++++++++hello i am video1 stalled", e)
-                      }
+                      onStalled={(e) => console.log("hello", e)}
                       // onCanPlayThrough={(e) => console.log("helllo", e)}
                       // autoPlay={readyState1}
                       // muted="muted"
@@ -233,14 +188,10 @@ function App() {
                   <>
                     <video
                       width={"100%"}
-                      onTimeUpdate={timeUpdateHandler2}
                       id="video_two"
                       preload="auto"
                       // autoPlay={readyState2}
                       // muted="muted"
-                      onStalled={(e) =>
-                        console.log("+++++++++hello i am video2 stalled", e)
-                      }
                     >
                       <source src="/videos/Tamim 6.mp4" type="video/mp4" />
                     </video>{" "}
