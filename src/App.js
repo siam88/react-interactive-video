@@ -64,11 +64,14 @@ function App() {
   }, [readyState1]);
 
   useEffect(() => {
-    console.log(videoNode?.readyState);
     if (playing) {
-      if (videoNode?.readyState >= 4) {
+      console.log("node", videoNode?.readyState);
+      console.log("node2", videoNode2?.readyState);
+      if (videoNode?.readyState >= 4 && videoNode2?.readyState >= 4) {
+        videoNode?.play();
         videoNode2?.play();
       } else {
+        videoNode?.pause();
         videoNode2?.pause();
       }
     }
