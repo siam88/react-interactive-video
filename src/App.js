@@ -197,7 +197,10 @@ function App() {
                       // autoPlay={readyState1}
                       // muted="muted"
                     >
-                      <source src="/videos/Tamim 5.mp4" type="video/mp4" />
+                      <source
+                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_3.mp4"
+                        type="video/mp4"
+                      />
                     </video>
                   </>
                 }
@@ -210,7 +213,10 @@ function App() {
                       // autoPlay={readyState2}
                       // muted="muted"
                     >
-                      <source src="/videos/Tamim 6.mp4" type="video/mp4" />
+                      <source
+                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_1.mp4"
+                        type="video/mp4"
+                      />
                     </video>{" "}
                   </>
                 }
