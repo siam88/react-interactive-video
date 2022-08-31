@@ -8,6 +8,7 @@ const TIMETOSHOW = 3;
 function App() {
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
+  const [videoNode2, setVideoNode2] = useState();
   const [videoProgress, setVideoProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
@@ -40,14 +41,14 @@ function App() {
     video.addEventListener("loadeddata", (...args) => {
       console.log("args loadeddata video=======", args);
 
-      if (video.readyState >= 2) {
+      if (video.readyState >= 4) {
         setReadyState1(true);
       }
     });
     video2.addEventListener("loadeddata", (...args) => {
       console.log("args loadeddata video2=======", args);
 
-      if (video2.readyState >= 2) {
+      if (video2.readyState >= 4) {
         setReadyState2(true);
       }
     });
@@ -59,10 +60,18 @@ function App() {
     //   console.log("There is not enough data to keep playing from this point");
     // }
     setVideoNode(video);
+    setVideoNode2(video2);
   }, [readyState1]);
 
   useEffect(() => {
     console.log(videoNode?.readyState);
+    if (playing) {
+      if (videoNode?.readyState >= 4) {
+        videoNode2?.play();
+      } else {
+        videoNode2?.pause();
+      }
+    }
   });
 
   useEffect(() => {
