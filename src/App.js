@@ -62,7 +62,7 @@ function App() {
   }, [readyState1]);
 
   useEffect(() => {
-    console.log(videoNode.readyState);
+    console.log(videoNode?.readyState);
   });
 
   useEffect(() => {
