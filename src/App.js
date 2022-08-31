@@ -67,7 +67,7 @@ function App() {
     if (playing) {
       console.log("node", videoNode?.readyState);
       console.log("node2", videoNode2?.readyState);
-      if (videoNode?.readyState >= 4 && videoNode2?.readyState >= 4) {
+      if (videoNode?.readyState >= 2 && videoNode2?.readyState >= 2) {
         videoNode?.play();
         videoNode2?.play();
       } else {
