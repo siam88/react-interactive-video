@@ -15,6 +15,8 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [readyState1, setReadyState1] = useState(false);
   const [readyState2, setReadyState2] = useState(false);
+  const [playable, setPlayable] = useState(false);
+  const [playable1, setPlayable1] = useState(false);
 
   useEffect(() => {
     const video = document.getElementById("video_one");
@@ -59,11 +61,13 @@ function App() {
 
     video.addEventListener("loadeddata", (...args) => {
       if (video.readyState >= 4) {
-        setReadyState1(true);
+        setPlayable(true);
+        setPlayable1(true);
       }
     });
     video2.addEventListener("loadeddata", (...args) => {
       if (video2.readyState >= 4) {
+        setPlayable1(true);
         setReadyState2(true);
       }
     });
@@ -266,7 +270,7 @@ function App() {
                       />
                     ) : (
                       <>
-                        {readyState1 && readyState2 && (
+                        {playable1 && playable1 && (
                           <BiPlay
                             onClick={playHandler}
                             style={{ color: "white" }}
