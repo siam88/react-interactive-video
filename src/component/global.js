@@ -62,13 +62,15 @@ function App() {
 
     console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
 
-    video.addEventListener("loadeddata", (...args) => {
+    videoNode?.addEventListener("loadeddata", (...args) => {
+      alert(`video 1=> ${video.readyState}`);
       if (video.readyState >= 2) {
         setPlayable(true);
         setReadyState1(true);
       }
     });
-    video2.addEventListener("loadeddata", (...args) => {
+    videoNode2?.addEventListener("loadeddata", (...args) => {
+      alert(`video 2=> ${video.readyState}`);
       if (video2.readyState >= 2) {
         setPlayable1(true);
         setReadyState2(true);
@@ -84,7 +86,7 @@ function App() {
     // if (video.readyState < video.HAVE_FUTURE_DATA) {
     //   console.log("There is not enough data to keep playing from this point");
     // }
-  }, [readyState1, readyState2]);
+  }, [readyState1, readyState2, videoNode2, videoNode]);
 
   // useEffect(() => {
   //   if (playing) {
@@ -99,9 +101,7 @@ function App() {
   //     }
   //   }
   // });
-  const closeFullscreen = () => {
-    console.log("closed call");
-  };
+
   useEffect(() => {
     const videos = document.querySelectorAll("video");
     Array.from(videos).forEach((video) => {
