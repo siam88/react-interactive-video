@@ -99,9 +99,7 @@ function App() {
   //     }
   //   }
   // });
-  const closeFullscreen = () => {
-    console.log("closed call");
-  };
+
   useEffect(() => {
     const videos = document.querySelectorAll("video");
     Array.from(videos).forEach((video) => {
@@ -311,10 +309,12 @@ function App() {
                       />
                     ) : (
                       <>
-                        <BiPlay
-                          onClick={playHandler}
-                          style={{ color: "white" }}
-                        />
+                        {playable && playable1 && (
+                          <BiPlay
+                            onClick={playHandler}
+                            style={{ color: "white" }}
+                          />
+                        )}
                       </>
                     )}
                     <div style={{ display: "flex", alignItems: "center" }}>
