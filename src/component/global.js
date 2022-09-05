@@ -123,6 +123,7 @@ function App() {
   const playHandler = () => {
     const videos = document.querySelectorAll("video");
     Array.from(videos).forEach((video) => {
+      console.log("video");
       if (video.paused) {
         video.play();
         setPlaying(true);
@@ -313,12 +314,13 @@ function App() {
                       />
                     ) : (
                       <>
-                        {playable && playable1 && (
-                          <BiPlay
-                            onClick={playHandler}
-                            style={{ color: "white" }}
-                          />
-                        )}
+                        <BiPlay
+                          onClick={playHandler}
+                          style={{ color: "white" }}
+                        />
+                        {/* {playable && playable1 && (
+                        
+                        )} */}
                       </>
                     )}
                     <div style={{ display: "flex", alignItems: "center" }}>
