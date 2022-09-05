@@ -1,5 +1,8 @@
 import "../App.css";
-import { ReactCompareSlider } from "react-compare-slider";
+import {
+  ReactCompareSlider,
+  ReactCompareSliderHandle,
+} from "react-compare-slider";
 import { useState, useEffect } from "react";
 import { BiPlay, BiPause, BiVolumeLow } from "react-icons/bi";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
@@ -60,13 +63,13 @@ function App() {
     console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
 
     video.addEventListener("loadeddata", (...args) => {
-      if (video.readyState >= 4) {
+      if (video.readyState >= 2) {
         setPlayable(true);
         setPlayable1(true);
       }
     });
     video2.addEventListener("loadeddata", (...args) => {
-      if (video2.readyState >= 4) {
+      if (video2.readyState >= 2) {
         setPlayable1(true);
         setReadyState2(true);
       }
@@ -200,6 +203,38 @@ function App() {
               </div>
               <ReactCompareSlider
                 onlyHandleDraggable={true}
+                handle={
+                  // <ReactCompareSliderHandle
+                  //   buttonStyle={{
+                  //     backdropFilter: undefined,
+                  //     background: "green",
+                  //     border: 1,
+                  //     height: "0",
+
+                  //     color: "yellow",
+                  //   }}
+                  //   linesStyle={{
+                  //     background: "green",
+                  //   }}
+                  // />
+                  <div
+                    style={{
+                      display: "grid",
+                      height: "100%",
+                      placeContent: "center",
+                    }}
+                  >
+                    <button
+                      style={{
+                        all: "unset",
+                        borderRadius: "50%",
+                        fontSize: 56,
+                      }}
+                    >
+                      😍
+                    </button>
+                  </div>
+                }
                 itemOne={
                   <>
                     <video
@@ -217,7 +252,7 @@ function App() {
                       // muted="muted"
                     >
                       <source
-                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_3.mp4"
+                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
                         type="video/mp4"
                       />
                     </video>
@@ -236,13 +271,12 @@ function App() {
                       }}
                     >
                       <source
-                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_1.mp4"
+                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
                         type="video/mp4"
                       />
                     </video>{" "}
                   </>
                 }
-                position={50}
               />
 
               <div
