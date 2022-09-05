@@ -17,67 +17,85 @@ function App() {
   const [showInfo, setShowInfo] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [readyState1, setReadyState1] = useState(false);
-  const [readyState2, setReadyState2] = useState(false);
+  // const [readyState2, setReadyState2] = useState(false);
   const [playable, setPlayable] = useState(false);
-  const [playable1, setPlayable1] = useState(false);
-
+  const [playable2, setPlayable2] = useState(false);
+  const [readyState, setReadyState] = useState(false);
+  const [readyState2, setReadyState2] = useState(false);
+  //setting up the video to the state
   useEffect(() => {
     const video = document.getElementById("video_one");
     const video2 = document.getElementById("video_two");
 
     setVideoNode(video);
     setVideoNode2(video2);
+  }, []);
 
-    //waiting func
-    videoNode?.addEventListener("waiting", (...args) => {
-      console.log("videoNode onwaiting fired=======", args[0]);
-      videoNode2?.pause();
-      setReadyState1(false);
-      setReadyState2(false);
-    });
-    videoNode2?.addEventListener("waiting", (...args) => {
-      console.log("videoNode2 onwaiting fired=======", args[0]);
-      videoNode?.pause();
-      setReadyState1(false);
-      setReadyState2(false);
-    });
+  //checking if video is ready or not
+  useEffect(() => {
+    if (videoNode && videoNode2) {
+      videoNode.addEventListener("loadeddata", (...args) => {
+        if (videoNode.readyState >= 2) {
+          setPlayable(true);
+        }
+      });
+      videoNode2.addEventListener("loadeddata", (...args) => {
+        if (videoNode2.readyState >= 2) {
+          setPlayable2(true);
+        }
+      });
+    }
+    console.log("playable=>", playable, "playable 2=>", playable2);
+  }, [videoNode, videoNode2, playable, playable2]);
 
-    //play func
-    videoNode?.addEventListener("canplay", (...args) => {
-      console.log("videoNode canplay fired=======", readyState1, readyState2);
-      setReadyState1(true);
-      if (readyState1 && readyState2) {
-        videoNode2?.play();
-      }
-      // videoNode2.currentTime = videoNode.currentTime + 0.005;
-    });
-    videoNode2?.addEventListener("canplay", (...args) => {
-      console.log("videoNode2 canplay fired=======", readyState1, readyState2);
+  // useEffect(() => {
+  //   //waiting func
+  //   videoNode?.addEventListener("waiting", (...args) => {
+  //     console.log("videoNode onwaiting fired=======", args[0]);
+  //     videoNode2?.pause();
+  //     setReadyState1(false);
+  //     setReadyState2(false);
+  //   });
+  //   videoNode2?.addEventListener("waiting", (...args) => {
+  //     console.log("videoNode2 onwaiting fired=======", args[0]);
+  //     videoNode?.pause();
+  //     setReadyState1(false);
+  //     setReadyState2(false);
+  //   });
 
-      setReadyState2(true);
-      if (readyState1 && readyState2) {
-        videoNode?.play();
-      }
-    });
+  //   //play func
+  //   videoNode?.addEventListener("canplay", (...args) => {
+  //     console.log("videoNode canplay fired=======", readyState1, readyState2);
+  //     setReadyState1(true);
+  //     if (readyState1 && readyState2) {
+  //       videoNode2?.play();
+  //     }
+  //     // videoNode2.currentTime = videoNode.currentTime + 0.005;
+  //   });
+  //   videoNode2?.addEventListener("canplay", (...args) => {
+  //     console.log("videoNode2 canplay fired=======", readyState1, readyState2);
 
-    console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
+  //     setReadyState2(true);
+  //     if (readyState1 && readyState2) {
+  //       videoNode?.play();
+  //     }
+  //   });
 
-    video.addEventListener("loadeddata", (...args) => {
-      if (video.readyState >= 2) {
-        setPlayable(true);
-        setPlayable1(true);
-      }
-    });
-    video2.addEventListener("loadeddata", (...args) => {
-      if (video2.readyState >= 2) {
-        setPlayable1(true);
-        setReadyState2(true);
-      }
-    });
-    video.addEventListener("fullscreenchange", (event) => {
-      alert("hello full screen called");
-    });
-  }, [readyState1, readyState2, videoNode, videoNode2]);
+  //   console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
+
+  //   video.addEventListener("loadeddata", (...args) => {
+  //     if (video.readyState >= 2) {
+  //       setPlayable(true);
+  //       setPlayable1(true);
+  //     }
+  //   });
+  //   video2.addEventListener("loadeddata", (...args) => {
+  //     if (video2.readyState >= 2) {
+  //       setPlayable1(true);
+  //       setReadyState2(true);
+  //     }
+  //   });
+  // }, [readyState1, readyState2]);
 
   useEffect(() => {
     const videos = document.querySelectorAll("video");
@@ -210,10 +228,10 @@ function App() {
                       style={{
                         all: "unset",
                         borderRadius: "50%",
-                        fontSize: 56,
+                        fontSize: 50,
                       }}
                     >
-                      😍
+                      💥
                     </button>
                   </div>
                 }
@@ -288,12 +306,10 @@ function App() {
                       />
                     ) : (
                       <>
-                        {playable && playable1 && (
-                          <BiPlay
-                            onClick={playHandler}
-                            style={{ color: "white" }}
-                          />
-                        )}
+                        <BiPlay
+                          onClick={playHandler}
+                          style={{ color: "white" }}
+                        />
                       </>
                     )}
                     <div style={{ display: "flex", alignItems: "center" }}>
