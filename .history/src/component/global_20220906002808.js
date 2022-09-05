@@ -63,10 +63,10 @@ function App() {
         videoNode.pause();
       });
       videoNode?.addEventListener("canplay", (...args) => {
-        setPlayable(true);
-        if (playable && playable2) {
-          videoNode2?.play();
-        }
+        // setPlayable(true);
+        // if (playable && playable2) {
+        //   videoNode2?.play();
+        // }
         alert("i am called video 1")
       });
       videoNode2?.addEventListener("canplay", (...args) => {

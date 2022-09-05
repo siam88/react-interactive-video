@@ -39,16 +39,16 @@ function App() {
         }
       });
 
-      videoNode2.addEventListener("loadeddata", (...args) => {
-        if (videoNode2.readyState >= 2) {
-          setPlayable2(true);
-        }
-      });
+      // videoNode2.addEventListener("loadeddata", (...args) => {
+      //   if (videoNode2.readyState >= 2) {
+      //     setPlayable2(true);
+      //   }
+      // });
       videoNode2.addEventListener("loadedmetadata", (...args) => {
         if (videoNode2.readyState >= 2) {
           setPlayable2(true);
         }
-        alert(`i am loadedmetadata ${videoNode2.readyState}`);
+        alert("i am loadedmetadata");
       });
     }
   }, [videoNode, videoNode2, playable, playable2]);
@@ -63,18 +63,15 @@ function App() {
         videoNode.pause();
       });
       videoNode?.addEventListener("canplay", (...args) => {
-        setPlayable(true);
+        // setPlayable(true);
         if (playable && playable2) {
           videoNode2?.play();
         }
-        alert("i am called video 1")
       });
       videoNode2?.addEventListener("canplay", (...args) => {
         // setPlayable2(true);
         if (playable && playable2) {
           videoNode?.play();
-        alert("i am called video 2")
-
         }
       });
     }
