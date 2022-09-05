@@ -115,15 +115,21 @@ function App() {
 
   const playHandler = () => {
     const videos = document.querySelectorAll("video");
-    Array.from(videos).forEach((video) => {
-      if (video.paused) {
-        video.play();
-        setPlaying(true);
-      } else {
-        video.pause();
-        setPlaying(false);
-      }
-    });
+    if (playable && playable2) {
+      videoNode.play();
+      videoNode2.play();
+    } else {
+      alert("video is not ready yet");
+    }
+    // Array.from(videos).forEach((video) => {
+    //   if (video.paused) {
+    //     video.play();
+    //     setPlaying(true);
+    //   } else {
+    //     video.pause();
+    //     setPlaying(false);
+    //   }
+    // });
   };
 
   const progressHandler = (e) => {
