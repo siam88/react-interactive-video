@@ -74,6 +74,7 @@ function App() {
         setReadyState2(true);
       }
     });
+    closeFullscreen();
     // if (video.networkState === video.NETWORK_LOADING) {
     //   console.log("The user agent is actively trying to download data.");
     // }
@@ -96,7 +97,26 @@ function App() {
   //     }
   //   }
   // });
-
+  const closeFullscreen = () => {
+    console.log("closed call");
+    if (videoNode.requestFullscreen || videoNode2.requestFullscreen) {
+      videoNode.exitFullscreen();
+      videoNode2.exitFullscreen();
+    } else if (
+      videoNode.webkitRequestFullscreen ||
+      videoNode2.webkitRequestFullscreen
+    ) {
+      /* Safari */
+      videoNode.webkitExitFullscreen();
+    } else if (
+      videoNode.msRequestFullscreen ||
+      videoNode2.msRequestFullscreen
+    ) {
+      /* IE11 */
+      videoNode.msExitFullscreen();
+      videoNode2.msExitFullscreen();
+    }
+  };
   useEffect(() => {
     const videos = document.querySelectorAll("video");
     Array.from(videos).forEach((video) => {
