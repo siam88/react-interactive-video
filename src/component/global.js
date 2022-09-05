@@ -67,8 +67,8 @@ function App() {
 
       if (video.readyState >= 2) {
         setPlayable(true);
-        setPlayable1(true);
-        setReadyState1(true);
+
+        // setReadyState1(true);
       }
     });
     video2.addEventListener("loadeddata", (...args) => {
@@ -78,7 +78,7 @@ function App() {
       }
       if (video2.readyState >= 2) {
         setPlayable1(true);
-        setReadyState2(true);
+        // setReadyState2(true);
       }
     });
 
