@@ -120,15 +120,19 @@ function App() {
 
   const playHandler = () => {
     const videos = document.querySelectorAll("video");
-    Array.from(videos).forEach((video) => {
-      if (video.paused) {
-        video.play();
-        setPlaying(true);
-      } else {
-        video.pause();
-        setPlaying(false);
-      }
-    });
+    const video2 = document.getElementById("video_two");
+    video2.play();
+    const video = document.getElementById("video_one");
+    video.play();
+    // Array.from(videos).forEach((video) => {
+    //   if (video.paused) {
+    //     video.play();
+    //     setPlaying(true);
+    //   } else {
+    //     video.pause();
+    //     setPlaying(false);
+    //   }
+    // });
   };
 
   const progressHandler = (e) => {
