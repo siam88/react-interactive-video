@@ -124,6 +124,7 @@ function App() {
     video2.play();
     const video = document.getElementById("video_one");
     video.play();
+    setPlaying(true);
     // Array.from(videos).forEach((video) => {
     //   if (video.paused) {
     //     video.play();
