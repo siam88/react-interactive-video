@@ -16,12 +16,9 @@ function App() {
   const [volume, setVolume] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [readyState1, setReadyState1] = useState(false);
-  // const [readyState2, setReadyState2] = useState(false);
   const [playable, setPlayable] = useState(false);
   const [playable2, setPlayable2] = useState(false);
-  const [readyState, setReadyState] = useState(false);
-  const [readyState2, setReadyState2] = useState(false);
+
   //setting up the video to the state
   useEffect(() => {
     const video = document.getElementById("video_one");
@@ -29,7 +26,7 @@ function App() {
 
     setVideoNode(video);
     setVideoNode2(video2);
-  }, []);
+  }, [videoNode, videoNode2]);
 
   //checking if video is ready or not
   useEffect(() => {
@@ -45,8 +42,11 @@ function App() {
           setPlayable2(true);
         }
       });
+      videoNode2.onloadeddata = () => {
+        alert("Video 2 Loaded!");
+        // do something
+      };
     }
-    console.log("playable=>", playable, "playable 2=>", playable2);
   }, [videoNode, videoNode2, playable, playable2]);
 
   //check play event
@@ -54,66 +54,24 @@ function App() {
     if (videoNode && videoNode2 && playable && playable2) {
       videoNode.addEventListener("waiting", (...args) => {
         videoNode2.pause();
-        playable(false);
-        playable2(false);
       });
       videoNode2.addEventListener("waiting", (...args) => {
-        // console.log("videoNode2 onwaiting fired=======", args[0]);
         videoNode.pause();
-        playable(false);
-        playable2(false);
+      });
+      videoNode?.addEventListener("canplay", (...args) => {
+        // setPlayable(true);
+        if (playable && playable2) {
+          videoNode2?.play();
+        }
+      });
+      videoNode2?.addEventListener("canplay", (...args) => {
+        // setPlayable2(true);
+        if (playable && playable2) {
+          videoNode?.play();
+        }
       });
     }
   }, [videoNode, videoNode2, playable, playable2]);
-
-  // useEffect(() => {
-  //   //waiting func
-  //   videoNode?.addEventListener("waiting", (...args) => {
-  //     console.log("videoNode onwaiting fired=======", args[0]);
-  //     videoNode2?.pause();
-  //     setReadyState1(false);
-  //     setReadyState2(false);
-  //   });
-  //   videoNode2?.addEventListener("waiting", (...args) => {
-  //     console.log("videoNode2 onwaiting fired=======", args[0]);
-  //     videoNode?.pause();
-  //     setReadyState1(false);
-  //     setReadyState2(false);
-  //   });
-
-  //   //play func
-  //   videoNode?.addEventListener("canplay", (...args) => {
-  //     console.log("videoNode canplay fired=======", readyState1, readyState2);
-  //     setReadyState1(true);
-  //     if (readyState1 && readyState2) {
-  //       videoNode2?.play();
-  //     }
-  //     // videoNode2.currentTime = videoNode.currentTime + 0.005;
-  //   });
-  //   videoNode2?.addEventListener("canplay", (...args) => {
-  //     console.log("videoNode2 canplay fired=======", readyState1, readyState2);
-
-  //     setReadyState2(true);
-  //     if (readyState1 && readyState2) {
-  //       videoNode?.play();
-  //     }
-  //   });
-
-  //   console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
-
-  //   video.addEventListener("loadeddata", (...args) => {
-  //     if (video.readyState >= 2) {
-  //       setPlayable(true);
-  //       setPlayable1(true);
-  //     }
-  //   });
-  //   video2.addEventListener("loadeddata", (...args) => {
-  //     if (video2.readyState >= 2) {
-  //       setPlayable1(true);
-  //       setReadyState2(true);
-  //     }
-  //   });
-  // }, [readyState1, readyState2]);
 
   useEffect(() => {
     const videos = document.querySelectorAll("video");
@@ -134,20 +92,18 @@ function App() {
   const playHandler = () => {
     const videos = document.querySelectorAll("video");
     if (playable && playable2) {
-      videoNode.play();
-      videoNode2.play();
+      Array.from(videos).forEach((video) => {
+        if (video.paused) {
+          video.play();
+          setPlaying(true);
+        } else {
+          video.pause();
+          setPlaying(false);
+        }
+      });
     } else {
       alert("video is not ready yet");
     }
-    // Array.from(videos).forEach((video) => {
-    //   if (video.paused) {
-    //     video.play();
-    //     setPlaying(true);
-    //   } else {
-    //     video.pause();
-    //     setPlaying(false);
-    //   }
-    // });
   };
 
   const progressHandler = (e) => {
@@ -179,11 +135,7 @@ function App() {
       setPlaying(true);
     });
   };
-  // video.addEventListener("loadeddata", () => {
-  //   if (video.readyState >= 2) {
-  //     video.play();
-  //   }
-  // });
+  console.log("playable=>", playable, "playable 2=>", playable2);
   return (
     <div className="App">
       <div className="container">
@@ -325,7 +277,7 @@ function App() {
                     ></div>
                   </div>
                   <div className="play_icon">
-                    {playing ? (
+                    {playable && playable2 && playing ? (
                       <BiPause
                         onClick={playHandler}
                         style={{ color: "white" }}
