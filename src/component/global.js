@@ -72,7 +72,7 @@ function App() {
     });
     video2.addEventListener("loadeddata", (...args) => {
       if (video2.readyState) {
-        alert("video2.readyState", video2.readyState);
+        alert(`video2.readyState ${video2.readyState}`);
         console.log("i am video2", video2.readyState);
       }
       if (video2.readyState >= 2) {
