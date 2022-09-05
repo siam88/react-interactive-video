@@ -62,20 +62,20 @@ function App() {
 
     console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
 
-    videoNode?.addEventListener("loadeddata", (...args) => {
-      alert(`video 1=> ${video.readyState}`);
-      if (video.readyState >= 2) {
-        setPlayable(true);
-        setReadyState1(true);
-      }
-    });
-    videoNode2?.addEventListener("loadeddata", (...args) => {
-      alert(`video 2=> ${video.readyState}`);
-      if (video2.readyState >= 2) {
-        setPlayable1(true);
-        setReadyState2(true);
-      }
-    });
+    // videoNode?.addEventListener("loadeddata", (...args) => {
+    //   alert(`video 1=> ${video.readyState}`);
+    //   setPlayable(true);
+    //   setReadyState1(true);
+    //   if (video.readyState >= 2) {
+    //   }
+    // });
+    // videoNode2?.addEventListener("loadeddata", (...args) => {
+    //   alert(`video 2=> ${video.readyState}`);
+    //   setPlayable1(true);
+    //   setReadyState2(true);
+    //   if (video2.readyState >= 2) {
+    //   }
+    // });
     video.addEventListener("fullscreenchange", (event) => {
       alert("hello full screen called");
     });
