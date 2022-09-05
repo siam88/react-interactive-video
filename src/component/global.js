@@ -62,45 +62,22 @@ function App() {
 
     console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
 
-    // videoNode?.addEventListener("loadeddata", (...args) => {
-    //   alert(`video 1=> ${video.readyState}`);
-    //   setPlayable(true);
-    //   setReadyState1(true);
-    //   if (video.readyState >= 2) {
-    //   }
-    // });
-    // videoNode2?.addEventListener("loadeddata", (...args) => {
-    //   alert(`video 2=> ${video.readyState}`);
-    //   setPlayable1(true);
-    //   setReadyState2(true);
-    //   if (video2.readyState >= 2) {
-    //   }
-    // });
+    video.addEventListener("loadeddata", (...args) => {
+      if (video.readyState >= 2) {
+        setPlayable(true);
+        setPlayable1(true);
+      }
+    });
+    video2.addEventListener("loadeddata", (...args) => {
+      if (video2.readyState >= 2) {
+        setPlayable1(true);
+        setReadyState2(true);
+      }
+    });
     video.addEventListener("fullscreenchange", (event) => {
       alert("hello full screen called");
     });
-    // if (video.networkState === video.NETWORK_LOADING) {
-    //   console.log("The user agent is actively trying to download data.");
-    // }
-    // console.log("video=>", video.networkState, video.NETWORK_LOADING);
-    // if (video.readyState < video.HAVE_FUTURE_DATA) {
-    //   console.log("There is not enough data to keep playing from this point");
-    // }
-  }, [readyState1, readyState2, videoNode2, videoNode]);
-
-  // useEffect(() => {
-  //   if (playing) {
-  //     console.log("node", videoNode?.readyState);
-  //     console.log("node2", videoNode2?.readyState);
-  //     if (videoNode?.readyState >= 2 && videoNode2?.readyState >= 2) {
-  //       videoNode?.play();
-  //       videoNode2?.play();
-  //     } else {
-  //       videoNode?.pause();
-  //       videoNode2?.pause();
-  //     }
-  //   }
-  // });
+  }, [readyState1, readyState2, videoNode, videoNode2]);
 
   useEffect(() => {
     const videos = document.querySelectorAll("video");
@@ -120,20 +97,15 @@ function App() {
 
   const playHandler = () => {
     const videos = document.querySelectorAll("video");
-    const video2 = document.getElementById("video_two");
-    video2.play();
-    const video = document.getElementById("video_one");
-    video.play();
-    setPlaying(true);
-    // Array.from(videos).forEach((video) => {
-    //   if (video.paused) {
-    //     video.play();
-    //     setPlaying(true);
-    //   } else {
-    //     video.pause();
-    //     setPlaying(false);
-    //   }
-    // });
+    Array.from(videos).forEach((video) => {
+      if (video.paused) {
+        video.play();
+        setPlaying(true);
+      } else {
+        video.pause();
+        setPlaying(false);
+      }
+    });
   };
 
   const progressHandler = (e) => {
@@ -316,13 +288,12 @@ function App() {
                       />
                     ) : (
                       <>
-                        <BiPlay
-                          onClick={playHandler}
-                          style={{ color: "white" }}
-                        />
-                        {/* {playable && playable1 && (
-                          
-                        )} */}
+                        {playable && playable1 && (
+                          <BiPlay
+                            onClick={playHandler}
+                            style={{ color: "white" }}
+                          />
+                        )}
                       </>
                     )}
                     <div style={{ display: "flex", alignItems: "center" }}>
