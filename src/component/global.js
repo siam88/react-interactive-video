@@ -76,12 +76,11 @@ function App() {
         alert(`video2.readyState ${video2.readyState}`);
         console.log("i am video2", video2.readyState);
       }
-      setPlayable1(true);
 
-      // if (video2.readyState >= 2) {
-      //   setPlayable1(true);
-      //   // setReadyState2(true);
-      // }
+      if (video2.readyState >= 2) {
+        setPlayable1(true);
+        // setReadyState2(true);
+      }
     });
 
     // if (video.networkState === video.NETWORK_LOADING) {
@@ -91,7 +90,7 @@ function App() {
     // if (video.readyState < video.HAVE_FUTURE_DATA) {
     //   console.log("There is not enough data to keep playing from this point");
     // }
-  }, [readyState1, readyState2, playable, playable1]);
+  }, [readyState1, readyState2, playable, playing, playable1]);
 
   // useEffect(() => {
   //   if (playing) {
@@ -197,6 +196,7 @@ function App() {
                       <a
                         href={`https://www.facebook.com/sharer.php?u=${window.location.href}`}
                         target="_blank"
+                        rel="noreferrer"
                       >
                         <FaFacebookF />
                       </a>
@@ -205,6 +205,7 @@ function App() {
                       <a
                         href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
                         target="_blank"
+                        rel="noreferrer"
                       >
                         <FaTwitter />
                       </a>
