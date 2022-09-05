@@ -38,18 +38,17 @@ function App() {
           setPlayable(true);
         }
       });
-      // videoNode2.addEventListener("loadeddata", (...args) => {
-      //   if (videoNode2.readyState >= 2) {
-      //     setPlayable2(true);
-      //   }
-      // });
-      videoNode2.addEventListener("progress", (...args) => {
-        // alert("progress");
-        console.log("progress called");
+
+      videoNode2.addEventListener("loadeddata", (...args) => {
         if (videoNode2.readyState >= 2) {
           setPlayable2(true);
         }
-        setPlayable2(true);
+      });
+      videoNode2.addEventListener("loadedmetadata", (...args) => {
+        // if (videoNode2.readyState >= 2) {
+        //   setPlayable2(true);
+        // }
+        alert("i am loadedmetadata");
       });
     }
   }, [videoNode, videoNode2, playable, playable2]);
