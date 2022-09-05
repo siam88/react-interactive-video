@@ -38,11 +38,11 @@ function App() {
           setPlayable(true);
         }
       });
-      videoNode2.addEventListener("loadeddata", (...args) => {
-        if (videoNode2.readyState >= 2) {
-          setPlayable2(true);
-        }
-      });
+      // videoNode2.addEventListener("loadeddata", (...args) => {
+      //   if (videoNode2.readyState >= 2) {
+      //     setPlayable2(true);
+      //   }
+      // });
       videoNode2.addEventListener("progress", (...args) => {
         // alert("progress");
         if (videoNode2.readyState >= 2) {
