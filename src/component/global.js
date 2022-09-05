@@ -43,8 +43,7 @@ function App() {
         },
         false
       );
-      videoNode.src =
-        "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4";
+
       videoNode2.addEventListener(
         "loadeddata",
         (...args) => {
@@ -54,8 +53,14 @@ function App() {
         },
         false
       );
-      videoNode2.src =
-        "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4";
+      if (playable) {
+        videoNode.src =
+          "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4";
+      }
+      if (playable2) {
+        videoNode2.src =
+          "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4";
+      }
     }
   }, [videoNode, videoNode2, playable, playable2]);
 
