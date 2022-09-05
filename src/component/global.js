@@ -34,6 +34,7 @@ function App() {
   //checking if video is ready or not
   useEffect(() => {
     if (videoNode && videoNode2) {
+      //data loaded initially
       videoNode.addEventListener("loadeddata", (...args) => {
         if (videoNode.readyState >= 2) {
           setPlayable(true);
@@ -46,6 +47,23 @@ function App() {
       });
     }
     console.log("playable=>", playable, "playable 2=>", playable2);
+  }, [videoNode, videoNode2, playable, playable2]);
+
+  //check play event
+  useEffect(() => {
+    if (videoNode && videoNode2 && playable && playable2) {
+      videoNode.addEventListener("waiting", (...args) => {
+        videoNode2.pause();
+        playable(false);
+        playable2(false);
+      });
+      videoNode2.addEventListener("waiting", (...args) => {
+        console.log("videoNode2 onwaiting fired=======", args[0]);
+        videoNode.pause();
+        playable(false);
+        playable2(false);
+      });
+    }
   }, [videoNode, videoNode2, playable, playable2]);
 
   // useEffect(() => {
@@ -192,6 +210,7 @@ function App() {
                       <a
                         href={`https://www.facebook.com/sharer.php?u=${window.location.href}`}
                         target="_blank"
+                        rel="noreferrer"
                       >
                         <FaFacebookF />
                       </a>
@@ -200,6 +219,7 @@ function App() {
                       <a
                         href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
                         target="_blank"
+                        rel="noreferrer"
                       >
                         <FaTwitter />
                       </a>
@@ -268,7 +288,6 @@ function App() {
                 itemTwo={
                   <>
                     <video
-                      autoPlay={true}
                       playsInline
                       width={"100%"}
                       id="video_two"
