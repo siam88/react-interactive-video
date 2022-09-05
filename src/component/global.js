@@ -268,6 +268,7 @@ function App() {
                 itemTwo={
                   <>
                     <video
+                      autoPlay={true}
                       playsInline
                       width={"100%"}
                       id="video_two"
