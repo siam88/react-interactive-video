@@ -67,6 +67,7 @@ function App() {
 
       if (video.readyState >= 2) {
         setPlayable(true);
+        setPlayable1(true);
         setReadyState1(true);
       }
     });
