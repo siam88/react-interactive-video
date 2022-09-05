@@ -167,6 +167,7 @@ function App() {
   return (
     <div className="App">
       <div className="container">
+        {alert("video2.readyState", videoNode2.readyState)}
         <div className="row">
           <div className="col-md-12 mt-4 mb-4">
             <div className="video_wrapper mt-5">
