@@ -60,24 +60,27 @@ function App() {
       }
     });
 
-    console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
+    // console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
 
     video.addEventListener("loadeddata", (...args) => {
+      console.log("i am video", video.readyState);
+
       if (video.readyState >= 2) {
         setPlayable(true);
         setPlayable1(true);
       }
     });
     video2.addEventListener("loadeddata", (...args) => {
-      alert("video2.readyState", video2.readyState);
+      if (video2.readyState) {
+        alert("video2.readyState", video2.readyState);
+        console.log("i am video2", video2.readyState);
+      }
       if (video2.readyState >= 2) {
         setPlayable1(true);
         setReadyState2(true);
       }
     });
-    video.addEventListener("fullscreenchange", (event) => {
-      alert("hello full screen called");
-    });
+
     // if (video.networkState === video.NETWORK_LOADING) {
     //   console.log("The user agent is actively trying to download data.");
     // }
@@ -167,7 +170,6 @@ function App() {
   return (
     <div className="App">
       <div className="container">
-        {alert("video2.readyState", videoNode2.readyState)}
         <div className="row">
           <div className="col-md-12 mt-4 mb-4">
             <div className="video_wrapper mt-5">
