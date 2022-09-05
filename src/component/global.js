@@ -65,7 +65,7 @@ function App() {
     video.addEventListener("loadeddata", (...args) => {
       if (video.readyState >= 2) {
         setPlayable(true);
-        setPlayable1(true);
+        setReadyState1(true);
       }
     });
     video2.addEventListener("loadeddata", (...args) => {
@@ -316,12 +316,13 @@ function App() {
                       />
                     ) : (
                       <>
-                        {playable && playable1 && (
-                          <BiPlay
-                            onClick={playHandler}
-                            style={{ color: "white" }}
-                          />
-                        )}
+                        <BiPlay
+                          onClick={playHandler}
+                          style={{ color: "white" }}
+                        />
+                        {/* {playable && playable1 && (
+                          
+                        )} */}
                       </>
                     )}
                     <div style={{ display: "flex", alignItems: "center" }}>
