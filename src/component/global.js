@@ -60,29 +60,23 @@ function App() {
       }
     });
 
-    // console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
+    console.log("video.HAVE_CURRENT_DATA", video.HAVE_CURRENT_DATA);
 
     video.addEventListener("loadeddata", (...args) => {
-      console.log("i am video", video.readyState);
-      setPlayable(true);
-      // if (video.readyState >= 2) {
-      //   setPlayable(true);
-
-      //   // setReadyState1(true);
-      // }
+      if (video.readyState >= 2) {
+        setPlayable(true);
+        setPlayable1(true);
+      }
     });
     video2.addEventListener("loadeddata", (...args) => {
-      if (video2.readyState) {
-        alert(`video2.readyState ${video2.readyState}`);
-        console.log("i am video2", video2.readyState);
-      }
-
       if (video2.readyState >= 2) {
         setPlayable1(true);
-        // setReadyState2(true);
+        setReadyState2(true);
       }
     });
-
+    video.addEventListener("fullscreenchange", (event) => {
+      alert("hello full screen called");
+    });
     // if (video.networkState === video.NETWORK_LOADING) {
     //   console.log("The user agent is actively trying to download data.");
     // }
@@ -90,7 +84,7 @@ function App() {
     // if (video.readyState < video.HAVE_FUTURE_DATA) {
     //   console.log("There is not enough data to keep playing from this point");
     // }
-  }, [readyState1, readyState2, playable, playing, playable1]);
+  }, [readyState1, readyState2]);
 
   // useEffect(() => {
   //   if (playing) {
@@ -105,7 +99,9 @@ function App() {
   //     }
   //   }
   // });
-
+  const closeFullscreen = () => {
+    console.log("closed call");
+  };
   useEffect(() => {
     const videos = document.querySelectorAll("video");
     Array.from(videos).forEach((video) => {
@@ -125,7 +121,6 @@ function App() {
   const playHandler = () => {
     const videos = document.querySelectorAll("video");
     Array.from(videos).forEach((video) => {
-      console.log("video");
       if (video.paused) {
         video.play();
         setPlaying(true);
@@ -196,7 +191,6 @@ function App() {
                       <a
                         href={`https://www.facebook.com/sharer.php?u=${window.location.href}`}
                         target="_blank"
-                        rel="noreferrer"
                       >
                         <FaFacebookF />
                       </a>
@@ -205,7 +199,6 @@ function App() {
                       <a
                         href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
                         target="_blank"
-                        rel="noreferrer"
                       >
                         <FaTwitter />
                       </a>
@@ -298,7 +291,7 @@ function App() {
                 style={{ opacity: showInfo === true ? 1 : 0 }}
                 onClick={openModal}
               >
-                <img src="/image/tamim.png" />
+                <img src="/image/tamim.png" alt="i am tamim" />
               </div>
             </div>
             <>
@@ -318,13 +311,12 @@ function App() {
                       />
                     ) : (
                       <>
-                        <BiPlay
-                          onClick={playHandler}
-                          style={{ color: "white" }}
-                        />
-                        {/* {playable && playable1 && (
-                        
-                        )} */}
+                        {playable && playable1 && (
+                          <BiPlay
+                            onClick={playHandler}
+                            style={{ color: "white" }}
+                          />
+                        )}
                       </>
                     )}
                     <div style={{ display: "flex", alignItems: "center" }}>
