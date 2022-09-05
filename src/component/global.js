@@ -88,7 +88,7 @@ function App() {
     // if (video.readyState < video.HAVE_FUTURE_DATA) {
     //   console.log("There is not enough data to keep playing from this point");
     // }
-  }, [readyState1, readyState2]);
+  }, [readyState1, readyState2, playable, playable1]);
 
   // useEffect(() => {
   //   if (playing) {
