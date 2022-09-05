@@ -304,12 +304,10 @@ function App() {
                       />
                     ) : (
                       <>
-                        {playable1 && playable1 && (
-                          <BiPlay
-                            onClick={playHandler}
-                            style={{ color: "white" }}
-                          />
-                        )}
+                        <BiPlay
+                          onClick={playHandler}
+                          style={{ color: "white" }}
+                        />
                       </>
                     )}
                     <div style={{ display: "flex", alignItems: "center" }}>
