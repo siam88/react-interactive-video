@@ -32,30 +32,23 @@ function App() {
   useEffect(() => {
     if (videoNode && videoNode2) {
       //data loaded initially
-      if (/iPad|iPhone|iPod/.test(navigator.userAgent))
-        videoNode2.autoplay = true;
-      videoNode.addEventListener(
-        "loadeddata",
-        (...args) => {
-          if (videoNode.readyState >= 2) {
-            setPlayable(true);
-          }
-        },
-        false
-      );
 
-      videoNode2.addEventListener(
-        "loadeddata",
-        (...args) => {
-          if (videoNode2.readyState >= 2) {
-            setPlayable2(true);
-            videoNode2.play();
-          }
-        },
-        false
-      );
-      videoNode2.src =
-        "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4";
+      videoNode.addEventListener("loadeddata", (...args) => {
+        if (videoNode.readyState >= 2) {
+          setPlayable(true);
+        }
+      });
+      // videoNode2.addEventListener("loadeddata", (...args) => {
+      //   if (videoNode2.readyState >= 2) {
+      //     setPlayable2(true);
+      //   }
+      // });
+      videoNode2.addEventListener("progress", (...args) => {
+        // alert("progress");
+        if (videoNode2.readyState >= 2) {
+          setPlayable2(true);
+        }
+      });
     }
   }, [videoNode, videoNode2, playable, playable2]);
 
@@ -261,7 +254,7 @@ function App() {
                       }}
                     >
                       <source
-                        // src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
+                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
                         type="video/mp4"
                       />
                     </video>{" "}
