@@ -58,7 +58,7 @@ function App() {
         playable2(false);
       });
       videoNode2.addEventListener("waiting", (...args) => {
-        console.log("videoNode2 onwaiting fired=======", args[0]);
+        // console.log("videoNode2 onwaiting fired=======", args[0]);
         videoNode.pause();
         playable(false);
         playable2(false);
