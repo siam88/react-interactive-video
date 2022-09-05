@@ -243,6 +243,7 @@ function App() {
                 itemOne={
                   <>
                     <video
+                      playsInline
                       width={"100%"}
                       id="video_one"
                       onTimeUpdate={timeUpdateHandler}
@@ -266,6 +267,7 @@ function App() {
                 itemTwo={
                   <>
                     <video
+                      playsInline
                       width={"100%"}
                       id="video_two"
                       preload="auto"
