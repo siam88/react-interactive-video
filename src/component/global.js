@@ -16,8 +16,8 @@ function App() {
   const [volume, setVolume] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [playable, setPlayable] = useState(false);
-  const [playable2, setPlayable2] = useState(false);
+  const [playable, setPlayable] = useState(true);
+  const [playable2, setPlayable2] = useState(true);
 
   //setting up the video to the state
   useEffect(() => {
@@ -32,20 +32,30 @@ function App() {
   useEffect(() => {
     if (videoNode && videoNode2) {
       //data loaded initially
-      videoNode.addEventListener("loadeddata", (...args) => {
-        if (videoNode.readyState >= 2) {
-          setPlayable(true);
-        }
-      });
-      videoNode2.addEventListener("loadeddata", (...args) => {
-        if (videoNode2.readyState >= 2) {
-          setPlayable2(true);
-        }
-      });
-      videoNode2.onloadeddata = () => {
-        alert("Video 2 Loaded!");
-        // do something
-      };
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent))
+        videoNode2.autoplay = true;
+      videoNode.addEventListener(
+        "loadeddata",
+        (...args) => {
+          if (videoNode.readyState >= 2) {
+            setPlayable(true);
+          }
+        },
+        false
+      );
+      videoNode.src =
+        "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4";
+      videoNode2.addEventListener(
+        "loadeddata",
+        (...args) => {
+          if (videoNode2.readyState >= 2) {
+            setPlayable2(true);
+          }
+        },
+        false
+      );
+      videoNode2.src =
+        "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4";
     }
   }, [videoNode, videoNode2, playable, playable2]);
 
@@ -231,7 +241,7 @@ function App() {
                       // muted="muted"
                     >
                       <source
-                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
+                        // src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
                         type="video/mp4"
                       />
                     </video>
@@ -251,7 +261,7 @@ function App() {
                       }}
                     >
                       <source
-                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
+                        // src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
                         type="video/mp4"
                       />
                     </video>{" "}
