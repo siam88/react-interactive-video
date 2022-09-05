@@ -45,9 +45,11 @@ function App() {
       // });
       videoNode2.addEventListener("progress", (...args) => {
         // alert("progress");
+        console.log("progress called");
         if (videoNode2.readyState >= 2) {
           setPlayable2(true);
         }
+        setPlayable2(true);
       });
     }
   }, [videoNode, videoNode2, playable, playable2]);
