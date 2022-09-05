@@ -192,3 +192,6 @@ button:hover {
     font-size: 10px;
   }
 }
+video {
+  pointer-events: none;
+}

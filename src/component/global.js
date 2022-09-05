@@ -243,6 +243,7 @@ function App() {
                       onTimeUpdate={timeUpdateHandler}
                       onEnded={() => setPlaying(false)}
                       preload="auto"
+                      controls="false"
                       onwaiting={() => {
                         console.log(" video ,i am waiting");
                       }}
