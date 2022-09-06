@@ -8,7 +8,6 @@ import { BiPlay, BiPause, BiVolumeLow } from "react-icons/bi";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 
 const TIMETOSHOW = 3;
-let TIMER;
 function App() {
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
@@ -46,9 +45,10 @@ function App() {
         }
       });
       videoNode2.addEventListener("loadedmetadata", (...args) => {
-        if (videoNode2.readyState >= 2) {
-          setPlayable2(true);
-        }
+        // if (videoNode2.readyState >= 2) {
+        //   setPlayable2(true);
+        // }
+        alert("i am loadedmetadata");
       });
     }
   }, [videoNode, videoNode2, playable, playable2]);
@@ -63,7 +63,6 @@ function App() {
         videoNode.pause();
       });
       videoNode?.addEventListener("canplay", (...args) => {
-        alert(`1 video readystate ${videoNode.readyState}`);
         // setPlayable(true);
         if (playable && playable2) {
           videoNode2?.play();
@@ -71,7 +70,6 @@ function App() {
       });
       videoNode2?.addEventListener("canplay", (...args) => {
         // setPlayable2(true);
-
         if (playable && playable2) {
           videoNode?.play();
         }
@@ -86,8 +84,6 @@ function App() {
     });
   }, [volume]);
 
-  useEffect(() => {}, []);
-
   const timeUpdateHandler = (e) => {
     const percent = (videoNode.currentTime / videoNode.duration) * 100;
 
@@ -97,39 +93,21 @@ function App() {
     }
   };
 
-  const playHandlerTest1 = () => {
-    if (videoNode && videoNode2) {
-      videoNode.play();
-    }
-  };
-  const playHandlerTest2 = () => {
-    if (videoNode && videoNode2) {
-      videoNode2.play();
-    }
-  };
   const playHandler = () => {
-    TIMER = setInterval(() => {
-      if (videoNode.readyState >= 2 && videoNode2.readyState >= 2) {
-        clearInterval(TIMER);
-        videoNode.play();
-        videoNode2.play();
-        alert("calling end");
-      }
-    }, 1000);
-    alert("calling outside");
-    videoNode.play();
-    videoNode2.play();
-    // const videos = document.querySelectorAll("video");
-    // Array.from(videos).forEach((video) => {
-    //   if (video.paused) {
-    //     video.play();
-    //     console.log({ video });
-    //     setPlaying(true);
-    //   } else {
-    //     video.pause();
-    //     setPlaying(false);
-    //   }
-    // });
+    const videos = document.querySelectorAll("video");
+    if (playable && playable2) {
+      Array.from(videos).forEach((video) => {
+        if (video.paused) {
+          video.play();
+          setPlaying(true);
+        } else {
+          video.pause();
+          setPlaying(false);
+        }
+      });
+    } else {
+      alert("video is not ready yet");
+    }
   };
 
   const progressHandler = (e) => {
@@ -252,13 +230,12 @@ function App() {
                         console.log(" video ,i am waiting");
                       }}
                       onStalled={(e) => console.log("hello", e)}
-                      mediaGroup="masterController"
                       // onCanPlayThrough={(e) => console.log("helllo", e)}
                       // autoPlay={readyState1}
                       // muted="muted"
                     >
                       <source
-                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
+                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
                         type="video/mp4"
                       />
                     </video>
@@ -271,7 +248,6 @@ function App() {
                       width={"100%"}
                       id="video_two"
                       preload="auto"
-                      mediaGroup="masterController"
                       // autoPlay={readyState2}
                       // muted="muted"
                       onwaiting={() => {
@@ -279,7 +255,7 @@ function App() {
                       }}
                     >
                       <source
-                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
+                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
                         type="video/mp4"
                       />
                     </video>{" "}
@@ -318,7 +294,6 @@ function App() {
                         />
                       </>
                     )}
-
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <BiVolumeLow style={{ color: "white" }} />
                       <input
