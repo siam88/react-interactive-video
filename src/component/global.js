@@ -110,14 +110,13 @@ function App() {
   const playHandler = () => {
     TIMER = setInterval(() => {
       if (videoNode.readyState >= 2 && videoNode2.readyState >= 2) {
-        videoNode.play();
-        videoNode2.play();
         clearInterval(TIMER);
         alert("calling end");
       }
     }, 1000);
     alert("calling outside");
-
+    videoNode.play();
+    videoNode2.play();
     // const videos = document.querySelectorAll("video");
     // Array.from(videos).forEach((video) => {
     //   if (video.paused) {
