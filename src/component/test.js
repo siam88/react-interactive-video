@@ -16,6 +16,7 @@ const Test = () => {
 
         <video
           playsInline
+          autoPlay
           width={"100%"}
           id="video_one"
           preload="auto"
@@ -37,6 +38,7 @@ const Test = () => {
         <button onClick={playHandlerTest2}>video 2 on played</button>
 
         <video
+          autoPlay
           playsInline
           width={"100%"}
           id="video_two"

@@ -273,6 +273,7 @@ function App() {
                       onwaiting={() => {
                         console.log(" video 2,i am waiting");
                       }}
+                      onloa
                     >
                       <source
                         src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
