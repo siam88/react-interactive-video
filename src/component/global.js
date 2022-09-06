@@ -8,6 +8,7 @@ import { BiPlay, BiPause, BiVolumeLow } from "react-icons/bi";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 
 const TIMETOSHOW = 3;
+let TIMER;
 function App() {
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
@@ -85,9 +86,11 @@ function App() {
     });
   }, [volume]);
 
+  useEffect(() => {}, []);
+
   const timeUpdateHandler = (e) => {
     const percent = (videoNode.currentTime / videoNode.duration) * 100;
-    alert(`2 video readystate ${videoNode2.readyState}`);
+
     setVideoProgress(percent);
     if (Math.floor(videoNode.currentTime) >= TIMETOSHOW) {
       setShowInfo(true);
@@ -105,17 +108,27 @@ function App() {
     }
   };
   const playHandler = () => {
-    const videos = document.querySelectorAll("video");
-    Array.from(videos).forEach((video) => {
-      if (video.paused) {
-        video.play();
-        console.log({ video });
-        setPlaying(true);
-      } else {
-        video.pause();
-        setPlaying(false);
+    TIMER = setInterval(() => {
+      if (videoNode.readyState >= 2 && videoNode2.readyState >= 2) {
+        videoNode.play();
+        videoNode2.play();
+        clearInterval(TIMER);
+        alert("calling end");
       }
-    });
+    }, 1000);
+    console.log("calling outside");
+
+    // const videos = document.querySelectorAll("video");
+    // Array.from(videos).forEach((video) => {
+    //   if (video.paused) {
+    //     video.play();
+    //     console.log({ video });
+    //     setPlaying(true);
+    //   } else {
+    //     video.pause();
+    //     setPlaying(false);
+    //   }
+    // });
   };
 
   const progressHandler = (e) => {
