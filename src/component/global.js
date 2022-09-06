@@ -99,20 +99,25 @@ function App() {
     // } else {
     //   alert("video is not ready yet");
     // }
+    if (videoNode && videoNode2) {
+      videoNode.play();
+      videoNode2.play();
+    }
+
     alert("playhandler clicked");
-    Array.from(videos).forEach((video, i) => {
-      if (video.paused) {
-        alert(`i am if in video ${i}`);
+    // Array.from(videos).forEach((video, i) => {
+    //   if (video.paused) {
+    //     alert(`i am if in video ${i}`);
 
-        video.play();
-        setPlaying(true);
-      } else {
-        alert(`i am else in video ${i}`);
+    //     video.play();
+    //     setPlaying(true);
+    //   } else {
+    //     alert(`i am else in video ${i}`);
 
-        video.pause();
-        setPlaying(false);
-      }
-    });
+    //     video.pause();
+    //     setPlaying(false);
+    //   }
+    // });
   };
 
   const progressHandler = (e) => {
