@@ -62,13 +62,15 @@ function App() {
         videoNode.pause();
       });
       videoNode?.addEventListener("canplay", (...args) => {
-        setPlayable(true);
+        alert(`1 video readystate ${videoNode2.readyState}`);
+        // setPlayable(true);
         if (playable && playable2) {
           videoNode2?.play();
         }
       });
       videoNode2?.addEventListener("canplay", (...args) => {
         // setPlayable2(true);
+        alert(`2 video readystate ${videoNode2.readyState}`);
         if (playable && playable2) {
           videoNode?.play();
         }
@@ -103,39 +105,17 @@ function App() {
     }
   };
   const playHandler = () => {
-    // const mediaController = document.getElementById("video_one").controller;
-    // const mediaController2 = document.getElementById("video_two").controller;
-
-    // mediaController.play();
-    // mediaController2.play();
-
-    var myVideos = document.querySelectorAll("video");
-    let mediaController = HTMLMediaElement.controller();
-    myVideos[0].controller = mediaController;
-    myVideos[1].controller = mediaController;
-    mediaController.play();
-    // } else {
-    //   alert("video is not ready yet");
-    // }
-    // if (videoNode && videoNode2) {
-    //   videoNode.play();
-    //   videoNode2.play();
-    // }
-
-    alert("playhandler clicked");
-    // Array.from(videos).forEach((video, i) => {
-    //   if (video.paused) {
-    //     alert(`i am if in video ${i}`);
-
-    //     video.play();
-    //     setPlaying(true);
-    //   } else {
-    //     alert(`i am else in video ${i}`);
-
-    //     video.pause();
-    //     setPlaying(false);
-    //   }
-    // });
+    const videos = document.querySelectorAll("video");
+    Array.from(videos).forEach((video) => {
+      if (video.paused) {
+        video.play();
+        console.log({ video });
+        setPlaying(true);
+      } else {
+        video.pause();
+        setPlaying(false);
+      }
+    });
   };
 
   const progressHandler = (e) => {
