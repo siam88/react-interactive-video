@@ -103,8 +103,9 @@ function App() {
     }
   };
   const playHandler = () => {
-    var mediaController = videoNode.controller;
-    var mediaController2 = videoNode2.controller;
+    const mediaController = document.getElementById("video_one").controller;
+    const mediaController2 = document.getElementById("video_two").controller;
+
     mediaController.play();
     mediaController2.play();
     // } else {
