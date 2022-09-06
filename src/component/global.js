@@ -92,6 +92,16 @@ function App() {
     }
   };
 
+  const playHandlerTest1 = () => {
+    if (videoNode && videoNode2) {
+      videoNode.play();
+    }
+  };
+  const playHandlerTest2 = () => {
+    if (videoNode && videoNode2) {
+      videoNode2.play();
+    }
+  };
   const playHandler = () => {
     const videos = document.querySelectorAll("video");
     // if (playable && playable2) {
@@ -291,7 +301,7 @@ function App() {
                     ></div>
                   </div>
                   <div className="play_icon">
-                    {playable && playable2 && playing ? (
+                    {/* {playable && playable2 && playing ? (
                       <BiPause
                         onClick={playHandler}
                         style={{ color: "white" }}
@@ -303,7 +313,15 @@ function App() {
                           style={{ color: "white" }}
                         />
                       </>
-                    )}
+                    )} */}
+                    <BiPause
+                      onClick={playHandlerTest1}
+                      style={{ color: "white" }}
+                    />
+                    <BiPause
+                      onClick={playHandlerTest2}
+                      style={{ color: "white" }}
+                    />
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <BiVolumeLow style={{ color: "white" }} />
                       <input
