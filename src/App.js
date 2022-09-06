@@ -5,8 +5,8 @@ import Test from "./component/test";
 function App() {
   return (
     <>
-      {/* <Global /> */}
-      <Test />
+      <Global />
+      {/* <Test /> */}
 
       {/* <Local /> */}
     </>

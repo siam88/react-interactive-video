@@ -240,6 +240,9 @@ function App() {
                 itemOne={
                   <>
                     <video
+                      autoPlay
+                      muted
+                      loop
                       playsInline
                       width={"100%"}
                       id="video_one"
@@ -264,6 +267,9 @@ function App() {
                 itemTwo={
                   <>
                     <video
+                      autoPlay
+                      muted
+                      loop
                       playsInline
                       width={"100%"}
                       id="video_two"
