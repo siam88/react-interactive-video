@@ -99,11 +99,12 @@ function App() {
     // } else {
     //   alert("video is not ready yet");
     // }
-    Array.from(videos).forEach((video) => {
+    Array.from(videos).forEach((video, i) => {
       if (video.paused) {
         video.play();
         setPlaying(true);
       } else {
+        alert(`i am else in video ${i}`);
         video.pause();
         setPlaying(false);
       }
