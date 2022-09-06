@@ -116,7 +116,7 @@ function App() {
         alert("calling end");
       }
     }, 1000);
-    console.log("calling outside");
+    alert("calling outside");
 
     // const videos = document.querySelectorAll("video");
     // Array.from(videos).forEach((video) => {
