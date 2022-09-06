@@ -19,16 +19,38 @@ function App() {
   const [playable, setPlayable] = useState(false);
   const [playable2, setPlayable2] = useState(false);
   const [isAutoPlay, setIsAutoPlay] = useState(false);
-
+  const [loader, setLoader] = useState(true);
+  const [link1, setLink1] = useState(null);
+  const [link2, setLink2] = useState(null);
   //setting up the video to the state
   useEffect(() => {
+    initializer();
+  }, []);
+  //initialize function
+  const initializer = async () => {
+    setLoader(true);
     const video = document.getElementById("video_one");
     const video2 = document.getElementById("video_two");
 
     setVideoNode(video);
     setVideoNode2(video2);
-  }, [videoNode, videoNode2]);
-
+    let blobLink1 = await preloadVideo(
+      "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
+    );
+    setLink1(blobLink1);
+    let blobLink2 = await preloadVideo(
+      "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
+    );
+    setLink2(blobLink2);
+    setLoader(false);
+  };
+  //preload video
+  const preloadVideo = async (src) => {
+    const res = await fetch(src);
+    const blob = await res.blob();
+    console.log(blob);
+    return URL.createObjectURL(blob);
+  };
   //checking if video is ready or not
   useEffect(() => {
     if (videoNode && videoNode2) {
@@ -131,7 +153,9 @@ function App() {
       setPlaying(true);
     });
   };
-  // console.log("playable=>", playable, "playable 2=>", playable2);
+  if (loader) {
+    return <div style={{ background: "white" }}>Loading......</div>;
+  }
   return (
     <div className="App">
       <div className="container">
