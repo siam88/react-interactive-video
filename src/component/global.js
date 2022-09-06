@@ -99,6 +99,7 @@ function App() {
     // } else {
     //   alert("video is not ready yet");
     // }
+    alert("playhandler clicked");
     Array.from(videos).forEach((video, i) => {
       if (video.paused) {
         video.play();
