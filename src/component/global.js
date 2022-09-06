@@ -111,6 +111,8 @@ function App() {
     TIMER = setInterval(() => {
       if (videoNode.readyState >= 2 && videoNode2.readyState >= 2) {
         clearInterval(TIMER);
+        videoNode.play();
+        videoNode2.play();
         alert("calling end");
       }
     }, 1000);
