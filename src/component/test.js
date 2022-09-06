@@ -17,6 +17,8 @@ const Test = () => {
         <video
           playsInline
           autoPlay
+          muted
+          loop
           width={"100%"}
           id="video_one"
           preload="auto"
@@ -39,6 +41,8 @@ const Test = () => {
 
         <video
           autoPlay
+          muted
+          loop
           playsInline
           width={"100%"}
           id="video_two"
