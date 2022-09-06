@@ -62,7 +62,7 @@ function App() {
         videoNode.pause();
       });
       videoNode?.addEventListener("canplay", (...args) => {
-        alert(`1 video readystate ${videoNode2.readyState}`);
+        alert(`1 video readystate ${videoNode.readyState}`);
         // setPlayable(true);
         if (playable && playable2) {
           videoNode2?.play();
@@ -70,7 +70,7 @@ function App() {
       });
       videoNode2?.addEventListener("canplay", (...args) => {
         // setPlayable2(true);
-        alert(`2 video readystate ${videoNode2.readyState}`);
+
         if (playable && playable2) {
           videoNode?.play();
         }
@@ -87,7 +87,7 @@ function App() {
 
   const timeUpdateHandler = (e) => {
     const percent = (videoNode.currentTime / videoNode.duration) * 100;
-
+    alert(`2 video readystate ${videoNode2.readyState}`);
     setVideoProgress(percent);
     if (Math.floor(videoNode.currentTime) >= TIMETOSHOW) {
       setShowInfo(true);
