@@ -18,6 +18,7 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [playable, setPlayable] = useState(false);
   const [playable2, setPlayable2] = useState(false);
+  const [isAutoPlay, setIsAutoPlay] = useState(false);
 
   //setting up the video to the state
   useEffect(() => {
@@ -43,12 +44,6 @@ function App() {
         if (videoNode2.readyState >= 2) {
           setPlayable2(true);
         }
-      });
-      videoNode2.addEventListener("loadedmetadata", (...args) => {
-        // if (videoNode2.readyState >= 2) {
-        //   setPlayable2(true);
-        // }
-        alert("i am loadedmetadata");
       });
     }
   }, [videoNode, videoNode2, playable, playable2]);
@@ -95,19 +90,16 @@ function App() {
 
   const playHandler = () => {
     const videos = document.querySelectorAll("video");
-    if (playable && playable2) {
-      Array.from(videos).forEach((video) => {
-        if (video.paused) {
-          video.play();
-          setPlaying(true);
-        } else {
-          video.pause();
-          setPlaying(false);
-        }
-      });
-    } else {
-      alert("video is not ready yet");
-    }
+    Array.from(videos).forEach((video) => {
+      if (video.paused) {
+        video.play();
+        setPlaying(true);
+      } else {
+        video.pause();
+        setPlaying(false);
+      }
+    });
+    setIsAutoPlay((prevState) => !prevState);
   };
 
   const progressHandler = (e) => {
@@ -221,6 +213,8 @@ function App() {
                   <>
                     <video
                       playsInline
+                      autoPlay={isAutoPlay}
+                      muted
                       width={"100%"}
                       id="video_one"
                       onTimeUpdate={timeUpdateHandler}
@@ -244,6 +238,8 @@ function App() {
                 itemTwo={
                   <>
                     <video
+                      autoPlay={isAutoPlay}
+                      muted
                       playsInline
                       width={"100%"}
                       id="video_two"
