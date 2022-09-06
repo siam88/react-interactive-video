@@ -101,12 +101,14 @@ function App() {
     // }
     alert("playhandler clicked");
     Array.from(videos).forEach((video, i) => {
-      alert(`i am else in video ${i}`);
-
       if (video.paused) {
+        alert(`i am if in video ${i}`);
+
         video.play();
         setPlaying(true);
       } else {
+        alert(`i am else in video ${i}`);
+
         video.pause();
         setPlaying(false);
       }
