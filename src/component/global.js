@@ -103,11 +103,17 @@ function App() {
     }
   };
   const playHandler = () => {
-    const mediaController = document.getElementById("video_one").controller;
-    const mediaController2 = document.getElementById("video_two").controller;
+    // const mediaController = document.getElementById("video_one").controller;
+    // const mediaController2 = document.getElementById("video_two").controller;
 
+    // mediaController.play();
+    // mediaController2.play();
+
+    var myVideos = document.querySelectorAll("video");
+    let mediaController = HTMLMediaElement.controller();
+    myVideos[0].controller = mediaController;
+    myVideos[1].controller = mediaController;
     mediaController.play();
-    mediaController2.play();
     // } else {
     //   alert("video is not ready yet");
     // }
