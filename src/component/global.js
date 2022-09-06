@@ -48,7 +48,6 @@ function App() {
         if (videoNode2.readyState >= 2) {
           setPlayable2(true);
         }
-        alert(`i am loadedmetadata ${videoNode2.readyState}`);
       });
     }
   }, [videoNode, videoNode2, playable, playable2]);
@@ -67,16 +66,11 @@ function App() {
         if (playable && playable2) {
           videoNode2?.play();
         }
-        alert("i am called video 1")
-        videoNode?.play();
-        videoNode2?.play();
       });
       videoNode2?.addEventListener("canplay", (...args) => {
         // setPlayable2(true);
         if (playable && playable2) {
           videoNode?.play();
-        alert("i am called video 2")
-
         }
       });
     }
@@ -101,7 +95,7 @@ function App() {
   const playHandler = () => {
     const videos = document.querySelectorAll("video");
     // if (playable && playable2) {
-      
+
     // } else {
     //   alert("video is not ready yet");
     // }
@@ -241,7 +235,7 @@ function App() {
                       // muted="muted"
                     >
                       <source
-                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
+                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
                         type="video/mp4"
                       />
                     </video>
@@ -261,7 +255,7 @@ function App() {
                       }}
                     >
                       <source
-                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
+                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
                         type="video/mp4"
                       />
                     </video>{" "}
