@@ -103,16 +103,17 @@ function App() {
     }
   };
   const playHandler = () => {
-    const videos = document.querySelectorAll("video");
-    // if (playable && playable2) {
-
+    var mediaController = videoNode.controller;
+    var mediaController2 = videoNode2.controller;
+    mediaController.play();
+    mediaController2.play();
     // } else {
     //   alert("video is not ready yet");
     // }
-    if (videoNode && videoNode2) {
-      videoNode.play();
-      videoNode2.play();
-    }
+    // if (videoNode && videoNode2) {
+    //   videoNode.play();
+    //   videoNode2.play();
+    // }
 
     alert("playhandler clicked");
     // Array.from(videos).forEach((video, i) => {
@@ -240,9 +241,6 @@ function App() {
                 itemOne={
                   <>
                     <video
-                      autoPlay
-                      muted
-                      loop
                       playsInline
                       width={"100%"}
                       id="video_one"
@@ -253,6 +251,7 @@ function App() {
                         console.log(" video ,i am waiting");
                       }}
                       onStalled={(e) => console.log("hello", e)}
+                      mediaGroup="masterController"
                       // onCanPlayThrough={(e) => console.log("helllo", e)}
                       // autoPlay={readyState1}
                       // muted="muted"
@@ -267,19 +266,16 @@ function App() {
                 itemTwo={
                   <>
                     <video
-                      autoPlay
-                      muted
-                      loop
                       playsInline
                       width={"100%"}
                       id="video_two"
                       preload="auto"
+                      mediaGroup="masterController"
                       // autoPlay={readyState2}
                       // muted="muted"
                       onwaiting={() => {
                         console.log(" video 2,i am waiting");
                       }}
-                      onloa
                     >
                       <source
                         src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
@@ -308,7 +304,7 @@ function App() {
                     ></div>
                   </div>
                   <div className="play_icon">
-                    {/* {playable && playable2 && playing ? (
+                    {playable && playable2 && playing ? (
                       <BiPause
                         onClick={playHandler}
                         style={{ color: "white" }}
@@ -320,15 +316,8 @@ function App() {
                           style={{ color: "white" }}
                         />
                       </>
-                    )} */}
-                    <BiPause
-                      onClick={playHandlerTest1}
-                      style={{ color: "white" }}
-                    />
-                    <BiPause
-                      onClick={playHandlerTest2}
-                      style={{ color: "white" }}
-                    />
+                    )}
+
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <BiVolumeLow style={{ color: "white" }} />
                       <input
