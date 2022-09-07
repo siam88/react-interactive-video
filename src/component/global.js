@@ -72,6 +72,16 @@ function App() {
     }
   }, [videoNode, videoNode2, playable, playable2]);
 
+  useEffect(() => {
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      if (videoNode && videoNode2) {
+        // videoNode.currentTime = 0;
+        // videoNode2.currentTime = 0;
+        progressHandler();
+      }
+    }
+  }, []);
+
   //check play event
   useEffect(() => {
     if (videoNode && videoNode2 && playable && playable2) {
@@ -129,9 +139,10 @@ function App() {
     }
   };
 
-  const progressHandler = (e) => {
+  const progressHandler = (e = 5) => {
     const progress = document.querySelector(".progress");
     const videoTwo = document.getElementById("video_two");
+    console.log("progress==>", e.nativeEvent.offsetX);
     const scrubTime =
       (e.nativeEvent.offsetX / progress.offsetWidth) * videoNode.duration;
     videoNode.currentTime = scrubTime;
