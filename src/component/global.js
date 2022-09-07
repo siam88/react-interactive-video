@@ -74,13 +74,18 @@ function App() {
 
   useEffect(() => {
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      if (videoNode && videoNode2) {
-        // videoNode.currentTime = 0;
-        // videoNode2.currentTime = 0;
-        progressHandler();
+      if (playing) {
+        if (videoNode && videoNode2) {
+          const progress = document.querySelector(".progress");
+          if (!videoNode.paused && !videoNode2.paused) {
+            const scrubTime = (5 / progress.offsetWidth) * videoNode.duration;
+            videoNode.currentTime = scrubTime;
+            videoNode2.currentTime = scrubTime;
+          }
+        }
       }
     }
-  }, []);
+  }, [playing, videoNode, videoNode2]);
 
   //check play event
   useEffect(() => {
@@ -139,14 +144,15 @@ function App() {
     }
   };
 
-  const progressHandler = (e = 5) => {
+  const progressHandler = (e) => {
     const progress = document.querySelector(".progress");
-    const videoTwo = document.getElementById("video_two");
-    console.log("progress==>", e.nativeEvent.offsetX);
+    // const videoTwo = document.getElementById("video_two");
+    // console.log("progress==>", e.nativeEvent.offsetX);
+    // if(offsetVal)
     const scrubTime =
       (e.nativeEvent.offsetX / progress.offsetWidth) * videoNode.duration;
     videoNode.currentTime = scrubTime;
-    videoTwo.currentTime = scrubTime;
+    videoNode2.currentTime = scrubTime;
   };
 
   const volumeHandler = (e) => {
@@ -217,38 +223,38 @@ function App() {
               </div>
               <ReactCompareSlider
                 onlyHandleDraggable={true}
-                handle={
-                  // <ReactCompareSliderHandle
-                  //   buttonStyle={{
-                  //     backdropFilter: undefined,
-                  //     background: "green",
-                  //     border: 1,
-                  //     height: "0",
+                // handle={
+                //   // <ReactCompareSliderHandle
+                //   //   buttonStyle={{
+                //   //     backdropFilter: undefined,
+                //   //     background: "green",
+                //   //     border: 1,
+                //   //     height: "0",
 
-                  //     color: "yellow",
-                  //   }}
-                  //   linesStyle={{
-                  //     background: "green",
-                  //   }}
-                  // />
-                  <div
-                    style={{
-                      display: "grid",
-                      height: "100%",
-                      placeContent: "center",
-                    }}
-                  >
-                    <button
-                      style={{
-                        all: "unset",
-                        borderRadius: "50%",
-                        fontSize: 50,
-                      }}
-                    >
-                      💥
-                    </button>
-                  </div>
-                }
+                //   //     color: "yellow",
+                //   //   }}
+                //   //   linesStyle={{
+                //   //     background: "green",
+                //   //   }}
+                //   // />
+                //   <div
+                //     style={{
+                //       display: "grid",
+                //       height: "100%",
+                //       placeContent: "center",
+                //     }}
+                //   >
+                //     <button
+                //       style={{
+                //         all: "unset",
+                //         borderRadius: "50%",
+                //         fontSize: 50,
+                //       }}
+                //     >
+                //       💥
+                //     </button>
+                //   </div>
+                // }
                 itemOne={
                   <>
                     <video
