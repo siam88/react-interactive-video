@@ -92,7 +92,16 @@
 .img_btn img {
   width: 170px;
 }
+.initial_Play_btn {
+  position: absolute;
+  left: 45%;
+  bottom: 5rem;
 
+  cursor: pointer;
+}
+.initial_Play_btn img {
+  width: 100px;
+}
 .modal-90w {
   max-width: 60%;
 }
@@ -166,10 +175,32 @@ button:hover {
 .social_icons ul li:nth-of-type(2) a::after {
   background: #55acee;
 } */
+@media screen and (max-width: 400px) {
+  .initial_Play_btn {
+    position: absolute;
+    left: 45%;
+    bottom: 2rem;
+
+    cursor: pointer;
+  }
+  .initial_Play_btn img {
+    width: 35px;
+  }
+}
 
 @media screen and (max-width: 500px) {
   .img_btn img {
     width: 50px;
+  }
+  .initial_Play_btn {
+    position: absolute;
+    left: 45%;
+    bottom: 2rem;
+
+    cursor: pointer;
+  }
+  .initial_Play_btn img {
+    width: 35px;
   }
   .modal-90w {
     max-width: 100% !important;
