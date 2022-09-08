@@ -3,6 +3,7 @@ import { ReactCompareSlider } from "react-compare-slider";
 import { useState, useEffect } from "react";
 import { BiPlay, BiPause, BiVolumeLow } from "react-icons/bi";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
+import Loader from "./loader";
 
 const TIMETOSHOW = 3;
 function App() {
@@ -63,19 +64,19 @@ function App() {
     setVideoNode2(video2);
   }, [readyState1]);
 
-  useEffect(() => {
-    if (playing) {
-      console.log("node", videoNode?.readyState);
-      console.log("node2", videoNode2?.readyState);
-      if (videoNode?.readyState >= 2 && videoNode2?.readyState >= 2) {
-        videoNode?.play();
-        videoNode2?.play();
-      } else {
-        videoNode?.pause();
-        videoNode2?.pause();
-      }
-    }
-  });
+  // useEffect(() => {
+  //   if (playing) {
+  //     console.log("node", videoNode?.readyState);
+  //     console.log("node2", videoNode2?.readyState);
+  //     if (videoNode?.readyState >= 2 && videoNode2?.readyState >= 2) {
+  //       videoNode?.play();
+  //       videoNode2?.play();
+  //     } else {
+  //       videoNode?.pause();
+  //       videoNode2?.pause();
+  //     }
+  //   }
+  // }, []);
 
   useEffect(() => {
     const videos = document.querySelectorAll("video");

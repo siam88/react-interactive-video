@@ -8,12 +8,14 @@ import { BiPlay, BiPause, BiVolumeLow } from "react-icons/bi";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import instructionMsgImg from "../assets/Capture.PNG";
 import playIcon from "../assets/playIcon.png";
+import Loader from "./loader";
 
 const TIMETOSHOW = 3;
 function App() {
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
   const [videoNode2, setVideoNode2] = useState();
+  const [onPauseTimer, setOnPauseTimer] = useState(5);
   const [videoProgress, setVideoProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
@@ -22,34 +24,17 @@ function App() {
   const [playable2, setPlayable2] = useState(false);
   const [isAutoPlay, setIsAutoPlay] = useState(false);
   const [instructionMsg, setInstructionMsg] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [progressNode, setProgressNode] = useState();
   //setting up the video to the state
   useEffect(() => {
     const video = document.getElementById("video_one");
     const video2 = document.getElementById("video_two");
-
+    const progress = document.getElementById("progress");
     setVideoNode(video);
     setVideoNode2(video2);
-    // initializer();
-  }, [instructionMsg, isAutoPlay]);
-  // const initializer = async () => {
-  //   setLoader(true);
-
-  //   await preloadVideo(
-  //     "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
-  //   );
-
-  //   await preloadVideo(
-  //     "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
-  //   );
-
-  //   setLoader(false);
-  // };
-  // const preloadVideo = async (src) => {
-  //   const res = await fetch(src);
-  //   const blob = await res.blob();
-
-  //   return URL.createObjectURL(blob);
-  // };
+    setProgressNode(progress);
+  }, [instructionMsg, isAutoPlay, onPauseTimer]);
 
   //checking if video is ready or not
   useEffect(() => {
@@ -63,7 +48,7 @@ function App() {
       });
       if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
         setIsAutoPlay(true);
-        setPlayable(true);
+
         setPlayable2(true);
       }
 
@@ -81,7 +66,8 @@ function App() {
         if (videoNode && videoNode2) {
           const progress = document.querySelector(".progress");
           if (!videoNode.paused && !videoNode2.paused) {
-            const scrubTime = (5 / progress.offsetWidth) * videoNode.duration;
+            const scrubTime =
+              (onPauseTimer / progress.offsetWidth) * videoNode.duration;
             videoNode.currentTime = scrubTime;
             videoNode2.currentTime = scrubTime;
           }
@@ -94,18 +80,23 @@ function App() {
   useEffect(() => {
     if (videoNode && videoNode2 && playable && playable2) {
       videoNode.addEventListener("waiting", (...args) => {
+        setLoading(true);
         videoNode2.pause();
       });
       videoNode2.addEventListener("waiting", (...args) => {
+        setLoading(true);
         videoNode.pause();
       });
       videoNode?.addEventListener("canplay", (...args) => {
         if (playable && playable2) {
+          setLoading(false);
           videoNode2?.play();
         }
       });
       videoNode2?.addEventListener("canplay", (...args) => {
         if (playable && playable2) {
+          setLoading(false);
+
           videoNode?.play();
         }
       });
@@ -152,6 +143,8 @@ function App() {
     // if(offsetVal)
     const scrubTime =
       (e.nativeEvent.offsetX / progress.offsetWidth) * videoNode.duration;
+
+    console.log(scrubTime);
     videoNode.currentTime = scrubTime;
     videoNode2.currentTime = scrubTime;
   };
@@ -161,16 +154,38 @@ function App() {
   };
 
   const openModal = () => {
+    setPlaying(false);
     setShowModal(true);
     const videos = document.querySelectorAll("video");
+
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      setOnPauseTimer(videoNode.currentTime);
+    }
     Array.from(videos).forEach((video) => {
       video.pause();
+
       setPlaying(false);
     });
   };
   const onCloseHandler = () => {
     setShowModal(false);
+    setPlaying(true);
+
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      setPlaying(true);
+      // // const progress = document.querySelector(".progress");
+      // alert(progressNode);
+      // // const scrubTime =
+      // //   (onPauseTimer / progressNode.offsetWidth) * videoNode.duration;
+      // // alert(`dsadsad${scrubTime}`);
+
+      // videoNode.currentTime = onPauseTimer;
+      // videoNode2.currentTime = onPauseTimer;
+      // // playHandler();
+      // alert(`dsadsad${onPauseTimer}`);
+    }
     const videos = document.querySelectorAll("video");
+
     Array.from(videos).forEach((video) => {
       video.play();
       setPlaying(true);
@@ -179,13 +194,10 @@ function App() {
   useEffect(() => {
     if (!instructionMsg) {
       if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-        if (isAutoPlay) {
-          // alert("hello");
-        }
       } else {
         setTimeout(() => {
           playHandler();
-        }, 1000);
+        }, 3000);
       }
     }
   }, [instructionMsg, isAutoPlay]);
@@ -194,15 +206,23 @@ function App() {
   // }
   const initialPlayer = () => {
     setInstructionMsg((prestate) => !prestate);
+    setLoading(true);
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
       setIsAutoPlay(true);
-      setPlayable(true);
-      setPlayable2(true);
-      setPlaying(true);
+      setTimeout(() => {
+        setPlayable(true);
+        setPlayable2(true);
+        setPlaying(true);
+        setLoading(false);
+      }, 3000);
+    } else {
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
     }
+
     // playHandler();
   };
-  console.log(playable, playable2, playing);
 
   return (
     <div className="App">
@@ -360,11 +380,20 @@ function App() {
                   >
                     <img src="/image/tamim.png" alt="i am tamim" />
                   </div>
+                  {loading && (
+                    <div className="loader">
+                      <Loader />
+                    </div>
+                  )}
                 </div>
                 <>
-                  {!showModal && (
+                  {!showModal && !loading && (
                     <div className="control_panel">
-                      <div className="progress" onClick={progressHandler}>
+                      <div
+                        className="progress"
+                        onClick={progressHandler}
+                        id="progress"
+                      >
                         <div
                           className="progress__filled"
                           style={{ flexBasis: `${videoProgress}%` }}

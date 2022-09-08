@@ -18,98 +18,101 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [playable, setPlayable] = useState(false);
   const [playable2, setPlayable2] = useState(false);
-  const [link1, setLink1] = useState(null);
-  const [link2, setLink2] = useState(null);
+  const [isAutoPlay, setIsAutoPlay] = useState(false);
   const [loader, setLoader] = useState(true);
   //setting up the video to the state
-  // useEffect(() => {
-  //   const video = document.getElementById("video_one");
-  //   const video2 = document.getElementById("video_two");
+  useEffect(() => {
+    const video = document.getElementById("video_one");
+    const video2 = document.getElementById("video_two");
 
-  //   setVideoNode(video);
-  //   setVideoNode2(video2);
-  // }, [videoNode, videoNode2]);
+    setVideoNode(video);
+    setVideoNode2(video2);
+    // initializer();
+  }, []);
+  // const initializer = async () => {
+  //   setLoader(true);
+
+  //   await preloadVideo(
+  //     "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
+  //   );
+
+  //   await preloadVideo(
+  //     "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
+  //   );
+
+  //   setLoader(false);
+  // };
+  // const preloadVideo = async (src) => {
+  //   const res = await fetch(src);
+  //   const blob = await res.blob();
+
+  //   return URL.createObjectURL(blob);
+  // };
+
+  //checking if video is ready or not
+  useEffect(() => {
+    if (videoNode && videoNode2) {
+      //data loaded initially
+
+      videoNode.addEventListener("loadeddata", (...args) => {
+        if (videoNode.readyState >= 2) {
+          setPlayable(true);
+        }
+      });
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        setIsAutoPlay(true);
+        setPlayable2(true);
+      }
+
+      videoNode2.addEventListener("loadeddata", (...args) => {
+        if (videoNode2.readyState >= 2) {
+          setPlayable2(true);
+        }
+      });
+    }
+  }, [videoNode, videoNode2, playable, playable2]);
 
   useEffect(() => {
-    initializer();
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      if (videoNode && videoNode2) {
+        // videoNode.currentTime = 0;
+        // videoNode2.currentTime = 0;
+        progressHandler();
+      }
+    }
   }, []);
 
-  const initializer = async () => {
-    setLoader(true);
-    let blubLink1 = await preloadVideo(
-      "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
-    );
-    setLink1(blubLink1);
+  //check play event
+  useEffect(() => {
+    if (videoNode && videoNode2 && playable && playable2) {
+      videoNode.addEventListener("waiting", (...args) => {
+        videoNode2.pause();
+      });
+      videoNode2.addEventListener("waiting", (...args) => {
+        videoNode.pause();
+      });
+      videoNode?.addEventListener("canplay", (...args) => {
+        // setPlayable(true);
+        console.log("hello");
+        if (playable && playable2) {
+          videoNode2?.play();
+        }
+      });
+      videoNode2?.addEventListener("canplay", (...args) => {
+        // setPlayable2(true);
+        if (playable && playable2) {
+          videoNode?.play();
+        }
+      });
+    }
+  }, [videoNode, videoNode2, playable, playable2]);
 
-    let blubLink2 = await preloadVideo(
-      "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
-    );
-    setLink2(blubLink2);
-    setLoader(false);
-  };
-
-  const preloadVideo = async (src) => {
-    const res = await fetch(src);
-    const blob = await res.blob();
-    console.log(blob);
-    return URL.createObjectURL(blob);
-  };
-
-  // //checking if video is ready or not
-  // useEffect(() => {
-  //   if (videoNode && videoNode2) {
-  //     //data loaded initially
-
-  //     videoNode.addEventListener("loadeddata", (...args) => {
-  //       if (videoNode.readyState >= 2) {
-  //         setPlayable(true);
-  //       }
-  //     });
-
-  //     videoNode2.addEventListener("loadeddata", (...args) => {
-  //       if (videoNode2.readyState >= 2) {
-  //         setPlayable2(true);
-  //       }
-  //     });
-  //     videoNode2.addEventListener("loadedmetadata", (...args) => {
-  //       // if (videoNode2.readyState >= 2) {
-  //       //   setPlayable2(true);
-  //       // }
-  //       alert("i am loadedmetadata");
-  //     });
-  //   }
-  // }, [videoNode, videoNode2, playable, playable2]);
-
-  // //check play event
-  // useEffect(() => {
-  //   if (videoNode && videoNode2 && playable && playable2) {
-  //     videoNode.addEventListener("waiting", (...args) => {
-  //       videoNode2.pause();
-  //     });
-  //     videoNode2.addEventListener("waiting", (...args) => {
-  //       videoNode.pause();
-  //     });
-  //     videoNode?.addEventListener("canplay", (...args) => {
-  //       // setPlayable(true);
-  //       if (playable && playable2) {
-  //         videoNode2?.play();
-  //       }
-  //     });
-  //     videoNode2?.addEventListener("canplay", (...args) => {
-  //       // setPlayable2(true);
-  //       if (playable && playable2) {
-  //         videoNode?.play();
-  //       }
-  //     });
-  //   }
-  // }, [videoNode, videoNode2, playable, playable2]);
-
-  // useEffect(() => {
-  //   const videos = document.querySelectorAll("video");
-  //   Array.from(videos).forEach((video) => {
-  //     video.volume = volume;
-  //   });
-  // }, [volume]);
+  useEffect(() => {
+    const videos = document.querySelectorAll("video");
+    Array.from(videos).forEach((video) => {
+      video.volume = volume;
+    });
+  }, [volume]);
 
   const timeUpdateHandler = (e) => {
     const percent = (videoNode.currentTime / videoNode.duration) * 100;
@@ -121,25 +124,25 @@ function App() {
   };
 
   const playHandler = () => {
-    const video = document.getElementById("video_one");
-    const video2 = document.getElementById("video_two");
-    video.play();
-    video2.play();
-    // const videos = document.querySelectorAll("video");
-    // Array.from(videos).forEach((video) => {
-    //   if (video.paused) {
-    //     video.play();
-    //     setPlaying(true);
-    //   } else {
-    //     video.pause();
-    //     setPlaying(false);
-    //   }
-    // });
+    const videos = document.querySelectorAll("video");
+    Array.from(videos).forEach((video) => {
+      if (video.paused) {
+        video.play();
+        setPlaying(true);
+      } else {
+        video.pause();
+        setPlaying(false);
+      }
+    });
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      setIsAutoPlay((prevState) => !prevState);
+    }
   };
 
-  const progressHandler = (e) => {
+  const progressHandler = (e = 5) => {
     const progress = document.querySelector(".progress");
     const videoTwo = document.getElementById("video_two");
+    console.log("progress==>", e.nativeEvent.offsetX);
     const scrubTime =
       (e.nativeEvent.offsetX / progress.offsetWidth) * videoNode.duration;
     videoNode.currentTime = scrubTime;
@@ -166,9 +169,9 @@ function App() {
       setPlaying(true);
     });
   };
-  if (loader) {
-    return <div style={{ background: "white" }}>Loading......</div>;
-  }
+  // if (loader) {
+  //   return <div style={{ background: "white" }}>Loading......</div>;
+  // }
   return (
     <div className="App">
       <div className="container">
@@ -248,8 +251,10 @@ function App() {
                 }
                 itemOne={
                   <>
-                    {/* <video
+                    <video
                       playsInline
+                      autoPlay={isAutoPlay}
+                      muted
                       width={"100%"}
                       id="video_one"
                       onTimeUpdate={timeUpdateHandler}
@@ -263,13 +268,18 @@ function App() {
                       // autoPlay={readyState1}
                       // muted="muted"
                     >
-                      <source src={link1} type="video/mp4" />
-                    </video> */}
+                      <source
+                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
+                        type="video/mp4"
+                      />
+                    </video>
                   </>
                 }
                 itemTwo={
                   <>
-                    {/* <video
+                    <video
+                      autoPlay={isAutoPlay}
+                      muted
                       playsInline
                       width={"100%"}
                       id="video_two"
@@ -280,8 +290,11 @@ function App() {
                         console.log(" video 2,i am waiting");
                       }}
                     >
-                      <source src={link2} type="video/mp4" />
-                    </video>{" "} */}
+                      <source
+                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
+                        type="video/mp4"
+                      />
+                    </video>{" "}
                   </>
                 }
               />
@@ -304,7 +317,7 @@ function App() {
                     ></div>
                   </div>
                   <div className="play_icon">
-                    {playing ? (
+                    {playable && playable2 && playing ? (
                       <BiPause
                         onClick={playHandler}
                         style={{ color: "white" }}
@@ -333,39 +346,6 @@ function App() {
                   </div>
                 </div>
               )}
-            </>
-            <>
-              {/* ///////////// */}
-              <video
-                playsInline
-                width={"100%"}
-                id="video_two"
-                preload="auto"
-                // autoPlay={readyState2}
-                // muted="muted"
-                onwaiting={() => {
-                  console.log(" video 2,i am waiting");
-                }}
-              >
-                <source src={link2} type="video/mp4" />
-              </video>{" "}
-              <video
-                playsInline
-                width={"100%"}
-                id="video_one"
-                onTimeUpdate={timeUpdateHandler}
-                onEnded={() => setPlaying(false)}
-                preload="auto"
-                onwaiting={() => {
-                  console.log(" video ,i am waiting");
-                }}
-                onStalled={(e) => console.log("hello", e)}
-                // onCanPlayThrough={(e) => console.log("helllo", e)}
-                // autoPlay={readyState1}
-                // muted="muted"
-              >
-                <source src={link1} type="video/mp4" />
-              </video>
             </>
           </div>
         </div>
