@@ -3,9 +3,11 @@ import {
   ReactCompareSlider,
   ReactCompareSliderHandle,
 } from "react-compare-slider";
-import { useState, useEffect } from "react";
-import { BiPlay, BiPause, BiVolumeLow } from "react-icons/bi";
+import { useState, useEffect, useRef } from "react";
+import { BiPlay, BiPause, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
+import instructionMsgImg from "../assets/Capture.PNG";
+import playIcon from "../assets/playIcon.png";
 
 const TIMETOSHOW = 3;
 function App() {
@@ -20,7 +22,12 @@ function App() {
   const [playable2, setPlayable2] = useState(false);
   const [isAutoPlay, setIsAutoPlay] = useState(false);
   const [loader, setLoader] = useState(true);
+  const [appState, setAppState] = useState({
+    hideInstructions: false,
+    muted: true,
+  });
   //setting up the video to the state
+  const progressRef = useRef();
   useEffect(() => {
     const video = document.getElementById("video_one");
     const video2 = document.getElementById("video_two");
@@ -53,7 +60,7 @@ function App() {
   useEffect(() => {
     if (videoNode && videoNode2) {
       //data loaded initially
-
+      setAppState({ ...appState, muted: false });
       videoNode.addEventListener("loadeddata", (...args) => {
         if (videoNode.readyState >= 2) {
           setPlayable(true);
@@ -62,8 +69,9 @@ function App() {
       if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
         setIsAutoPlay(true);
         setPlayable2(true);
+        setAppState({ ...appState, muted: true });
       }
-
+      console.log({ videoNode });
       videoNode2.addEventListener("loadeddata", (...args) => {
         if (videoNode2.readyState >= 2) {
           setPlayable2(true);
@@ -92,8 +100,6 @@ function App() {
         videoNode.pause();
       });
       videoNode?.addEventListener("canplay", (...args) => {
-        // setPlayable(true);
-        console.log("hello");
         if (playable && playable2) {
           videoNode2?.play();
         }
@@ -124,6 +130,7 @@ function App() {
   };
 
   const playHandler = () => {
+    setAppState({ ...appState, hideInstructions: true });
     const videos = document.querySelectorAll("video");
     Array.from(videos).forEach((video) => {
       if (video.paused) {
@@ -215,46 +222,64 @@ function App() {
                   </ul>
                 </div>
               </div>
+              <div
+                className="instruction_wrapper"
+                style={
+                  appState.hideInstructions
+                    ? { opacity: 0, zIndex: 0 }
+                    : { opacity: 1, zIndex: 1 }
+                }
+              >
+                <img
+                  style={{ width: "100%" }}
+                  src={instructionMsgImg}
+                  alt="instruction massage for Interactive video"
+                />
+
+                <div className="initial_Play_btn" style={{ opacity: 1 }}>
+                  <img src={playIcon} alt="i am tamim" onClick={playHandler} />
+                </div>
+              </div>
               <ReactCompareSlider
                 onlyHandleDraggable={true}
-                handle={
-                  // <ReactCompareSliderHandle
-                  //   buttonStyle={{
-                  //     backdropFilter: undefined,
-                  //     background: "green",
-                  //     border: 1,
-                  //     height: "0",
+                // handle={
+                //   // <ReactCompareSliderHandle
+                //   //   buttonStyle={{
+                //   //     backdropFilter: undefined,
+                //   //     background: "green",
+                //   //     border: 1,
+                //   //     height: "0",
 
-                  //     color: "yellow",
-                  //   }}
-                  //   linesStyle={{
-                  //     background: "green",
-                  //   }}
-                  // />
-                  <div
-                    style={{
-                      display: "grid",
-                      height: "100%",
-                      placeContent: "center",
-                    }}
-                  >
-                    <button
-                      style={{
-                        all: "unset",
-                        borderRadius: "50%",
-                        fontSize: 50,
-                      }}
-                    >
-                      💥
-                    </button>
-                  </div>
-                }
+                //   //     color: "yellow",
+                //   //   }}
+                //   //   linesStyle={{
+                //   //     background: "green",
+                //   //   }}
+                //   // />
+                //   <div
+                //     style={{
+                //       display: "grid",
+                //       height: "100%",
+                //       placeContent: "center",
+                //     }}
+                //   >
+                //     <button
+                //       style={{
+                //         all: "unset",
+                //         borderRadius: "50%",
+                //         fontSize: 50,
+                //       }}
+                //     >
+                //       💥
+                //     </button>
+                //   </div>
+                // }
                 itemOne={
                   <>
                     <video
                       playsInline
                       autoPlay={isAutoPlay}
-                      muted
+                      muted={appState.muted}
                       width={"100%"}
                       id="video_one"
                       onTimeUpdate={timeUpdateHandler}
@@ -279,7 +304,7 @@ function App() {
                   <>
                     <video
                       autoPlay={isAutoPlay}
-                      muted
+                      muted={appState.muted}
                       playsInline
                       width={"100%"}
                       id="video_two"
@@ -308,9 +333,13 @@ function App() {
               </div>
             </div>
             <>
-              {!showModal && (
+              {!showModal && appState.hideInstructions && (
                 <div className="control_panel">
-                  <div className="progress" onClick={progressHandler}>
+                  <div
+                    className="progress"
+                    onClick={progressHandler}
+                    ref={progressRef}
+                  >
                     <div
                       className="progress__filled"
                       style={{ flexBasis: `${videoProgress}%` }}
@@ -331,7 +360,24 @@ function App() {
                       </>
                     )}
                     <div style={{ display: "flex", alignItems: "center" }}>
-                      <BiVolumeLow style={{ color: "white" }} />
+                      {appState.muted ? (
+                        <BiVolumeMute
+                          style={{ color: "white" }}
+                          onClick={() => {
+                            setAppState({ ...appState, muted: false });
+                            setVolume(1);
+                          }}
+                        />
+                      ) : (
+                        <BiVolumeLow
+                          style={{ color: "white" }}
+                          onClick={() => {
+                            setAppState({ ...appState, muted: true });
+                            setVolume(0);
+                          }}
+                        />
+                      )}
+
                       <input
                         type="range"
                         className="slider"

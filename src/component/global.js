@@ -3,7 +3,7 @@ import {
   ReactCompareSlider,
   ReactCompareSliderHandle,
 } from "react-compare-slider";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BiPlay, BiPause, BiVolumeLow } from "react-icons/bi";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import instructionMsgImg from "../assets/Capture.PNG";
@@ -25,15 +25,16 @@ function App() {
   const [isAutoPlay, setIsAutoPlay] = useState(false);
   const [instructionMsg, setInstructionMsg] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [progressNode, setProgressNode] = useState();
+
+  const progressRef = useRef();
+
   //setting up the video to the state
+
   useEffect(() => {
     const video = document.getElementById("video_one");
     const video2 = document.getElementById("video_two");
-    const progress = document.getElementById("progress");
     setVideoNode(video);
     setVideoNode2(video2);
-    setProgressNode(progress);
   }, [instructionMsg, isAutoPlay, onPauseTimer]);
 
   //checking if video is ready or not
@@ -65,7 +66,9 @@ function App() {
       if (playing) {
         if (videoNode && videoNode2) {
           const progress = document.querySelector(".progress");
+
           if (!videoNode.paused && !videoNode2.paused) {
+            alert(onPauseTimer);
             const scrubTime =
               (onPauseTimer / progress.offsetWidth) * videoNode.duration;
             videoNode.currentTime = scrubTime;
@@ -170,9 +173,10 @@ function App() {
   const onCloseHandler = () => {
     setShowModal(false);
     setPlaying(true);
-
+    console.log("==>", progressRef);
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
       setPlaying(true);
+
       // // const progress = document.querySelector(".progress");
       // alert(progressNode);
       // // const scrubTime =
@@ -289,6 +293,7 @@ function App() {
                       </ul>
                     </div>
                   </div>
+
                   <ReactCompareSlider
                     onlyHandleDraggable={true}
                     // handle={
@@ -392,7 +397,7 @@ function App() {
                       <div
                         className="progress"
                         onClick={progressHandler}
-                        id="progress"
+                        ref={progressRef}
                       >
                         <div
                           className="progress__filled"
