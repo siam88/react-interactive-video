@@ -8,6 +8,7 @@ import { BiPlay, BiPause, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import instructionMsgImg from "../assets/Capture.PNG";
 import playIcon from "../assets/playIcon.png";
+import Loader from "./loader";
 
 const TIMETOSHOW = 3;
 function App() {
@@ -21,7 +22,7 @@ function App() {
   const [playable, setPlayable] = useState(false);
   const [playable2, setPlayable2] = useState(false);
   const [isAutoPlay, setIsAutoPlay] = useState(false);
-  const [loader, setLoader] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [appState, setAppState] = useState({
     hideInstructions: false,
     muted: true,
@@ -80,6 +81,15 @@ function App() {
     }
   }, [videoNode, videoNode2, playable, playable2]);
 
+  const initialPlayer = () => {
+    setLoading(true);
+    setAppState({ ...appState, hideInstructions: true });
+
+    setTimeout(() => {
+      playHandler();
+      setLoading(false);
+    }, 3000);
+  };
   useEffect(() => {
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
       if (videoNode && videoNode2) {
@@ -95,19 +105,29 @@ function App() {
     if (videoNode && videoNode2 && playable && playable2) {
       videoNode.addEventListener("waiting", (...args) => {
         videoNode2.pause();
+        setLoading(true);
+        setAppState({ ...appState, hideInstructions: true });
       });
       videoNode2.addEventListener("waiting", (...args) => {
         videoNode.pause();
+        setLoading(true);
+        setAppState({ ...appState, hideInstructions: true });
       });
       videoNode?.addEventListener("canplay", (...args) => {
         if (playable && playable2) {
           videoNode2?.play();
+          setLoading(false);
+          setPlaying(true);
+          setAppState({ ...appState, hideInstructions: true });
         }
       });
       videoNode2?.addEventListener("canplay", (...args) => {
         // setPlayable2(true);
         if (playable && playable2) {
           videoNode?.play();
+          setPlaying(true);
+          setLoading(false);
+          setAppState({ ...appState, hideInstructions: true });
         }
       });
     }
@@ -222,6 +242,11 @@ function App() {
                   </ul>
                 </div>
               </div>
+              {loading && (
+                <div className="loader" style={{ opacity: 1, zIndex: 1 }}>
+                  <Loader />
+                </div>
+              )}
               <div
                 className="instruction_wrapper"
                 style={
@@ -237,9 +262,19 @@ function App() {
                 />
 
                 <div className="initial_Play_btn" style={{ opacity: 1 }}>
-                  <img src={playIcon} alt="i am tamim" onClick={playHandler} />
+                  <img
+                    src={playIcon}
+                    alt="i am tamim"
+                    onClick={initialPlayer}
+                  />
                 </div>
               </div>
+              {/* {loading && (
+                <div className="loader" style={{ opacity: 1 }}>
+                  <Loader />
+                </div>
+              )} */}
+
               <ReactCompareSlider
                 onlyHandleDraggable={true}
                 // handle={
@@ -333,7 +368,7 @@ function App() {
               </div>
             </div>
             <>
-              {!showModal && appState.hideInstructions && (
+              {!showModal && appState.hideInstructions && !loading && (
                 <div className="control_panel">
                   <div
                     className="progress"
