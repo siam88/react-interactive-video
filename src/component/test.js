@@ -6,10 +6,12 @@ import {
 import { useState, useEffect, useRef } from "react";
 import { BiPlay, BiPause, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
-import instructionMsgImg from "../assets/Capture.PNG";
-import playIcon from "../assets/playIcon.png";
-import Loader from "./loader";
-
+// import instructionMsgImg from "../assets/Capture.PNG";
+import instructionMsgImg from "../assets/images/intro_page.gif";
+import playIcon from "../assets/icons/play.png";
+import Loader from "../components/loader";
+import IntroPage from "../pages/IntroPage";
+import ballImage from "../assets/images/ball.png";
 const TIMETOSHOW = 3;
 function App() {
   const [playing, setPlaying] = useState(false);
@@ -37,25 +39,6 @@ function App() {
     setVideoNode2(video2);
     // initializer();
   }, []);
-  // const initializer = async () => {
-  //   setLoader(true);
-
-  //   await preloadVideo(
-  //     "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
-  //   );
-
-  //   await preloadVideo(
-  //     "https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
-  //   );
-
-  //   setLoader(false);
-  // };
-  // const preloadVideo = async (src) => {
-  //   const res = await fetch(src);
-  //   const blob = await res.blob();
-
-  //   return URL.createObjectURL(blob);
-  // };
 
   //checking if video is ready or not
   useEffect(() => {
@@ -82,6 +65,7 @@ function App() {
   }, [videoNode, videoNode2, playable, playable2]);
 
   const initialPlayer = () => {
+    console.log("hello");
     setLoading(true);
     setAppState({ ...appState, hideInstructions: true });
 
@@ -242,20 +226,18 @@ function App() {
                   </ul>
                 </div>
               </div>
-              {loading && (
-                <div className="loader" style={{ opacity: 1, zIndex: 1 }}>
-                  <Loader />
-                </div>
-              )}
-              <div
+              {loading && <Loader />}
+
+              {/* <div
                 className="instruction_wrapper"
                 style={
                   appState.hideInstructions
                     ? { opacity: 0, zIndex: 0 }
                     : { opacity: 1, zIndex: 1 }
                 }
-              >
-                <img
+              > */}
+              <IntroPage initialPlayer={initialPlayer} appState={appState} />
+              {/* <img
                   style={{ width: "100%" }}
                   src={instructionMsgImg}
                   alt="instruction massage for Interactive video"
@@ -267,8 +249,8 @@ function App() {
                     alt="i am tamim"
                     onClick={initialPlayer}
                   />
-                </div>
-              </div>
+                </div> */}
+              {/* </div> */}
               {/* {loading && (
                 <div className="loader" style={{ opacity: 1 }}>
                   <Loader />
@@ -277,38 +259,26 @@ function App() {
 
               <ReactCompareSlider
                 onlyHandleDraggable={true}
-                // handle={
-                //   // <ReactCompareSliderHandle
-                //   //   buttonStyle={{
-                //   //     backdropFilter: undefined,
-                //   //     background: "green",
-                //   //     border: 1,
-                //   //     height: "0",
+                handle={
+                  <>
+                    {/* <ReactCompareSliderHandle
+                      buttonStyle={{
+                        backdropFilter: undefined,
+                        background: "green",
+                        border: 1,
+                        height: "0",
 
-                //   //     color: "yellow",
-                //   //   }}
-                //   //   linesStyle={{
-                //   //     background: "green",
-                //   //   }}
-                //   // />
-                //   <div
-                //     style={{
-                //       display: "grid",
-                //       height: "100%",
-                //       placeContent: "center",
-                //     }}
-                //   >
-                //     <button
-                //       style={{
-                //         all: "unset",
-                //         borderRadius: "50%",
-                //         fontSize: 50,
-                //       }}
-                //     >
-                //       💥
-                //     </button>
-                //   </div>
-                // }
+                        color: "yellow",
+                      }}
+                      linesStyle={{
+                        background: "green",
+                      }}
+                    /> */}
+                    <div className="divider">
+                      <img src={ballImage} alt="" className="ball" />
+                    </div>
+                  </>
+                }
                 itemOne={
                   <>
                     <video

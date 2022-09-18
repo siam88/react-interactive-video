@@ -1,0 +1,61 @@
+/******** loader *******/
+.loaderWrapper {
+  position: absolute;
+  /* left: 45%; */
+  /* bottom: 10rem; */
+  background-color: rgba(0, 0, 0, 0.9);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  cursor: pointer;
+  z-index: 1;
+  opacity: 1;
+}
+.loader {
+  margin-left: 32vw;
+  margin-top: 35vh;
+  /* margin-bottom: 50vh; */
+}
+.progress {
+  --r1: 154%;
+  --r2: 68.5%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(
+      var(--r1) var(--r2) at top,
+      #0000 79.5%,
+      #df0000 80%
+    ),
+    radial-gradient(var(--r1) var(--r2) at bottom, #df0000 79.5%, #0000 80%),
+    radial-gradient(var(--r1) var(--r2) at top, #0000 79.5%, #df0000 80%),
+    #a9a9a9;
+  background-size: 50.5% 220%;
+  background-position: -100% 0%, 0% 0%, 100% 0%;
+  background-repeat: no-repeat;
+  animation: p9 2s infinite linear;
+}
+@keyframes p9 {
+  33% {
+    background-position: 0% 33%, 100% 33%, 200% 33%;
+  }
+  66% {
+    background-position: -100% 66%, 0% 66%, 100% 66%;
+  }
+  100% {
+    background-position: 0% 100%, 100% 100%, 200% 100%;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .loader {
+    margin-left: 39vw;
+    margin-top: 45vh;
+  }
+}
+@media screen and (max-width: 500px) {
+  .loader {
+    margin-left: 40vw;
+    margin-top: 10vh;
+  }
+}

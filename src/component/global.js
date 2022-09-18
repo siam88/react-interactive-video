@@ -68,7 +68,6 @@ function App() {
           const progress = document.querySelector(".progress");
 
           if (!videoNode.paused && !videoNode2.paused) {
-            alert(onPauseTimer);
             const scrubTime =
               (onPauseTimer / progress.offsetWidth) * videoNode.duration;
             videoNode.currentTime = scrubTime;
@@ -147,7 +146,6 @@ function App() {
     const scrubTime =
       (e.nativeEvent.offsetX / progress.offsetWidth) * videoNode.duration;
 
-    console.log(scrubTime);
     videoNode.currentTime = scrubTime;
     videoNode2.currentTime = scrubTime;
   };
@@ -173,20 +171,8 @@ function App() {
   const onCloseHandler = () => {
     setShowModal(false);
     setPlaying(true);
-    console.log("==>", progressRef);
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
       setPlaying(true);
-
-      // // const progress = document.querySelector(".progress");
-      // alert(progressNode);
-      // // const scrubTime =
-      // //   (onPauseTimer / progressNode.offsetWidth) * videoNode.duration;
-      // // alert(`dsadsad${scrubTime}`);
-
-      // videoNode.currentTime = onPauseTimer;
-      // videoNode2.currentTime = onPauseTimer;
-      // // playHandler();
-      // alert(`dsadsad${onPauseTimer}`);
     }
     const videos = document.querySelectorAll("video");
 
@@ -296,38 +282,6 @@ function App() {
 
                   <ReactCompareSlider
                     onlyHandleDraggable={true}
-                    // handle={
-                    //   // <ReactCompareSliderHandle
-                    //   //   buttonStyle={{
-                    //   //     backdropFilter: undefined,
-                    //   //     background: "green",
-                    //   //     border: 1,
-                    //   //     height: "0",
-
-                    //   //     color: "yellow",
-                    //   //   }}
-                    //   //   linesStyle={{
-                    //   //     background: "green",
-                    //   //   }}
-                    //   // />
-                    //   <div
-                    //     style={{
-                    //       display: "grid",
-                    //       height: "100%",
-                    //       placeContent: "center",
-                    //     }}
-                    //   >
-                    //     <button
-                    //       style={{
-                    //         all: "unset",
-                    //         borderRadius: "50%",
-                    //         fontSize: 50,
-                    //       }}
-                    //     >
-                    //       💥
-                    //     </button>
-                    //   </div>
-                    // }
                     itemOne={
                       <>
                         <video
@@ -343,9 +297,6 @@ function App() {
                             console.log(" video ,i am waiting");
                           }}
                           onStalled={(e) => console.log("hello", e)}
-                          // onCanPlayThrough={(e) => console.log("helllo", e)}
-                          // autoPlay={readyState1}
-                          // muted="muted"
                         >
                           <source
                             src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"

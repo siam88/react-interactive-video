@@ -103,22 +103,13 @@
 .initial_Play_btn {
   position: absolute;
   left: 45%;
-  bottom: 5rem;
+  bottom: 40%;
 
   cursor: pointer;
 }
-.loader {
-  position: absolute;
-  /* left: 45%; */
-  /* bottom: 10rem; */
-  background-color: rgba(0, 0, 0, 0.9);
-  height: 100%;
-  width: 100%;
-  top: 0;
-  cursor: pointer;
-}
+
 .initial_Play_btn img {
-  width: 100px;
+  width: 120px;
 }
 .modal-90w {
   max-width: 60%;
@@ -193,16 +184,32 @@ button:hover {
 .social_icons ul li:nth-of-type(2) a::after {
   background: #55acee;
 } */
+.divider {
+  display: grid;
+  height: 100%;
+  width: 6px;
+  background-color: white;
+  place-content: center;
+}
+.ball {
+  border-radius: 50%;
+  height: 60px;
+  border: 2px solid white;
+  /* all: unset; */
+}
 @media screen and (max-width: 400px) {
   .initial_Play_btn {
     position: absolute;
     left: 45%;
-    bottom: 2rem;
+    bottom: 40%;
 
     cursor: pointer;
   }
   .initial_Play_btn img {
-    width: 35px;
+    width: 50px;
+  }
+  .ball {
+    height: 38px;
   }
 }
 
@@ -213,12 +220,12 @@ button:hover {
   .initial_Play_btn {
     position: absolute;
     left: 45%;
-    bottom: 2rem;
+    bottom: 40%;
 
     cursor: pointer;
   }
   .initial_Play_btn img {
-    width: 35px;
+    width: 50px;
   }
   .modal-90w {
     max-width: 100% !important;
@@ -240,43 +247,10 @@ button:hover {
   .social_icons ul li a {
     font-size: 10px;
   }
+  .ball {
+    height: 40px;
+  }
 }
 video {
   pointer-events: none;
-}
-
-/******** Loader *******/
-.Loader {
-  margin-left: 38vw;
-  margin-top: 40vh;
-  margin-bottom: 20vh;
-}
-.progress-9 {
-  --r1: 154%;
-  --r2: 68.5%;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: radial-gradient(
-      var(--r1) var(--r2) at top,
-      #0000 79.5%,
-      #df0000 80%
-    ),
-    radial-gradient(var(--r1) var(--r2) at bottom, #df0000 79.5%, #0000 80%),
-    radial-gradient(var(--r1) var(--r2) at top, #0000 79.5%, #df0000 80%), #ccc;
-  background-size: 50.5% 220%;
-  background-position: -100% 0%, 0% 0%, 100% 0%;
-  background-repeat: no-repeat;
-  animation: p9 2s infinite linear;
-}
-@keyframes p9 {
-  33% {
-    background-position: 0% 33%, 100% 33%, 200% 33%;
-  }
-  66% {
-    background-position: -100% 66%, 0% 66%, 100% 66%;
-  }
-  100% {
-    background-position: 0% 100%, 100% 100%, 200% 100%;
-  }
 }
