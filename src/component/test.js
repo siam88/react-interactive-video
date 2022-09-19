@@ -3,20 +3,24 @@ import {
   ReactCompareSlider,
   ReactCompareSliderHandle,
 } from "react-compare-slider";
-import { useState, useEffect, useRef } from "react";
-import { BiPlay, BiPause, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
-import { FaFacebookF, FaTwitter } from "react-icons/fa";
-// import instructionMsgImg from "../assets/Capture.PNG";
-import instructionMsgImg from "../assets/images/intro_page.gif";
-import playIcon from "../assets/icons/play.png";
+import { useState, useEffect } from "react";
 import Loader from "../components/loader";
 import IntroPage from "../pages/IntroPage";
 import ballImage from "../assets/images/ball.png";
+import CustomModal from "./../components/modals/index";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import HotSpots from "../components/hotSpot";
+import ControlPanel from "../components/controlPanel";
+import { findCurrentTimeToShow } from "./../helpers/helpers";
 const TIMETOSHOW = 3;
+const TIMETOHIDE = 6;
 function App() {
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
   const [videoNode2, setVideoNode2] = useState();
+  const [hotSpotingItem, setHotSpotingItem] = useState();
   const [videoProgress, setVideoProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
@@ -30,7 +34,7 @@ function App() {
     muted: true,
   });
   //setting up the video to the state
-  const progressRef = useRef();
+
   useEffect(() => {
     const video = document.getElementById("video_one");
     const video2 = document.getElementById("video_two");
@@ -128,8 +132,18 @@ function App() {
     const percent = (videoNode.currentTime / videoNode.duration) * 100;
 
     setVideoProgress(percent);
-    if (Math.floor(videoNode.currentTime) >= TIMETOSHOW) {
+    let selectedNode = findCurrentTimeToShow(Math.floor(videoNode.currentTime));
+
+    if (selectedNode) {
+      // if (Math.floor(videoNode.currentTime) >= selectedNode.timeToShow) {
+
+      // }
       setShowInfo(true);
+      setHotSpotingItem(selectedNode);
+      if (Math.floor(videoNode.currentTime) >= selectedNode.timeToHide) {
+        setShowInfo(false);
+        setHotSpotingItem(null);
+      }
     }
   };
 
@@ -185,77 +199,18 @@ function App() {
   // }
   return (
     <div className="App">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12 mt-4 mb-4">
-            <div className="video_wrapper mt-5">
-              <div
-                className="modal_one"
-                style={{
-                  zIndex: showModal ? 10000 : 0,
-                  opacity: showModal ? 1 : 0,
-                }}
-              >
-                <div className="close_btn">
-                  <button onClick={onCloseHandler}>
-                    Back To
-                    <br /> Video
-                  </button>
-                </div>
+      <Container>
+        <Row className="justify-content-md-center">
+          <Col xl={10} className="mt-4 mb-4">
+            <div className="video_wrapper ">
+              <CustomModal
+                showModal={showModal}
+                onCloseHandler={onCloseHandler}
+              />
 
-                <div className="social_icons">
-                  <ul>
-                    <li>
-                      <a
-                        href={`https://www.facebook.com/sharer.php?u=${window.location.href}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <FaFacebookF />
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <FaTwitter />
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
               {loading && <Loader />}
 
-              {/* <div
-                className="instruction_wrapper"
-                style={
-                  appState.hideInstructions
-                    ? { opacity: 0, zIndex: 0 }
-                    : { opacity: 1, zIndex: 1 }
-                }
-              > */}
               <IntroPage initialPlayer={initialPlayer} appState={appState} />
-              {/* <img
-                  style={{ width: "100%" }}
-                  src={instructionMsgImg}
-                  alt="instruction massage for Interactive video"
-                />
-
-                <div className="initial_Play_btn" style={{ opacity: 1 }}>
-                  <img
-                    src={playIcon}
-                    alt="i am tamim"
-                    onClick={initialPlayer}
-                  />
-                </div> */}
-              {/* </div> */}
-              {/* {loading && (
-                <div className="loader" style={{ opacity: 1 }}>
-                  <Loader />
-                </div>
-              )} */}
 
               <ReactCompareSlider
                 onlyHandleDraggable={true}
@@ -329,78 +284,33 @@ function App() {
                 }
               />
 
-              <div
-                className="img_btn"
-                style={{ opacity: showInfo === true ? 1 : 0 }}
-                onClick={openModal}
-              >
-                <img src="/image/tamim.png" alt="i am tamim" />
-              </div>
-            </div>
-            <>
-              {!showModal && appState.hideInstructions && !loading && (
-                <div className="control_panel">
-                  <div
-                    className="progress"
-                    onClick={progressHandler}
-                    ref={progressRef}
-                  >
-                    <div
-                      className="progress__filled"
-                      style={{ flexBasis: `${videoProgress}%` }}
-                    ></div>
-                  </div>
-                  <div className="play_icon">
-                    {playable && playable2 && playing ? (
-                      <BiPause
-                        onClick={playHandler}
-                        style={{ color: "white" }}
-                      />
-                    ) : (
-                      <>
-                        <BiPlay
-                          onClick={playHandler}
-                          style={{ color: "white" }}
-                        />
-                      </>
-                    )}
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      {appState.muted ? (
-                        <BiVolumeMute
-                          style={{ color: "white" }}
-                          onClick={() => {
-                            setAppState({ ...appState, muted: false });
-                            setVolume(1);
-                          }}
-                        />
-                      ) : (
-                        <BiVolumeLow
-                          style={{ color: "white" }}
-                          onClick={() => {
-                            setAppState({ ...appState, muted: true });
-                            setVolume(0);
-                          }}
-                        />
-                      )}
-
-                      <input
-                        type="range"
-                        className="slider"
-                        id="custom_range"
-                        min="0"
-                        max="1"
-                        step="0.05"
-                        value={volume}
-                        onChange={volumeHandler}
-                      ></input>
-                    </div>
-                  </div>
-                </div>
+              {showInfo && (
+                <HotSpots
+                  showInfo={showInfo}
+                  openModal={openModal}
+                  hotSpotingItem={hotSpotingItem}
+                />
               )}
-            </>
-          </div>
-        </div>
-      </div>
+            </div>
+
+            {!showModal && appState.hideInstructions && !loading && (
+              <ControlPanel
+                progressHandler={progressHandler}
+                videoProgress={videoProgress}
+                playable={playable}
+                playable2={playable2}
+                playing={playing}
+                playHandler={playHandler}
+                appState={appState}
+                setAppState={setAppState}
+                volume={volume}
+                setVolume={setVolume}
+                volumeHandler={volumeHandler}
+              />
+            )}
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }

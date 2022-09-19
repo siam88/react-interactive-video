@@ -5,3 +5,4 @@ export const CheckIOS = () => {
         return true
     }
 }
+
