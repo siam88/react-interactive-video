@@ -14,13 +14,13 @@ import Container from "react-bootstrap/Container";
 import HotSpots from "../components/hotSpot";
 import ControlPanel from "../components/controlPanel";
 import { findCurrentTimeToShow } from "./../helpers/helpers";
-const TIMETOSHOW = 3;
-const TIMETOHIDE = 6;
+import VideoPlayer from "../components/videoPLayer";
+
 function App() {
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
   const [videoNode2, setVideoNode2] = useState();
-  const [hotSpotingItem, setHotSpotingItem] = useState();
+  const [hotSpottingItem, setHotSpottingItem] = useState();
   const [videoProgress, setVideoProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
@@ -139,10 +139,10 @@ function App() {
 
       // }
       setShowInfo(true);
-      setHotSpotingItem(selectedNode);
+      setHotSpottingItem(selectedNode);
       if (Math.floor(videoNode.currentTime) >= selectedNode.timeToHide) {
         setShowInfo(false);
-        setHotSpotingItem(null);
+        setHotSpottingItem(null);
       }
     }
   };
@@ -212,83 +212,18 @@ function App() {
 
               <IntroPage initialPlayer={initialPlayer} appState={appState} />
 
-              <ReactCompareSlider
-                onlyHandleDraggable={true}
-                handle={
-                  <>
-                    {/* <ReactCompareSliderHandle
-                      buttonStyle={{
-                        backdropFilter: undefined,
-                        background: "green",
-                        border: 1,
-                        height: "0",
-
-                        color: "yellow",
-                      }}
-                      linesStyle={{
-                        background: "green",
-                      }}
-                    /> */}
-                    <div className="divider">
-                      <img src={ballImage} alt="" className="ball" />
-                    </div>
-                  </>
-                }
-                itemOne={
-                  <>
-                    <video
-                      playsInline
-                      autoPlay={isAutoPlay}
-                      muted={appState.muted}
-                      width={"100%"}
-                      id="video_one"
-                      onTimeUpdate={timeUpdateHandler}
-                      onEnded={() => setPlaying(false)}
-                      preload="auto"
-                      onwaiting={() => {
-                        console.log(" video ,i am waiting");
-                      }}
-                      onStalled={(e) => console.log("hello", e)}
-                      // onCanPlayThrough={(e) => console.log("helllo", e)}
-                      // autoPlay={readyState1}
-                      // muted="muted"
-                    >
-                      <source
-                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_32.mp4"
-                        type="video/mp4"
-                      />
-                    </video>
-                  </>
-                }
-                itemTwo={
-                  <>
-                    <video
-                      autoPlay={isAutoPlay}
-                      muted={appState.muted}
-                      playsInline
-                      width={"100%"}
-                      id="video_two"
-                      preload="auto"
-                      // autoPlay={readyState2}
-                      // muted="muted"
-                      onwaiting={() => {
-                        console.log(" video 2,i am waiting");
-                      }}
-                    >
-                      <source
-                        src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
-                        type="video/mp4"
-                      />
-                    </video>{" "}
-                  </>
-                }
+              <VideoPlayer
+                isAutoPlay={isAutoPlay}
+                appState={appState}
+                timeUpdateHandler={timeUpdateHandler}
+                setPlaying={setPlaying}
               />
 
               {showInfo && (
                 <HotSpots
                   showInfo={showInfo}
                   openModal={openModal}
-                  hotSpotingItem={hotSpotingItem}
+                  hotSpottingItem={hotSpottingItem}
                 />
               )}
             </div>

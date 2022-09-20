@@ -1,11 +1,12 @@
 .img_btn {
   position: absolute;
   right: 10px;
-  bottom: 26px;
+  bottom: 20%;
   cursor: pointer;
 }
 .img_btn img {
-  width: 170px;
+  width: 250px;
+  /* height: 50%; */
 }
 @media screen and (max-width: 500px) {
   .img_btn img {
