@@ -5,58 +5,71 @@ import HotSpot4 from '../components/hotSpot/hotSpot4'
 import HotSpot5 from '../components/hotSpot/hotSpot5'
 import HotSpot6 from '../components/hotSpot/hotSpot6'
 import HotSpot7 from '../components/hotSpot/hotSpot7'
-import Modal1 from '../components/modals'
-
+import Modal1 from '../components/modals/modal1'
+import Modal2 from '../components/modals/modal2'
+import Modal3 from '../components/modals/modal3'
+import Modal4 from '../components/modals/modal4'
+import Modal5 from '../components/modals/modal5'
+import Modal6 from '../components/modals/modal6'
+import Modal7 from '../components/modals/modal7'
+import ModalBackground1 from '../assets/images/modalBackground1.jpeg'
 
 export let eventSchedules = [
     {
         id: 1,
         timeToShow: 2,
         timeToHide: 5,
+        modalBackground: ModalBackground1,
         modalComponent: <Modal1 />,
-        HotSpotComponent: <HotSpot1 />
+        hotSpotComponent: <HotSpot1 />
     },
     {
         id: 2,
         timeToShow: 6,
         timeToHide: 10,
-        modalComponent: <Modal1 />,
-        HotSpotComponent: <HotSpot2 />
+        modalBackground: ModalBackground1,
+        modalComponent: <Modal2 />,
+        hotSpotComponent: <HotSpot2 />
     },
     {
         id: 3,
         timeToShow: 12,
         timeToHide: 15,
-        modalComponent: <Modal1 />,
-        HotSpotComponent: <HotSpot3 />
+        modalBackground: ModalBackground1,
+        modalComponent: <Modal3 />,
+        hotSpotComponent: <HotSpot3 />
     },
     {
         id: 4,
         timeToShow: 18,
         timeToHide: 22,
-        modalComponent: <Modal1 />,
-        HotSpotComponent: <HotSpot4 />
+        modalBackground: ModalBackground1,
+        modalComponent: <Modal4 />,
+        hotSpotComponent: <HotSpot4 />
     },
     {
         id: 5,
         timeToShow: 24,
         timeToHide: 27,
-        modalComponent: <Modal1 />,
-        HotSpotComponent: <HotSpot5 />
+        modalBackground: ModalBackground1,
+        modalComponent: <Modal5 />,
+        hotSpotComponent: <HotSpot5 />
     },
     {
         id: 6,
         timeToShow: 28,
         timeToHide: 30,
-        modalComponent: <Modal1 />,
-        HotSpotComponent: <HotSpot6 />
+        modalBackground: ModalBackground1,
+        modalComponent: <Modal6 />,
+        hotSpotComponent: <HotSpot6 />
     },
     {
         id: 7,
         timeToShow: 31,
         timeToHide: 33,
-        modalComponent: <Modal1 />,
-        HotSpotComponent: <HotSpot7 />
+        modalBackground: ModalBackground1,
+        modalComponent: <Modal7 />,
+        hotSpotComponent: <HotSpot7 />
     },
 
 ]

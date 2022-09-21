@@ -1,12 +1,7 @@
 import "../App.css";
-import {
-  ReactCompareSlider,
-  ReactCompareSliderHandle,
-} from "react-compare-slider";
 import { useState, useEffect } from "react";
 import Loader from "../components/loader";
 import IntroPage from "../pages/IntroPage";
-import ballImage from "../assets/images/ball.png";
 import CustomModal from "./../components/modals/index";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -20,7 +15,7 @@ function App() {
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
   const [videoNode2, setVideoNode2] = useState();
-  const [hotSpottingItem, setHotSpottingItem] = useState();
+  const [interactiveItem, setInteractiveItem] = useState();
   const [videoProgress, setVideoProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
@@ -139,10 +134,10 @@ function App() {
 
       // }
       setShowInfo(true);
-      setHotSpottingItem(selectedNode);
+      setInteractiveItem(selectedNode);
       if (Math.floor(videoNode.currentTime) >= selectedNode.timeToHide) {
         setShowInfo(false);
-        setHotSpottingItem(null);
+        setInteractiveItem(null);
       }
     }
   };
@@ -203,10 +198,13 @@ function App() {
         <Row className="justify-content-md-center">
           <Col xl={10} className="mt-4 mb-4">
             <div className="video_wrapper ">
-              <CustomModal
-                showModal={showModal}
-                onCloseHandler={onCloseHandler}
-              />
+              {showModal && interactiveItem && (
+                <CustomModal
+                  showModal={showModal}
+                  onCloseHandler={onCloseHandler}
+                  interactiveItem={interactiveItem}
+                />
+              )}
 
               {loading && <Loader />}
 
@@ -219,11 +217,11 @@ function App() {
                 setPlaying={setPlaying}
               />
 
-              {showInfo && (
+              {showInfo && interactiveItem && (
                 <HotSpots
                   showInfo={showInfo}
                   openModal={openModal}
-                  hotSpottingItem={hotSpottingItem}
+                  interactiveItem={interactiveItem}
                 />
               )}
             </div>

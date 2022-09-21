@@ -9,13 +9,8 @@ const HotSpots = (props) => {
             onClick={props.openModal}
         >
 
-            {/* <div
-                className={styles.img_btn}
 
-            >
-                <img src="/image/tamim.png" alt="i am tamim" />
-            </div> */}
-            {props.hotSpottingItem.HotSpotComponent}
+            {props.interactiveItem.hotSpotComponent}
         </div>
     )
 }
