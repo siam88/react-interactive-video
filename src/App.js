@@ -1,13 +1,11 @@
 import Test from "./component/test";
-import Layout from "./layout";
+import HomeLayout from "./layout";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
-      {/* <Global /> */}
-
-      <Test />
-      <Layout />
-      {/* <Local /> */}
+      <ToastContainer />
+      <HomeLayout />
     </>
   );
 }

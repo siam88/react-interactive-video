@@ -6,3 +6,13 @@ export const CheckIOS = () => {
     }
 }
 
+export const ErrorMsgFormatter = (obj) => {
+
+    let errorMsg = "";
+
+    Object.values(obj).map((value, index) => {
+        errorMsg = `${errorMsg} ${value[0]}`
+    })
+
+    return errorMsg
+}
