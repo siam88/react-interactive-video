@@ -17,11 +17,11 @@
 .quizBox p {
   font-size: small;
 }
-.quizBox h4 {
+/* .quizBox h4 {
   text-align: center;
   font-weight: 700;
   color: #c70a18;
-}
+} */
 .quiz {
   /* background-color: #1d0ac7; */
 
@@ -59,4 +59,35 @@
 }
 .active {
   background: #9b969a;
+}
+@media screen and (max-width: 500px) {
+  .content {
+    width: 170px;
+    margin-right: 4%;
+    /* background-color: rgba(255, 255, 255, 0.897); */
+  }
+  .quizBox p {
+    font-size: x-small;
+    text-align: center;
+  }
+  .question {
+    text-align: center;
+    font-size: xx-small;
+  }
+  .quizBox img {
+    /* height: 100%; */
+    width: 50%;
+  }
+  .answer {
+    width: 40%;
+    font-size: xx-small;
+    text-align: center;
+    background: #d8cfd7;
+    border: 1px solid white;
+
+    font-weight: bold;
+    /* margin: 0 2px 5px 5px; */
+    /* padding: 3px 1px 3px 1px; */
+    cursor: pointer;
+  }
 }
