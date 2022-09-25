@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import styles from "./index.module.css";
-import { LoginContext } from "../../../contexts/questionContext";
+import { QuizContext } from "../../../contexts/quizContext";
 const Modal4 = () => {
-  const { questions } = useContext(LoginContext);
+  const { questions } = useContext(QuizContext);
 
   return (
     <div className={styles.quizBox}>

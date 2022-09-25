@@ -10,8 +10,7 @@ import HotSpots from "../components/hotSpot";
 import ControlPanel from "../components/controlPanel";
 import { findCurrentTimeToShow } from "./../helpers/helpers";
 import VideoPlayer from "../components/videoPLayer";
-import { LoginContext } from '../contexts/questionContext';
-
+import { QuizContext } from '../contexts/quizContext';
 
 const VideoPage = () => {
     const [playing, setPlaying] = useState(false);
@@ -31,6 +30,54 @@ const VideoPage = () => {
         hideInstructions: false,
         muted: true,
     });
+    const [quizAns, setQuizAns] = useState({
+        refId: "",
+        questions: [
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            }
+        ]
+
+    })
     //setting up the video to the state
 
     useEffect(() => {
@@ -209,9 +256,10 @@ const VideoPage = () => {
     };
 
     return (
-        <LoginContext.Provider value={{ questions, setQuestions }}>
+        <QuizContext.Provider value={{ questions, setQuestions, quizAns, setQuizAns }}>
             <div className="App" style={{ backgroundColor: "#28282b", height: "100vh" }}>
                 <Container>
+
                     <Row className="justify-content-md-center">
                         <Col xl={10} className="mt-4 mb-4">
                             <div className="video_wrapper ">
@@ -268,7 +316,7 @@ const VideoPage = () => {
                     </Row>
                 </Container>
             </div>
-        </LoginContext.Provider>
+        </QuizContext.Provider>
     );
 }
 

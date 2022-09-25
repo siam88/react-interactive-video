@@ -56,7 +56,7 @@ const LoginPage = (props) => {
         ).then((res) => {
             console.log({ res })
             if (res.data.statusCode === "400200") {
-                Cookies.set(process.env.REACT_APP_SECRET_KEY, res.data.data.token, {
+                Cookies.set(process.env.REACT_APP_GET_SECRET_TOKEN, res.data.data.token, {
                     expires: res.data.data.expires_in / 86400,
                 });
 

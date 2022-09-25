@@ -10,6 +10,7 @@ const Layout = () => {
     const [auth, setAuth] = useState(false)
     const [loading, setLoading] = useState(false)
 
+
     const onSubmitResult = () => {
         console.log("i am submitted")
 

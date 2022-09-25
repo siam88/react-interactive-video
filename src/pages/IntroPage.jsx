@@ -6,15 +6,15 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { ErrorMsgFormatter } from '../utils';
 import Loader from './../components/loader/index';
-import { LoginContext } from '../contexts/questionContext';
+import { QuizContext } from '../contexts/quizContext';
 
 const IntroPage = (props) => {
 
     const [loading, setLoading] = useState(false)
-    const { setQuestions } = useContext(LoginContext)
+    const { setQuestions, setQuizAns, quizAns } = useContext(QuizContext)
     const onPlayVideo = async () => {
         setLoading(true)
-        const token = Cookies.get(process.env.REACT_APP_SECRET_KEY);
+        const token = Cookies.get(process.env.REACT_APP_GET_SECRET_TOKEN);
         const headers = {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -23,11 +23,14 @@ const IntroPage = (props) => {
         ).then((res) => {
             if (res.data.statusCode === "400200") {
                 setQuestions(res.data.data.questions)
+                setQuizAns({ ...quizAns, refId: res.data.data.refId });
                 setLoading(false)
                 props.initialPlayer()
                 console.log(res.data.data.questions)
                 // toast.success("Video is playing")
-
+                Cookies.set(process.env.REACT_APP_POST_SECRET_TOKEN, res.data.data.token, {
+                    expires: 864000,
+                });
             } else {
                 toast.error(
                     "Something went wrong"
