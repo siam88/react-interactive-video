@@ -13,15 +13,17 @@ const Modal = (props) => {
 
     const ResumeVideo = async () => {
         if (props.interactiveItem.id === 6) {
+            console.log("Type two===>", 1 + 1)
 
 
             // const jsonString = JSON.stringify(Object.assign({}, quizAns.questions))
-
+            // console.log("Type one===>", JSON.stringify(Object.assign({}, quizAns.questions)))
+            console.log("Type two===>", JSON.stringify(quizAns.questions) + quizAns.refId + process.env.REACT_APP_TOP_SECRET_KEY)
             let result = {
                 refId: quizAns.refId,
                 answers: quizAns.questions,
                 token: Cookies.get(process.env.REACT_APP_POST_SECRET_TOKEN),
-                secret: md5(JSON.stringify(Object.assign({}, quizAns.questions)) + quizAns.refId + process.env.REACT_APP_TOP_SECRET_KEY)
+                secret: md5(JSON.stringify(quizAns.questions) + quizAns.refId + process.env.REACT_APP_TOP_SECRET_KEY)
             }
             const headers = {
                 "Content-Type": "application/json",
@@ -29,10 +31,10 @@ const Modal = (props) => {
             };
             await axios.post(`${process.env.REACT_APP_SECRET_URL}/quiz/submit`, result, { headers: headers }
             ).then((res) => {
+                toast.success(res.data.message)
                 console.log({ res })
-
             }).catch((err) => {
-                console.log({ err })
+
                 toast.error(
                     "Something went wrong"
                 )
