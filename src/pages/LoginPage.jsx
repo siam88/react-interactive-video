@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
@@ -9,11 +9,10 @@ import Form from 'react-bootstrap/Form';
 
 const LoginPage = (props) => {
 
-    const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
+    const [name, setName] = useState("siam");
+    const [phone, setPhone] = useState("01884454811");
     const [nameError, setNameError] = useState("");
     const [phoneError, setPhoneError] = useState("");
-    const [formValid, setFormValid] = useState(false)
 
 
     const onChangeName = (e) => {
@@ -57,13 +56,13 @@ const LoginPage = (props) => {
         ).then((res) => {
             console.log({ res })
             if (res.data.statusCode === "400200") {
-                Cookies.set(process.env.REACT_APP_SECRET_URL, res.data.data.token, {
+                Cookies.set(process.env.REACT_APP_GET_SECRET_TOKEN, res.data.data.token, {
                     expires: res.data.data.expires_in / 86400,
                 });
 
                 props.setAuth(true)
                 props.setLoading(false)
-                toast.success(res.data.message)
+                // toast.success(res.data.message)
 
             } else {
                 toast.error(
@@ -73,8 +72,6 @@ const LoginPage = (props) => {
                 props.setLoading(false)
             }
         }).catch((err) => {
-
-
             props.setLoading(false)
             toast.error(
                 err.response.data.message
@@ -103,7 +100,7 @@ const LoginPage = (props) => {
                         onChange={e => onChangeName(e)}
                         value={name}
                     />
-                    <Form.Text className="text-muted">
+                    <Form.Text style={{ color: "red" }} >
                         {nameError}
                     </Form.Text>
                 </Form.Group>
@@ -118,7 +115,7 @@ const LoginPage = (props) => {
                         onChange={e => onChangeNumber(e)}
                         value={phone}
                     />
-                    <Form.Text className="text-muted">
+                    <Form.Text style={{ color: "red" }}>
                         {phoneError}
                     </Form.Text>
                     {phoneError.length === 0 && <Form.Text className="text-muted">
@@ -138,29 +135,3 @@ const LoginPage = (props) => {
 export default LoginPage
 
 
-{/*<div
-            className="login"
-
-        > <div >
-                <p style={{ fontSize: "2rem", color: "white" }}>Login</p>
-
-                <input
-                    name="name"
-                    type="contact"
-                    placeholder="name"
-                    ref={nameInputRef}
-                />
-                <br />
-                <br />
-                <input
-                    type="contact"
-                    name="phone"
-
-                    placeholder="০১*********"
-                    ref={numberInputRef}
-                />
-                <br />
-                <br />
-                <button onClick={() => onHandleLogin()}>Login</button>
-
-            </div></div> */}

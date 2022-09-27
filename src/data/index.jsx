@@ -16,7 +16,7 @@ import ModalBackground1 from '../assets/images/modalBackground1.jpeg'
 
 export let eventSchedules = [
     {
-        id: 1,
+        id: 0,
         timeToShow: 2,
         timeToHide: 5,
         modalBackground: ModalBackground1,
@@ -24,7 +24,7 @@ export let eventSchedules = [
         hotSpotComponent: <HotSpot1 />
     },
     {
-        id: 2,
+        id: 1,
         timeToShow: 6,
         timeToHide: 10,
         modalBackground: ModalBackground1,
@@ -32,7 +32,7 @@ export let eventSchedules = [
         hotSpotComponent: <HotSpot2 />
     },
     {
-        id: 3,
+        id: 2,
         timeToShow: 12,
         timeToHide: 15,
         modalBackground: ModalBackground1,
@@ -40,7 +40,7 @@ export let eventSchedules = [
         hotSpotComponent: <HotSpot3 />
     },
     {
-        id: 4,
+        id: 3,
         timeToShow: 18,
         timeToHide: 22,
         modalBackground: ModalBackground1,
@@ -48,7 +48,7 @@ export let eventSchedules = [
         hotSpotComponent: <HotSpot4 />
     },
     {
-        id: 5,
+        id: 4,
         timeToShow: 24,
         timeToHide: 27,
         modalBackground: ModalBackground1,
@@ -56,7 +56,7 @@ export let eventSchedules = [
         hotSpotComponent: <HotSpot5 />
     },
     {
-        id: 6,
+        id: 5,
         timeToShow: 28,
         timeToHide: 30,
         modalBackground: ModalBackground1,
@@ -64,7 +64,7 @@ export let eventSchedules = [
         hotSpotComponent: <HotSpot6 />
     },
     {
-        id: 7,
+        id: 6,
         timeToShow: 31,
         timeToHide: 33,
         modalBackground: ModalBackground1,

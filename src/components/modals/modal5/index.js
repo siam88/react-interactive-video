@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./index.module.css";
+import { QuizContext } from "../../../contexts/quizContext";
+
 const Modal5 = () => {
+  const { questions } = useContext(QuizContext);
+
   return (
     <div className={styles.quizBox}>
       <div className={styles.content}>
@@ -8,22 +12,21 @@ const Modal5 = () => {
           src={require(`../../../assets/images/marineDrive.png`)}
           alt="Modal1 background "
         />
-        <p>
-          কক্সবাজার-টেকনাফ মেরিন ড্রাইভ হল বঙ্গোপসাগর বরাবর কক্সবাজার থেকে
-          টেকনাফ পর্যন্ত 80 কিলোমিটার দীর্ঘ রাস্তা এবং এটি বিশ্বের দীর্ঘতম মেরিন
-          ড্রাইভ। এটি 6 মে 2017 তারিখে প্রধানমন্ত্রী শেখ হাসিনা উদ্বোধন করেন
-        </p>
+        <p>{questions[4]?.topic?.question[0]?.remarks}</p>
 
         <div className={styles.quiz}>
           <div className={styles.question}>
-            মেরিন ড্রাইভের দূরত্ব মেরিন ড্রাইভের দূরত্ব মেরিন ড্রাইভের দূরত্ব
-            কত?
+            {" "}
+            {questions[4]?.topic?.question[0]?.title}?
           </div>
           <div className={styles.answers}>
-            <div className={`${styles.answer} ${styles.active}`}>70km</div>
-            <div className={styles.answer}>20km</div>
-            <div className={styles.answer}>90km</div>
-            <div className={styles.answer}>80km</div>
+            {/* <div className={`${styles.answer} ${styles.active}`}>
+              ব -দ্বীপের আবাসস্থল{" "}
+            </div> */}
+
+            {questions[4]?.topic?.question[0]?.options?.map((e, i) => (
+              <div className={styles.answer}>{e.option} </div>
+            ))}
           </div>
         </div>
       </div>

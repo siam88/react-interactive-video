@@ -1,7 +1,7 @@
 .img_btn {
   position: absolute;
-  right: 100px;
-  bottom: 226px;
+  right: 10%;
+  top: 15%;
   cursor: pointer;
 }
 .img_btn img {

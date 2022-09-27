@@ -10,6 +10,7 @@ import HotSpots from "../components/hotSpot";
 import ControlPanel from "../components/controlPanel";
 import { findCurrentTimeToShow } from "./../helpers/helpers";
 import VideoPlayer from "../components/videoPLayer";
+import { QuizContext } from '../contexts/quizContext';
 
 const VideoPage = () => {
     const [playing, setPlaying] = useState(false);
@@ -24,10 +25,59 @@ const VideoPage = () => {
     const [playable2, setPlayable2] = useState(false);
     const [isAutoPlay, setIsAutoPlay] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [questions, setQuestions] = useState();
     const [appState, setAppState] = useState({
         hideInstructions: false,
         muted: true,
     });
+    const [quizAns, setQuizAns] = useState({
+        refId: "",
+        questions: [
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            },
+            {
+                topicId: "",
+                questionId: "",
+                startTime: "",
+                optionId: ""
+            }
+        ]
+
+    })
     //setting up the video to the state
 
     useEffect(() => {
@@ -50,38 +100,32 @@ const VideoPage = () => {
                 }
             });
             if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                setIsAutoPlay(true);
+                // setIsAutoPlay(true);
                 setPlayable2(true);
+
                 setAppState({ ...appState, muted: true });
             }
             console.log({ videoNode });
             videoNode2.addEventListener("loadeddata", (...args) => {
                 if (videoNode2.readyState >= 2) {
                     setPlayable2(true);
+
                 }
             });
         }
     }, [videoNode, videoNode2, playable, playable2]);
 
-    const initialPlayer = () => {
-        console.log("hello");
-        setLoading(true);
-        setAppState({ ...appState, hideInstructions: true });
 
-        setTimeout(() => {
-            playHandler();
-            setLoading(false);
-        }, 3000);
-    };
     useEffect(() => {
         if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-            if (videoNode && videoNode2) {
+            if (videoNode || videoNode2) {
                 // videoNode.currentTime = 0;
                 // videoNode2.currentTime = 0;
-                progressHandler();
+                initialIOSProgress();
+
             }
         }
-    }, []);
+    }, [isAutoPlay]);
 
     //check play event
     useEffect(() => {
@@ -123,6 +167,7 @@ const VideoPage = () => {
         });
     }, [volume]);
 
+
     const timeUpdateHandler = (e) => {
         const percent = (videoNode.currentTime / videoNode.duration) * 100;
 
@@ -141,7 +186,6 @@ const VideoPage = () => {
             }
         }
     };
-
     const playHandler = () => {
         setAppState({ ...appState, hideInstructions: true });
         const videos = document.querySelectorAll("video");
@@ -156,23 +200,36 @@ const VideoPage = () => {
         });
         if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
             setIsAutoPlay((prevState) => !prevState);
+            // alert("hello")
         }
     };
+    const progressHandler = (e = 20) => {
 
-    const progressHandler = (e = 5) => {
         const progress = document.querySelector(".progress");
         const videoTwo = document.getElementById("video_two");
-        console.log("progress==>", e.nativeEvent.offsetX);
+        // console.log("progress==>", e.nativeEvent.offsetX);
+
+
         const scrubTime =
             (e.nativeEvent.offsetX / progress.offsetWidth) * videoNode.duration;
         videoNode.currentTime = scrubTime;
         videoTwo.currentTime = scrubTime;
     };
+    const initialIOSProgress = () => {
 
+        const progress = document.querySelector(".progress");
+        const videoTwo = document.getElementById("video_two");
+        // console.log("progress==>", e.nativeEvent.offsetX);
+
+
+        const scrubTime =
+            (10 / progress.offsetWidth) * videoNode.duration;
+        videoNode.currentTime = scrubTime;
+        videoTwo.currentTime = scrubTime;
+    };
     const volumeHandler = (e) => {
         setVolume(e.target.value);
     };
-
     const openModal = () => {
         setShowModal(true);
         const videos = document.querySelectorAll("video");
@@ -189,62 +246,77 @@ const VideoPage = () => {
             setPlaying(true);
         });
     };
-    // if (loader) {
-    //   return <div style={{ background: "white" }}>Loading......</div>;
-    // }
+    const initialPlayer = () => {
+        setLoading(true);
+        setAppState({ ...appState, hideInstructions: true });
+        setTimeout(() => {
+            playHandler();
+            setLoading(false);
+        }, 2000);
+    };
+
     return (
-        <div className="App" style={{ backgroundColor: "#28282b", height: "100vh" }}>
-            <Container>
-                <Row className="justify-content-md-center">
-                    <Col xl={10} className="mt-4 mb-4">
-                        <div className="video_wrapper ">
-                            {showModal && interactiveItem && (
-                                <CustomModal
-                                    showModal={showModal}
-                                    onCloseHandler={onCloseHandler}
-                                    interactiveItem={interactiveItem}
+        <QuizContext.Provider value={{ questions, setQuestions, quizAns, setQuizAns }}>
+            <div className="App" style={{ backgroundColor: "#28282b", height: "100vh" }}>
+                <Container>
+
+                    <Row className="justify-content-md-center">
+                        <Col xl={10} className="mt-4 mb-4">
+                            <div className="video_wrapper ">
+
+                                {showModal && interactiveItem && (
+                                    <CustomModal
+                                        showModal={showModal}
+                                        onCloseHandler={onCloseHandler}
+                                        interactiveItem={interactiveItem}
+                                    />
+                                )}
+
+                                {loading && <Loader />}
+
+                                <IntroPage
+                                    initialPlayer={initialPlayer}
+                                    appState={appState}
+
+                                    questions={questions}
+                                />
+
+                                <VideoPlayer
+                                    isAutoPlay={isAutoPlay}
+                                    appState={appState}
+                                    timeUpdateHandler={timeUpdateHandler}
+                                    setPlaying={setPlaying}
+                                />
+
+                                {showInfo && interactiveItem && (
+                                    <HotSpots
+                                        showInfo={showInfo}
+                                        openModal={openModal}
+                                        interactiveItem={interactiveItem}
+                                    />
+                                )}
+                            </div>
+
+                            {!showModal && appState.hideInstructions && !loading && (
+                                <ControlPanel
+                                    progressHandler={progressHandler}
+                                    videoProgress={videoProgress}
+                                    playable={playable}
+                                    playable2={playable2}
+                                    playing={playing}
+                                    playHandler={playHandler}
+                                    appState={appState}
+                                    setAppState={setAppState}
+                                    volume={volume}
+                                    setVolume={setVolume}
+                                    volumeHandler={volumeHandler}
                                 />
                             )}
-
-                            {loading && <Loader />}
-
-                            <IntroPage initialPlayer={initialPlayer} appState={appState} />
-
-                            <VideoPlayer
-                                isAutoPlay={isAutoPlay}
-                                appState={appState}
-                                timeUpdateHandler={timeUpdateHandler}
-                                setPlaying={setPlaying}
-                            />
-
-                            {showInfo && interactiveItem && (
-                                <HotSpots
-                                    showInfo={showInfo}
-                                    openModal={openModal}
-                                    interactiveItem={interactiveItem}
-                                />
-                            )}
-                        </div>
-
-                        {!showModal && appState.hideInstructions && !loading && (
-                            <ControlPanel
-                                progressHandler={progressHandler}
-                                videoProgress={videoProgress}
-                                playable={playable}
-                                playable2={playable2}
-                                playing={playing}
-                                playHandler={playHandler}
-                                appState={appState}
-                                setAppState={setAppState}
-                                volume={volume}
-                                setVolume={setVolume}
-                                volumeHandler={volumeHandler}
-                            />
-                        )}
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        </QuizContext.Provider>
     );
 }
 
