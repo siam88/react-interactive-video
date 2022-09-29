@@ -9,8 +9,9 @@ import Form from 'react-bootstrap/Form';
 
 const LoginPage = (props) => {
 
-    const [name, setName] = useState("siam");
-    const [phone, setPhone] = useState("01884454811");
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [checked, setChecked] = useState(false);
     const [nameError, setNameError] = useState("");
     const [phoneError, setPhoneError] = useState("");
 
@@ -122,9 +123,18 @@ const LoginPage = (props) => {
                         We'll never share your Number with anyone else.
                     </Form.Text>}
                 </Form.Group>
+                <Form.Group className="mb-3">
+                    <Form.Check
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() => setChecked(!checked)}
+                        id="disabledFieldsetCheck"
+                        label="I agree to terms and conditions"
+                    />
+                </Form.Group>
 
 
-                <Button variant="primary" type="submit" disabled={!(name.length > 1 && phone.length === 11 && nameError.length === 0 && phoneError.length === 0)}>
+                <Button variant="primary" type="submit" disabled={!(name.length > 1 && phone.length === 11 && nameError.length === 0 && phoneError.length === 0 && checked)}>
                     Submit
                 </Button>
             </Form >
