@@ -9,8 +9,9 @@ const Modal7 = () => {
     <div className={styles.quizBox}>
       <div className={styles.content}>
         <img
+          className={styles.img}
           src={require(`../../../assets/images/marineDrive.png`)}
-          alt="Modal1 background "
+          alt="Modal7 background "
         />
         <p>{questions[6]?.topic?.question[0]?.remarks}</p>
 
