@@ -44,7 +44,7 @@ const LoginPage = (props) => {
         if (phone.length === 11) {
             setPhoneError("");
         } else {
-            setPhoneError("Please Input your 11 digit Number");
+            setPhoneError("Please Input your 11 digit Robi Number");
 
         }
 
