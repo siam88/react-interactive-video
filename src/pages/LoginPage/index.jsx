@@ -6,6 +6,13 @@ import { toast } from "react-toastify";
 import { ErrorMsgFormatter } from '../../utils';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { Row, Col, Container } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
+import {
+    HiClipboardList
+} from "react-icons/hi";
+
+
 
 const LoginPage = (props) => {
 
@@ -15,6 +22,7 @@ const LoginPage = (props) => {
     const [nameError, setNameError] = useState("");
     const [phoneError, setPhoneError] = useState("");
 
+    let navigate = useNavigate();
 
     const onChangeName = (e) => {
         let name = e.target.value
@@ -85,61 +93,86 @@ const LoginPage = (props) => {
         );
     }
 
+    const onHandleTC = () => {
+        navigate(`/terms-and-conditions`);
+    }
 
 
     return (
+        <Container >
+            <Row className='mt-5'>
+                <Col xs={12} md={4} lg={{ span: 8, offset: 2 }} className="text-center">
+                    <h1>Interactive Video </h1>
+                </Col>
 
-        <div className='login'>
-            <h2>Interactive Video</h2>
-            <Form onSubmit={onHandleLogin} name="form">
-                <Form.Group className="mb-3" controlId="formName">
-                    <Form.Label >Name</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter Your Name"
-                        required="required"
-                        onChange={e => onChangeName(e)}
-                        value={name}
-                        name="name"
-                    />
-                    <Form.Text style={{ color: "red" }} >
-                        {nameError}
-                    </Form.Text>
-                </Form.Group>
+                <Col xs={12} md={4} lg={{ span: 4, offset: 4 }}>
+                    <Form onSubmit={onHandleLogin} name="form">
+                        <Form.Group className="mb-3" controlId="formName">
+                            <Form.Label >Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter Your Name"
+                                required="required"
+                                onChange={e => onChangeName(e)}
+                                value={name}
+                                name="name"
+                            />
+                            <Form.Text style={{ color: "red" }} >
+                                {nameError}
+                            </Form.Text>
+                        </Form.Group>
 
-                <Form.Group className="mb-3" controlId="formNumber">
-                    <Form.Label>Phone Number</Form.Label>
-                    <Form.Control
+                        <Form.Group className="mb-3" controlId="formNumber">
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control
 
-                        type="tel"
-                        placeholder="০১*********"
-                        required="required"
-                        onChange={e => onChangeNumber(e)}
-                        value={phone}
-                    />
-                    <Form.Text style={{ color: "red" }}>
-                        {phoneError}
-                    </Form.Text>
-                    {phoneError.length === 0 && <Form.Text className="text-muted">
-                        We'll never share your Number with anyone else.
-                    </Form.Text>}
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Check
-                        type="checkbox"
-                        checked={checked}
-                        onChange={() => setChecked(!checked)}
-                        id="disabledFieldsetCheck"
-                        label="I agree to terms and conditions"
-                    />
-                </Form.Group>
+                                type="tel"
+                                placeholder="০১*********"
+                                required="required"
+                                onChange={e => onChangeNumber(e)}
+                                value={phone}
+                            />
+                            <Form.Text style={{ color: "red" }}>
+                                {phoneError}
+                            </Form.Text>
+                            {phoneError.length === 0 && <Form.Text className="text-muted">
+                                We'll never share your Number with anyone else.
+                            </Form.Text>}
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+
+                            <Form.Check
+                                type="checkbox"
+                                checked={checked}
+                                onChange={() => setChecked(!checked)}
+                                id="disabledFieldsetCheck"
+                                label={<>
+                                    I agree to terms and conditions
+
+                                </>}
+                            />
+                            <div style={{ color: "#ff00006e", fontSize: "0.75rem", textAlign: "right", cursor: "pointer" }} onClick={() => onHandleTC()}>
+                                ( <HiClipboardList /> Terms and Conditions)
+                            </div>
 
 
-                <Button variant="primary" type="submit" disabled={!(name.length > 1 && phone.length === 11 && nameError.length === 0 && phoneError.length === 0 && checked)}>
-                    Submit
-                </Button>
-            </Form >
-        </div >
+
+                        </Form.Group>
+                        <Form.Group className="text-center">
+                            <Button variant="primary" type="submit" disabled={!(name.length > 1 && phone.length === 11 && nameError.length === 0 && phoneError.length === 0 && checked)}>
+                                Submit
+                            </Button>
+                        </Form.Group>
+
+                    </Form >
+                </Col>
+
+            </Row>
+        </Container >
+        // <div className='login'>
+
+
+        // </div >
     )
 }
 
