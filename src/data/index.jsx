@@ -13,13 +13,14 @@ import Modal5 from '../components/modals/modal5'
 import Modal6 from '../components/modals/modal6'
 import Modal7 from '../components/modals/modal7'
 import ModalBackground1 from '../assets/images/modalBackground1.jpeg'
+import MarineDriveBackground from '../assets/images/marineDriveBackground.jpg'
 
 export let eventSchedules = [
     {
         id: 0,
         timeToShow: 2,
         timeToHide: 5,
-        modalBackground: ModalBackground1,
+        modalBackground: MarineDriveBackground,
         modalComponent: <Modal1 />,
         hotSpotComponent: <HotSpot1 />
     },

@@ -6,7 +6,7 @@ export const CheckIOS = () => {
     }
 }
 
-export const ErrorMsgFormatter = (obj) => {
+export const ResponseMsgFormatter = (obj) => {
 
     let errorMsg = "";
 

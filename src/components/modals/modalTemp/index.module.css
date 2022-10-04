@@ -74,11 +74,101 @@
 .active {
   background: #9b969a;
 }
+.submitBtn {
+  margin-top: 2rem;
+
+  padding: 2% 10%;
+
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(200, 233, 150, 1) 0%,
+    rgba(46, 163, 86, 1) 35%,
+    rgba(41, 117, 68, 1) 100%
+  );
+  border: 1px solid white;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
 @media screen and (max-width: 500px) {
+  .content {
+    width: 45%;
+  }
+
+  .quizBox img {
+    width: 70%;
+    margin-top: 0rem;
+  }
+  .quizBox p {
+    font-size: xx-small;
+    text-align: center;
+    margin-bottom: 0%;
+  }
+
+  .quiz {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .question {
+    text-align: center;
+    font-weight: 700;
+    color: #c70a18;
+    font-size: xx-small;
+  }
+  .answers {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .answer {
+    width: 40%;
+    text-align: center;
+    background: #d8cfd7;
+    border: 1px solid white;
+    border-radius: 15px;
+    font-size: 8px;
+    font-weight: bold;
+    margin: 0 2px 5px 5px;
+    padding: 1px 3px 1px 3px;
+    cursor: pointer;
+  }
+
+  .answer:hover {
+    background: #9b969a;
+  }
+  .active {
+    background: #9b969a;
+  }
+  .submitBtn {
+    width: 80%;
+    text-align: center;
+    background: linear-gradient(
+      180deg,
+      rgba(200, 233, 150, 1) 0%,
+      rgba(46, 163, 86, 1) 35%,
+      rgba(41, 117, 68, 1) 100%
+    );
+    border: 1px solid white;
+    font-weight: bold;
+    border-radius: 15px;
+    font-size: 10px;
+    font-weight: bold;
+    margin: 10px 2px 5px 5px;
+    padding: 3px 1px 3px 1px;
+    cursor: pointer;
+  }
+}
+/* @media screen and (max-width: 500px) {
   .content {
     width: 170px;
     margin-right: 4%;
-    /* background-color: rgba(255, 255, 255, 0.897); */
   }
   .quizBox p {
     font-size: x-small;
@@ -89,7 +179,6 @@
     font-size: xx-small;
   }
   .quizBox img {
-    /* height: 100%; */
     width: 50%;
     margin-top: 0rem;
   }
@@ -99,10 +188,7 @@
     text-align: center;
     background: #d8cfd7;
     border: 1px solid white;
-
     font-weight: bold;
-    /* margin: 0 2px 5px 5px; */
-    /* padding: 3px 1px 3px 1px; */
     cursor: pointer;
   }
-}
+} */

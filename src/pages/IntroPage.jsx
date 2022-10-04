@@ -4,7 +4,7 @@ import instructionMsgImg from "../assets/images/intro_page.gif";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { ErrorMsgFormatter } from '../utils';
+import { ResponseMsgFormatter } from '../utils';
 import Loader from './../components/loader/index';
 import { QuizContext } from '../contexts/quizContext';
 
@@ -41,7 +41,7 @@ const IntroPage = (props) => {
             setLoading(false)
             toast.error(
                 err.response.data.message
-                    ? ErrorMsgFormatter(err.response.data.message)
+                    ? ResponseMsgFormatter(err.response.data.message)
                     : "Something went wrong"
             )
         }

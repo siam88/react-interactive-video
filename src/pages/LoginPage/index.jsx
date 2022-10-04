@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
-import { ErrorMsgFormatter } from '../../utils';
+import { ResponseMsgFormatter } from '../../utils';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Col, Container } from 'react-bootstrap';
@@ -84,7 +84,7 @@ const LoginPage = (props) => {
             props.setLoading(false)
             toast.error(
                 err.response.data.message
-                    ? ErrorMsgFormatter(err.response.data.message)
+                    ? ResponseMsgFormatter(err.response.data.message)
                     : "Something went wrong"
             )
         }

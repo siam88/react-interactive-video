@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import styles from "./index.module.css";
+import { Button } from "react-bootstrap";
 
 const ModalTemp = ({ question, onSelectItem }) => {
   return (
@@ -9,7 +10,7 @@ const ModalTemp = ({ question, onSelectItem }) => {
           src={require(`../../../assets/images/marineDrive.png`)}
           alt="Modal1 background "
         />
-        <p>{question?.topic?.question[0]?.remarks}</p>
+        {/* <p>{question?.topic?.question[0]?.remarks}</p> */}
 
         <div className={styles.quiz}>
           <div className={styles.question}>
@@ -38,6 +39,7 @@ const ModalTemp = ({ question, onSelectItem }) => {
               </div>
             ))}
           </div>
+          <Button className={styles.submitBtn}>Submit Answer</Button>
         </div>
       </div>
     </div>

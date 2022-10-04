@@ -5,25 +5,35 @@ import ModalTemp from './modalTemp';
 import { QuizContext } from "../../contexts/quizContext";
 import Cookies from "js-cookie";
 import md5 from 'md5'
+import { ResponseMsgFormatter } from '../../utils';
 import axios from 'axios';
 import { toast } from "react-toastify";
 
 const Modal = (props) => {
     const { questions, setQuizAns, quizAns } = useContext(QuizContext);
-
+    console.log(questions)
     const ResumeVideo = async () => {
         if (props.interactiveItem.id === 6) {
-            console.log("Type two===>", 1 + 1)
+
+            let qsAndAnsSet = quizAns.questions.map((e, i) => {
+                if (!e.topicId) {
+                    return { topicId: questions[i].topic.id, questionId: questions[i].topic.question[0].id, optionId: "", startTime: "" }
+
+                } else {
+                    return e
+                }
+            })
+
 
 
             // const jsonString = JSON.stringify(Object.assign({}, quizAns.questions))
             // console.log("Type one===>", JSON.stringify(Object.assign({}, quizAns.questions)))
-            console.log("Type two===>", JSON.stringify(quizAns.questions) + quizAns.refId + process.env.REACT_APP_TOP_SECRET_KEY)
+            // console.log("Type two===>", JSON.stringify(quizAns.questions) + quizAns.refId + process.env.REACT_APP_TOP_SECRET_KEY)
             let result = {
                 refId: quizAns.refId,
-                answers: quizAns.questions,
+                answers: qsAndAnsSet,
                 token: Cookies.get(process.env.REACT_APP_POST_SECRET_TOKEN),
-                secret: md5(JSON.stringify(quizAns.questions) + quizAns.refId + process.env.REACT_APP_TOP_SECRET_KEY)
+                secret: md5(JSON.stringify(qsAndAnsSet) + quizAns.refId + process.env.REACT_APP_TOP_SECRET_KEY)
             }
             const headers = {
                 "Content-Type": "application/json",
@@ -36,7 +46,9 @@ const Modal = (props) => {
             }).catch((err) => {
 
                 toast.error(
-                    "Something went wrong"
+                    err.response.data.message
+                        ? ResponseMsgFormatter(err.response.data.message)
+                        : "Something went wrong"
                 )
             })
         }
