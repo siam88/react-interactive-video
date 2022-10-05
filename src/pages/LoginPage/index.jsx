@@ -43,7 +43,8 @@ const LoginPage = (props) => {
 
         if (phone.length === 11) {
             setPhoneError("");
-        } else {
+        }
+        else {
             setPhoneError("Please Input your 11 digit Robi Number");
 
         }
@@ -100,18 +101,19 @@ const LoginPage = (props) => {
 
     return (
         <Container >
-            <Row className='mt-5'>
+            <Row className='mt-5' style={{ border: "1px solid rgb(108 124 125 / 33%)", padding: "10%", background: "#585b5e0f", borderRadius: "25px" }}>
                 <Col xs={12} md={4} lg={{ span: 8, offset: 2 }} className="text-center">
-                    <h1>Interactive Video </h1>
+                    <h1>#KhelaPaltabeRobi </h1>
                 </Col>
 
-                <Col xs={12} md={4} lg={{ span: 4, offset: 4 }}>
+                <Col xs={12} md={4} lg={{ span: 4, offset: 4 }} className="mt-5">
                     <Form onSubmit={onHandleLogin} name="form">
                         <Form.Group className="mb-3" controlId="formName">
-                            <Form.Label >Name</Form.Label>
+                            <Form.Label >
+                                নাম</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter Your Name"
+                                placeholder="আপনার নাম লিখুন"
                                 required="required"
                                 onChange={e => onChangeName(e)}
                                 value={name}
@@ -123,11 +125,12 @@ const LoginPage = (props) => {
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formNumber">
-                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Label>
+                                ফোন নম্বর</Form.Label>
                             <Form.Control
 
                                 type="tel"
-                                placeholder="০১*********"
+                                placeholder="আপনার রবি নম্বর লিখুন"
                                 required="required"
                                 onChange={e => onChangeNumber(e)}
                                 value={phone}
@@ -136,7 +139,7 @@ const LoginPage = (props) => {
                                 {phoneError}
                             </Form.Text>
                             {phoneError.length === 0 && <Form.Text className="text-muted">
-                                We'll never share your Number with anyone else.
+                                আমরা আপনার নম্বর অন্য কারো সাথে শেয়ার করব না।
                             </Form.Text>}
                         </Form.Group>
                         <Form.Group className="mb-3">
@@ -147,19 +150,19 @@ const LoginPage = (props) => {
                                 onChange={() => setChecked(!checked)}
                                 id="disabledFieldsetCheck"
                                 label={<>
-                                    I agree to terms and conditions
+                                    আমি <span style={{ color: "#c70a18", cursor: "pointer" }} onClick={() => onHandleTC()}>
+                                        শর্তাবলীর
+                                    </span> সাথে একমত
 
                                 </>}
                             />
-                            <div style={{ color: "#ff00006e", fontSize: "0.75rem", textAlign: "right", cursor: "pointer" }} onClick={() => onHandleTC()}>
-                                ( <HiClipboardList /> Terms and Conditions)
-                            </div>
+
 
 
 
                         </Form.Group>
                         <Form.Group className="text-center">
-                            <Button variant="primary" type="submit" disabled={!(name.length > 1 && phone.length === 11 && nameError.length === 0 && phoneError.length === 0 && checked)}>
+                            <Button variant="danger" type="submit" disabled={!(name.length > 1 && phone.length === 11 && nameError.length === 0 && phoneError.length === 0 && checked)}>
                                 Submit
                             </Button>
                         </Form.Group>
