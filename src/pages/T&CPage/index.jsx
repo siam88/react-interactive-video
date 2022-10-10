@@ -31,4 +31,4 @@ const TAndCPage = () => {
     )
 }
 
-export default TAndCPage
+export default React.memo(TAndCPage)

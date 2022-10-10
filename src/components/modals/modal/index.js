@@ -1,27 +1,18 @@
-import React, { useContext } from "react";
+import React from "react";
 import styles from "./index.module.css";
 import { Button } from "react-bootstrap";
 
-const ModalTemp = ({ question, onSelectItem }) => {
+const ModalTemp = ({ question, onSelectItem, onSubmitResult }) => {
   return (
     <div className={styles.quizBox}>
       <div className={styles.content}>
-        <img
-          src={require(`../../../assets/images/marineDrive.png`)}
-          alt="Modal1 background "
-        />
-        {/* <p>{question?.topic?.question[0]?.remarks}</p> */}
+        <img src={question?.topic?.image} alt="Modal Background" />
 
         <div className={styles.quiz}>
           <div className={styles.question}>
-            {" "}
             {question?.topic?.question[0]?.title}?
           </div>
           <div className={styles.answers}>
-            {/* <div className={`${styles.answer} ${styles.active}`}>
-              ব -দ্বীপের আবাসস্থল{" "}
-            </div> */}
-
             {question?.topic?.question[0]?.options?.map((e, i) => (
               <div
                 className={styles.answer}
@@ -39,7 +30,9 @@ const ModalTemp = ({ question, onSelectItem }) => {
               </div>
             ))}
           </div>
-          <Button className={styles.submitBtn}>Submit Answer</Button>
+          <Button className={styles.submitBtn} onClick={() => onSubmitResult()}>
+            Submit Answer
+          </Button>
         </div>
       </div>
     </div>

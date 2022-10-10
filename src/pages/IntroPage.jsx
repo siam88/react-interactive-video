@@ -22,6 +22,7 @@ const IntroPage = (props) => {
         await axios.get(`${process.env.REACT_APP_SECRET_URL}/request/quiz`, { headers: headers }
         ).then((res) => {
             if (res.data.statusCode === "400200") {
+
                 setQuestions(res.data.data.questions)
                 setQuizAns({ ...quizAns, refId: res.data.data.refId });
                 setLoading(false)

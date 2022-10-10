@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import styles from './index.module.css';
-import ModalTemp from './modalTemp';
+import CustomModal from './modal';
 import { QuizContext } from "../../contexts/quizContext";
 import Cookies from "js-cookie";
 import md5 from 'md5'
@@ -11,13 +11,19 @@ import { toast } from "react-toastify";
 
 const Modal = (props) => {
     const { questions, setQuizAns, quizAns } = useContext(QuizContext);
-    console.log(questions)
+
     const ResumeVideo = async () => {
-        if (props.interactiveItem.id === 6) {
+        props.onCloseHandler()
+    }
+
+    const onSubmitResult = async () => {
+        let didntAnsAll = false
+        if (props.interactiveItem.id === 3) {
 
             let qsAndAnsSet = quizAns.questions.map((e, i) => {
                 if (!e.topicId) {
-                    return { topicId: questions[i].topic.id, questionId: questions[i].topic.question[0].id, optionId: "", startTime: "" }
+                    didntAnsAll = true
+                    return { topicId: questions[i].topic.id, questionId: questions[i].topic.question[0].id, optionId: 0, startTime: 0 }
 
                 } else {
                     return e
@@ -42,9 +48,14 @@ const Modal = (props) => {
             await axios.post(`${process.env.REACT_APP_SECRET_URL}/quiz/submit`, result, { headers: headers }
             ).then((res) => {
                 toast.success(res.data.message)
-                console.log({ res })
-            }).catch((err) => {
 
+                if (res.data.statusCode === "400200") {
+                    if (!didntAnsAll) {
+                        props.setResult("passed")
+
+                    }
+                }
+            }).catch((err) => {
                 toast.error(
                     err.response.data.message
                         ? ResponseMsgFormatter(err.response.data.message)
@@ -54,7 +65,6 @@ const Modal = (props) => {
         }
         props.onCloseHandler()
     }
-
     const onSelectItem = (questions) => {
         let tempQs = [...quizAns.questions]
         tempQs[props.interactiveItem.id] = questions
@@ -101,7 +111,7 @@ const Modal = (props) => {
                 </ul>
             </div>
 
-            <Details interactiveItem={props.interactiveItem} questions={questions} onSelectItem={onSelectItem} />
+            <Details interactiveItem={props.interactiveItem} questions={questions} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />
         </div>
 
     )
@@ -109,22 +119,17 @@ const Modal = (props) => {
 
 export default React.memo(Modal)
 
-const Details = ({ interactiveItem, questions, onSelectItem }) => {
+const Details = ({ interactiveItem, questions, onSelectItem, onSubmitResult }) => {
     switch (interactiveItem.id) {
         case 0:
-            return <ModalTemp question={questions[0]} onSelectItem={onSelectItem} />;
+            return <CustomModal question={questions[0]} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />;
         case 1:
-            return <ModalTemp question={questions[1]} onSelectItem={onSelectItem} />;
+            return <CustomModal question={questions[1]} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />;
         case 2:
-            return <ModalTemp question={questions[2]} onSelectItem={onSelectItem} />;
+            return <CustomModal question={questions[2]} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />;
         case 3:
-            return <ModalTemp question={questions[3]} onSelectItem={onSelectItem} />;
-        case 4:
-            return <ModalTemp question={questions[4]} onSelectItem={onSelectItem} />;
-        case 5:
-            return <ModalTemp question={questions[5]} onSelectItem={onSelectItem} />;
-        case 6:
-            return <ModalTemp question={questions[6]} onSelectItem={onSelectItem} />;
+            return <CustomModal question={questions[3]} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />;
+
         default:
             return;
     }

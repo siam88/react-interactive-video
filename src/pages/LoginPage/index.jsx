@@ -8,9 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Col, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import {
-    HiClipboardList
-} from "react-icons/hi";
+
 
 
 
@@ -142,9 +140,16 @@ const LoginPage = (props) => {
                                 আমরা আপনার নম্বর অন্য কারো সাথে শেয়ার করব না।
                             </Form.Text>}
                         </Form.Group>
-                        <Form.Group className="mb-3">
+
+                        <Form.Group className="text-center mb-4" >
+                            <Button variant="danger" type="submit" disabled={!(name.length > 1 && phone.length === 11 && nameError.length === 0 && phoneError.length === 0 && checked)}>
+                                Submit
+                            </Button>
+                        </Form.Group>
+                        <Form.Group >
 
                             <Form.Check
+
                                 type="checkbox"
                                 checked={checked}
                                 onChange={() => setChecked(!checked)}
@@ -161,12 +166,6 @@ const LoginPage = (props) => {
 
 
                         </Form.Group>
-                        <Form.Group className="text-center">
-                            <Button variant="danger" type="submit" disabled={!(name.length > 1 && phone.length === 11 && nameError.length === 0 && phoneError.length === 0 && checked)}>
-                                Submit
-                            </Button>
-                        </Form.Group>
-
                     </Form >
                 </Col>
 

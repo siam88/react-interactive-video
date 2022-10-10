@@ -55,7 +55,7 @@ const VideoPlayer = (props) => {
                             src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/tamim_app_12.mp4"
                             type="video/mp4"
                         />
-                    </video>{" "}
+                    </video>
                 </>
             }
         />

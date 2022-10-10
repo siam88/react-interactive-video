@@ -11,8 +11,11 @@ import ControlPanel from "../components/controlPanel";
 import { findCurrentTimeToShow } from "./../helpers/helpers";
 import VideoPlayer from "../components/videoPLayer";
 import { QuizContext } from '../contexts/quizContext';
+import { useNavigate } from "react-router-dom";
 
-const VideoPage = () => {
+const VideoPage = (props) => {
+    let navigate = useNavigate();
+
     const [playing, setPlaying] = useState(false);
     const [videoNode, setVideoNode] = useState();
     const [videoNode2, setVideoNode2] = useState();
@@ -33,24 +36,6 @@ const VideoPage = () => {
     const [quizAns, setQuizAns] = useState({
         refId: "",
         questions: [
-            {
-                topicId: "",
-                questionId: "",
-                startTime: "",
-                optionId: ""
-            },
-            {
-                topicId: "",
-                questionId: "",
-                startTime: "",
-                optionId: ""
-            },
-            {
-                topicId: "",
-                questionId: "",
-                startTime: "",
-                optionId: ""
-            },
             {
                 topicId: "",
                 questionId: "",
@@ -185,6 +170,12 @@ const VideoPage = () => {
                 setInteractiveItem(null);
             }
         }
+
+        if (percent === 100) {
+            props.setVideoEnd(true)
+            navigate(`/result`);
+
+        }
     };
     const playHandler = () => {
         setAppState({ ...appState, hideInstructions: true });
@@ -209,11 +200,11 @@ const VideoPage = () => {
         const videoTwo = document.getElementById("video_two");
         // console.log("progress==>", e.nativeEvent.offsetX);
 
-
         const scrubTime =
             (e.nativeEvent.offsetX / progress.offsetWidth) * videoNode.duration;
         videoNode.currentTime = scrubTime;
         videoTwo.currentTime = scrubTime;
+
     };
     const initialIOSProgress = () => {
 
@@ -267,6 +258,7 @@ const VideoPage = () => {
                                 {showModal && interactiveItem && (
                                     <CustomModal
                                         showModal={showModal}
+                                        setResult={props.setResult}
                                         onCloseHandler={onCloseHandler}
                                         interactiveItem={interactiveItem}
                                     />
