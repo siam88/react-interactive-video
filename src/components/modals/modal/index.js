@@ -10,7 +10,7 @@ const ModalTemp = ({ question, onSelectItem, onSubmitResult }) => {
 
         <div className={styles.quiz}>
           <div className={styles.question}>
-            {question?.topic?.question[0]?.title}?
+            {question?.topic?.question[0]?.title}
           </div>
           <div className={styles.answers}>
             {question?.topic?.question[0]?.options?.map((e, i) => (
