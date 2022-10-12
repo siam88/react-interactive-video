@@ -11,7 +11,7 @@
 }
 
 @font-face {
-  font-family: "Tatsam Bengali Rnd";
+  font-family: "Tatsam-Bold";
   src: url("./assets/fonts/TatsamBengaliRnd-Book.otf") format("opentype");
 }
 @font-face {
@@ -30,5 +30,5 @@
 }
 
 body {
-  font-family: "Nunito", "Tatsam Bengali Rnd", "Helvetica Neue";
+  font-family: "Tatsam Bengali Rnd", "Nunito", "Helvetica Neue";
 }

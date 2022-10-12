@@ -32,7 +32,7 @@ const VideoPlayer = (props) => {
 
                     >
                         <source
-                            src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/bts/40_sec_tvc.mp4"
+                            src="http://d2uz5qswi21q1o.cloudfront.net/bts/40_sec_tvc.mp4"
                             type="video/mp4"
                         />
                     </video>
@@ -52,7 +52,7 @@ const VideoPlayer = (props) => {
                         }}
                     >
                         <source
-                            src="https://bangabandhuzone.s3.ap-southeast-1.amazonaws.com/bts/40_sec.mp4"
+                            src="http://d2uz5qswi21q1o.cloudfront.net/bts/40_sec.mp4"
                             type="video/mp4"
                         />
                     </video>

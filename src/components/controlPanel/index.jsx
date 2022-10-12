@@ -1,5 +1,6 @@
 import React from 'react'
 import { BiPlay, BiPause, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
+import './index.css';
 const ControlPanel = (props) => {
     return (
         <div className="control_panel">

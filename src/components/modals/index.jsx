@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import styles from './index.module.css';
 import CustomModal from './modal';
 import { QuizContext } from "../../contexts/quizContext";
@@ -81,35 +80,14 @@ const Modal = (props) => {
                 opacity: props.showModal ? 1 : 0,
             }}
         >
-            <div className={styles.close_btn}>
+            {/* <div className={styles.close_btn}>
                 <button onClick={() => ResumeVideo()}>
                     Back To
                     <br /> Video
                 </button>
-            </div>
+            </div> */}
 
-            <div className={styles.social_icons}>
-                <ul>
-                    <li>
-                        <a
-                            href={`https://www.facebook.com/sharer.php?u=${window.location.href}`}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <FaFacebookF />
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <FaTwitter />
-                        </a>
-                    </li>
-                </ul>
-            </div>
+
 
             <Details interactiveItem={props.interactiveItem} questions={questions} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />
         </div>

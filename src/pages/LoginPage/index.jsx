@@ -8,8 +8,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Row, Col, Container } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-
-
+import VideoLayout from './../../layout/videoLayout';
+import Background1 from '../../assets/images/tamimleftBackground.jpg';
+import styles from './index.css'
 
 
 const LoginPage = (props) => {
@@ -98,10 +99,11 @@ const LoginPage = (props) => {
 
 
     return (
-        <Container >
-            <Row className='mt-5' style={{ border: "1px solid rgb(108 124 125 / 33%)", padding: "10%", background: "#585b5e0f", borderRadius: "25px" }}>
+        <VideoLayout backgroundImage={Background1}>
+            <Row >
                 <Col xs={12} md={4} lg={{ span: 8, offset: 2 }} className="text-center">
-                    <h1>#KhelaPaltabeRobi </h1>
+                    <h1>Join</h1>
+                    <h1>The Contest Now</h1>
                 </Col>
 
                 <Col xs={12} md={4} lg={{ span: 4, offset: 4 }} className="mt-5">
@@ -170,11 +172,8 @@ const LoginPage = (props) => {
                 </Col>
 
             </Row>
-        </Container >
-        // <div className='login'>
+        </VideoLayout >
 
-
-        // </div >
     )
 }
 
