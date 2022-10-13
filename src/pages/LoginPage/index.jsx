@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import VideoLayout from './../../layout/videoLayout';
 import Background1 from '../../assets/images/tamimleftBackground.jpg';
 import styles from './index.css'
-
+import useFullscreenStatus from '../../utils/useFullscreenStatus'
 
 const LoginPage = (props) => {
 
@@ -22,6 +22,28 @@ const LoginPage = (props) => {
     const [phoneError, setPhoneError] = useState("");
 
     let navigate = useNavigate();
+    const refBox1 = React.useRef(null);
+    const maximizableElement = React.useRef(null);
+    let isFullscreen, setIsFullscreen;
+    let errorMessage;
+
+    try {
+        [isFullscreen, setIsFullscreen] = useFullscreenStatus(maximizableElement);
+    } catch (e) {
+        errorMessage = "Fullscreen not supported";
+        isFullscreen = false;
+        setIsFullscreen = undefined;
+    }
+
+    const handleExitFullscreen = () => document.exitFullscreen();
+
+    /////////
+    const requestFullScreen = React.useCallback(ref => {
+        if (typeof ref.current?.requestFullscreen === "function") {
+            ref.current?.requestFullscreen();
+            window.screen.orientation.lock("landscape");
+        }
+    }, []);
 
     const onChangeName = (e) => {
         let name = e.target.value
@@ -63,7 +85,7 @@ const LoginPage = (props) => {
 
         await axios.post(`${process.env.REACT_APP_SECRET_URL}/login`, postData
         ).then((res) => {
-            console.log({ res })
+
             if (res.data.statusCode === "400200") {
                 Cookies.set(process.env.REACT_APP_GET_SECRET_TOKEN, res.data.data.token, {
                     expires: res.data.data.expires_in / 86400,
@@ -72,7 +94,7 @@ const LoginPage = (props) => {
                 props.setAuth(true)
                 props.setLoading(false)
                 // toast.success(res.data.message)
-
+                lock()
             } else {
                 toast.error(
                     "Something went wrong"
@@ -96,84 +118,137 @@ const LoginPage = (props) => {
     const onHandleTC = () => {
         navigate(`/terms-and-conditions`);
     }
+    useEffect(() => {
+        // const btn = document.getElementById('landScapeBtn');
+        // btn.click()
+        requestFullScreen(refBox1)
 
+        // const handleOrientationChange = () => {
+        //     alert('here');
+        //     let de = document.documentElement;
+        //     if (de.requestFullscreen) {
+        //         alert(de.requestFullscreen)
+        //         de.requestFullscreen();
+        //         window.screen.orientation.lock('landscape');
+        //     }
+        // }
+        // window.addEventListener('load', handleOrientationChange);
+        // return () => window.removeEventListener('load', handleOrientationChange);
 
+    }, [])
+
+    const lock = (orientation = 'landscape') => {
+
+        let de = document.documentElement;
+        if (de.requestFullscreen) {
+            de.requestFullscreen();
+
+            window.screen.orientation.lock(orientation);
+
+        } else if (de.mozRequestFullScreen) {
+            alert("hello 2")
+            de.mozRequestFullscreen();
+        } else if (de.webkitRequestFullscreen) {
+            alert("hello 3")
+            de.webkitRequestFullscreen();
+        } else if (de.msRequestFullscreen) {
+            alert("hello 4")
+            de.msRequestFullscreen();
+        }
+
+        window.screen.orientation.lock(orientation);
+    }
+
+    function unLock() {
+        window.screen.orientation.unlock();
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullscreen) {
+            document.mozCancelFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.mozCancelFullscreen();
+        }
+    }
     return (
-        <VideoLayout backgroundImage={Background1}>
-            <Row >
-                <Col xs={12} md={4} lg={{ span: 8, offset: 2 }} className="text-center">
-                    <h1>Join</h1>
-                    <h1>The Contest Now</h1>
-                </Col>
+        <div id="wholePage" ref={maximizableElement}>
+            <VideoLayout backgroundImage={Background1}>
+                <Row >
+                    <Col xs={12} md={4} lg={{ span: 8, offset: 2 }} className="text-center">
+                        <h1>Join</h1>
+                        <h1>The Contest Now</h1>
 
-                <Col xs={12} md={4} lg={{ span: 4, offset: 4 }} className="mt-5">
-                    <Form onSubmit={onHandleLogin} name="form">
-                        <Form.Group className="mb-3" controlId="formName">
-                            <Form.Label >
-                                নাম</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="আপনার নাম লিখুন"
-                                required="required"
-                                onChange={e => onChangeName(e)}
-                                value={name}
-                                name="name"
-                            />
-                            <Form.Text style={{ color: "red" }} >
-                                {nameError}
-                            </Form.Text>
-                        </Form.Group>
+                    </Col>
 
-                        <Form.Group className="mb-3" controlId="formNumber">
-                            <Form.Label>
-                                ফোন নম্বর</Form.Label>
-                            <Form.Control
+                    <Col xs={12} md={4} lg={{ span: 4, offset: 4 }} className="mt-5">
+                        <Form onSubmit={onHandleLogin} name="form">
+                            <Form.Group className="mb-3" controlId="formName">
+                                <Form.Label >
+                                    নাম</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="আপনার নাম লিখুন"
+                                    required="required"
+                                    onChange={e => onChangeName(e)}
+                                    value={name}
+                                    name="name"
+                                />
+                                <Form.Text style={{ color: "red" }} >
+                                    {nameError}
+                                </Form.Text>
+                            </Form.Group>
 
-                                type="tel"
-                                placeholder="আপনার রবি নম্বর লিখুন"
-                                required="required"
-                                onChange={e => onChangeNumber(e)}
-                                value={phone}
-                            />
-                            <Form.Text style={{ color: "red" }}>
-                                {phoneError}
-                            </Form.Text>
-                            {phoneError.length === 0 && <Form.Text className="text-muted">
-                                আমরা আপনার নম্বর অন্য কারো সাথে শেয়ার করব না।
-                            </Form.Text>}
-                        </Form.Group>
+                            <Form.Group className="mb-3" controlId="formNumber">
+                                <Form.Label>
+                                    ফোন নম্বর</Form.Label>
+                                <Form.Control
 
-                        <Form.Group className="text-center mb-4" >
-                            <Button variant="danger" type="submit" disabled={!(name.length > 1 && phone.length === 11 && nameError.length === 0 && phoneError.length === 0 && checked)}>
-                                Submit
-                            </Button>
-                        </Form.Group>
-                        <Form.Group >
+                                    type="tel"
+                                    placeholder="আপনার রবি নম্বর লিখুন"
+                                    required="required"
+                                    onChange={e => onChangeNumber(e)}
+                                    value={phone}
+                                />
+                                <Form.Text style={{ color: "red" }}>
+                                    {phoneError}
+                                </Form.Text>
+                                {phoneError.length === 0 && <Form.Text className="text-muted">
+                                    আমরা আপনার নম্বর অন্য কারো সাথে শেয়ার করব না।
+                                </Form.Text>}
+                            </Form.Group>
 
-                            <Form.Check
+                            <Form.Group className="text-center mb-4" >
+                                <Button variant="danger" type="submit" disabled={!(name.length > 1 && phone.length === 11 && nameError.length === 0 && phoneError.length === 0 && checked)}>
+                                    Submit
+                                </Button>
+                            </Form.Group>
+                            <Form.Group >
 
-                                type="checkbox"
-                                checked={checked}
-                                onChange={() => setChecked(!checked)}
-                                id="disabledFieldsetCheck"
-                                label={<>
-                                    আমি <span style={{ color: "#c70a18", cursor: "pointer" }} onClick={() => onHandleTC()}>
-                                        শর্তাবলীর
-                                    </span> সাথে একমত
+                                <Form.Check
 
-                                </>}
-                            />
+                                    type="checkbox"
+                                    checked={checked}
+                                    onChange={() => setChecked(!checked)}
+                                    id="disabledFieldsetCheck"
+                                    label={<>
+                                        আমি <span style={{ color: "#c70a18", cursor: "pointer" }} onClick={() => onHandleTC()}>
+                                            শর্তাবলীর
+                                        </span> সাথে একমত
+
+                                    </>}
+                                />
 
 
 
 
-                        </Form.Group>
-                    </Form >
-                </Col>
+                            </Form.Group>
+                        </Form >
+                    </Col>
 
-            </Row>
-        </VideoLayout >
-
+                </Row>
+            </VideoLayout >
+        </div>
     )
 }
 

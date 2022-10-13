@@ -174,9 +174,21 @@ const VideoPage = (props) => {
         if (percent === 100) {
             props.setVideoEnd(true)
             navigate(`/result`);
-
+            unLock()
         }
     };
+    const unLock = () => {
+        window.screen.orientation.unlock();
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullscreen) {
+            document.mozCancelFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.mozCancelFullscreen();
+        }
+    }
     const playHandler = () => {
         setAppState({ ...appState, hideInstructions: true });
         const videos = document.querySelectorAll("video");
