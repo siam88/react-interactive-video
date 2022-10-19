@@ -5,10 +5,17 @@ import HotSpot4 from '../components/hotSpot/hotSpot4'
 
 
 
-import MarineDriveBg from '../assets/all-images/overlay-bg-Cox_s Bazar.png'
-import MainamatiBg from '../assets/all-images/overlay-bg-moynamoti.png'
-import BandorbanBg from '../assets/all-images/overlay-bg-Bandarban.png'
-import TamimBackground from '../assets/all-images/overlay-bg-Tamim.png'
+// import MarineDriveBackground from '../assets/images/marineDriveBackground.jpg'
+// import MainamatiBg from '../assets/images/mainamatibground.png'
+// import HardingeBridgeBg from '../assets/images/hardingeBridgeBground.png'
+// import BandorbanBground from '../assets/images/bandorbanBground.png'
+
+
+import ModalBgTamim from "../assets/all-images/overlay-bg-Tamim.png";
+import ModalBgBandarban from "../assets/all-images/overlay-bg-Bandarban.png";
+import ModalBgCox from "../assets/all-images/overlay-bg-Cox_s-Bazar.png";
+import ModalBgMoynamoti from "../assets/all-images/overlay-bg-moynamoti.png";
+
 
 
 export let eventSchedules = [
@@ -16,7 +23,7 @@ export let eventSchedules = [
         id: 0,
         timeToShow: 1,
         timeToHide: 4,
-        modalBackground: MarineDriveBg,
+        modalBackground: ModalBgCox,
         // modalComponent: <Modal1 />,
         hotSpotComponent: <HotSpot1 />
     },
@@ -24,7 +31,7 @@ export let eventSchedules = [
         id: 1,
         timeToShow: 8,
         timeToHide: 10,
-        modalBackground: TamimBackground,
+        modalBackground: ModalBgMoynamoti,
         // modalComponent: <Modal2 />,
         hotSpotComponent: <HotSpot2 />
     },
@@ -32,7 +39,7 @@ export let eventSchedules = [
         id: 2,
         timeToShow: 11,
         timeToHide: 14,
-        modalBackground: MainamatiBg,
+        modalBackground: ModalBgBandarban,
         // modalComponent: <Modal3 />,
         hotSpotComponent: <HotSpot3 />
     },
@@ -40,7 +47,7 @@ export let eventSchedules = [
         id: 3,
         timeToShow: 15,
         timeToHide: 19,
-        modalBackground: BandorbanBg,
+        modalBackground: ModalBgTamim,
         // modalComponent: <Modal4 />,
         hotSpotComponent: <HotSpot4 />
     }

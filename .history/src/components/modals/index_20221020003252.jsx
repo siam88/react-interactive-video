@@ -1,20 +1,24 @@
 import React, { useContext } from "react";
+import styles from './index.module.css';
+import CustomModal from './modal';
+import { QuizContext } from "../../contexts/quizContext";
 import Cookies from "js-cookie";
 import md5 from 'md5'
+import { ResponseMsgFormatter } from '../../utils';
 import axios from 'axios';
 import { toast } from "react-toastify";
-
-import CustomModal from './modal';
-import btnBack from "../../assets/all-images/btn_back.png";
 import OverlayLayout from "../../layout/overlayLayout/OverlayLayout";
-import { QuizContext } from "../../contexts/quizContext";
-import { ResponseMsgFormatter } from '../../utils';
+import btnBack from '../../assets/all-images/btn_back.png'
+import PageTopImg from '../../assets/all-images/inner-img-Bandarban.png'
+import QuestionModal from "../questionModal/QuestionModal";
 
-const Modals = (props) => {
+const Modal = (props) => {
     const { questions, setQuizAns, quizAns } = useContext(QuizContext);
 
+
+
     const onSubmitResult = async () => {
-        console.log("hello")
+
         if (props.interactiveItem.id === 3) {
 
             let qsAndAnsSet = quizAns.questions.map((e, i) => {
@@ -29,7 +33,9 @@ const Modals = (props) => {
 
 
 
-            
+            // const jsonString = JSON.stringify(Object.assign({}, quizAns.questions))
+            // console.log("Type one===>", JSON.stringify(Object.assign({}, quizAns.questions)))
+            // console.log("Type two===>", JSON.stringify(quizAns.questions) + quizAns.refId + process.env.REACT_APP_TOP_SECRET_KEY)
             let result = {
                 refId: quizAns.refId,
                 answers: qsAndAnsSet,
@@ -45,7 +51,7 @@ const Modals = (props) => {
                 toast.success(res.data.data.rightAnswerCount)
 
                 if (res.data.statusCode === "400200") {
-                    
+                    console.log("api call", res.data)
                     props.setResult(res.data.data.status)
 
                 }
@@ -65,24 +71,28 @@ const Modals = (props) => {
         setQuizAns({ ...quizAns, questions: tempQs });
 
     }
+    return (
+       
+       
+        <div
+            className={styles.modal_one}
+            style={{
+                backgroundImage: `url(${props.interactiveItem.modalBackground})`,
+                zIndex: props.showModal ? 10000 : 0,
+                opacity: props.showModal ? 1 : 0,
+            }}
+        >
 
 
 
 
-  return (
-    <OverlayLayout visible={props.showModal} ModalBg={props.interactiveItem.modalBackground}>
-      <div className="modal_component">
-        <div className="btn_back"  onClick={() => onSubmitResult()}>
-          <img src={btnBack} alt="" />
+            <Details interactiveItem={props.interactiveItem} questions={questions} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />
         </div>
-        <Details interactiveItem={props.interactiveItem} questions={questions} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />
-      </div>
-    </OverlayLayout>
-  );
-};
 
-export default React.memo(Modals)
+    )
+}
 
+export default React.memo(Modal)
 
 const Details = ({ interactiveItem, questions, onSelectItem, onSubmitResult }) => {
     switch (interactiveItem.id) {
@@ -99,3 +109,4 @@ const Details = ({ interactiveItem, questions, onSelectItem, onSubmitResult }) =
             return;
     }
 }
+

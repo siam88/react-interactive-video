@@ -10,321 +10,322 @@ import HotSpots from "../../components/hotSpot";
 import ControlPanel from "../../components/controlPanel";
 import { findCurrentTimeToShow } from "../../helpers/helpers";
 import VideoPlayer from "../../components/videoPLayer";
-import { QuizContext } from '../../contexts/quizContext';
+import { QuizContext } from "../../contexts/quizContext";
 import { useNavigate } from "react-router-dom";
 import "../../App.css";
 
 const VideoPage = (props) => {
-    let navigate = useNavigate();
+  let navigate = useNavigate();
 
-    const [playing, setPlaying] = useState(false);
-    const [videoNode, setVideoNode] = useState();
-    const [videoNode2, setVideoNode2] = useState();
-    const [interactiveItem, setInteractiveItem] = useState();
-    const [videoProgress, setVideoProgress] = useState(0);
-    const [volume, setVolume] = useState(1);
-    const [showInfo, setShowInfo] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-    const [playable, setPlayable] = useState(false);
-    const [playable2, setPlayable2] = useState(false);
-    const [isAutoPlay, setIsAutoPlay] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [questions, setQuestions] = useState();
-    const [fullScreen, setFullScreen] = useState(false);
-    const [auth, setAuth] = useState(false);
-    const [intro, setIntro] = useState(true);
-    const [result, setResult] = useState()
-    const [appState, setAppState] = useState({
-        hideInstructions: false,
-        muted: true,
-    });
-    const [quizAns, setQuizAns] = useState({
-        refId: "",
-        questions: [
-            {
-                topicId: "",
-                questionId: "",
-                startTime: "",
-                optionId: ""
-            },
-            {
-                topicId: "",
-                questionId: "",
-                startTime: "",
-                optionId: ""
-            },
-            {
-                topicId: "",
-                questionId: "",
-                startTime: "",
-                optionId: ""
-            },
-            {
-                topicId: "",
-                questionId: "",
-                startTime: "",
-                optionId: ""
-            }
-        ]
+  const [playing, setPlaying] = useState(false);
+  const [videoNode, setVideoNode] = useState();
+  const [videoNode2, setVideoNode2] = useState();
+  const [interactiveItem, setInteractiveItem] = useState();
+  const [videoProgress, setVideoProgress] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [showInfo, setShowInfo] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [playable, setPlayable] = useState(false);
+  const [playable2, setPlayable2] = useState(false);
+  const [isAutoPlay, setIsAutoPlay] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [questions, setQuestions] = useState();
+  const [fullScreen, setFullScreen] = useState(false);
+  const [result, setResult] = useState();
+  const [intro, setIntro] = useState(true);
+  const [auth, setAuth] = useState(false);
 
-    })
-    //setting up the video to the state
+  const [appState, setAppState] = useState({
+    hideInstructions: false,
+    muted: true,
+  });
+  const [quizAns, setQuizAns] = useState({
+    refId: "",
+    questions: [
+      {
+        topicId: "",
+        questionId: "",
+        startTime: "",
+        optionId: "",
+      },
+      {
+        topicId: "",
+        questionId: "",
+        startTime: "",
+        optionId: "",
+      },
+      {
+        topicId: "",
+        questionId: "",
+        startTime: "",
+        optionId: "",
+      },
+      {
+        topicId: "",
+        questionId: "",
+        startTime: "",
+        optionId: "",
+      },
+    ],
+  });
+  //setting up the video to the state
 
-    useEffect(() => {
-        const video = document.getElementById("video_one");
-        const video2 = document.getElementById("video_two");
+  useEffect(() => {
+    const video = document.getElementById("video_one");
+    const video2 = document.getElementById("video_two");
 
-        setVideoNode(video);
-        setVideoNode2(video2);
-        // initializer();
-    }, []);
+    setVideoNode(video);
+    setVideoNode2(video2);
+    // initializer();
+  }, []);
 
-    //checking if video is ready or not
-    useEffect(() => {
-        if (videoNode && videoNode2) {
-            //data loaded initially
-            setAppState({ ...appState, muted: false });
-            videoNode.addEventListener("loadeddata", (...args) => {
-                if (videoNode.readyState >= 2) {
-                    setPlayable(true);
-                }
-            });
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                // setIsAutoPlay(true);
-                setPlayable2(true);
-
-                setAppState({ ...appState, muted: true });
-            }
-            console.log({ videoNode });
-            videoNode2.addEventListener("loadeddata", (...args) => {
-                if (videoNode2.readyState >= 2) {
-                    setPlayable2(true);
-
-                }
-            });
+  //checking if video is ready or not
+  useEffect(() => {
+    if (videoNode && videoNode2) {
+      //data loaded initially
+      setAppState({ ...appState, muted: false });
+      videoNode.addEventListener("loadeddata", (...args) => {
+        if (videoNode.readyState >= 2) {
+          setPlayable(true);
         }
-    }, [videoNode, videoNode2, playable, playable2]);
+      });
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        // setIsAutoPlay(true);
+        setPlayable2(true);
 
-
-    useEffect(() => {
-        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-            if (videoNode || videoNode2) {
-                // videoNode.currentTime = 0;
-                // videoNode2.currentTime = 0;
-                initialIOSProgress();
-
-            }
+        setAppState({ ...appState, muted: true });
+      }
+      console.log({ videoNode });
+      videoNode2.addEventListener("loadeddata", (...args) => {
+        if (videoNode2.readyState >= 2) {
+          setPlayable2(true);
         }
-    }, [isAutoPlay]);
+      });
+    }
+  }, [videoNode, videoNode2, playable, playable2]);
 
-    //check play event
-    useEffect(() => {
-        if (videoNode && videoNode2 && playable && playable2) {
-            videoNode.addEventListener("waiting", (...args) => {
-                videoNode2.pause();
-                setLoading(true);
-                setAppState({ ...appState, hideInstructions: true });
-            });
-            videoNode2.addEventListener("waiting", (...args) => {
-                videoNode.pause();
-                setLoading(true);
-                setAppState({ ...appState, hideInstructions: true });
-            });
-            videoNode?.addEventListener("canplay", (...args) => {
-                if (playable && playable2) {
-                    videoNode2?.play();
-                    setLoading(false);
-                    setPlaying(true);
-                    setAppState({ ...appState, hideInstructions: true });
-                }
-            });
-            videoNode2?.addEventListener("canplay", (...args) => {
-                // setPlayable2(true);
-                if (playable && playable2) {
-                    videoNode?.play();
-                    setPlaying(true);
-                    setLoading(false);
-                    setAppState({ ...appState, hideInstructions: true });
-                }
-            });
-        }
-    }, [videoNode, videoNode2, playable, playable2]);
+  useEffect(() => {
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      if (videoNode || videoNode2) {
+        // videoNode.currentTime = 0;
+        // videoNode2.currentTime = 0;
+        initialIOSProgress();
+      }
+    }
+  }, [isAutoPlay]);
 
-    useEffect(() => {
-        const videos = document.querySelectorAll("video");
-        Array.from(videos).forEach((video) => {
-            video.volume = volume;
-        });
-    }, [volume]);
-
-
-    const timeUpdateHandler = (e) => {
-        const percent = (videoNode.currentTime / videoNode.duration) * 100;
-
-        setVideoProgress(percent);
-        let selectedNode = findCurrentTimeToShow(Math.floor(videoNode.currentTime));
-
-        if (selectedNode) {
-            // if (Math.floor(videoNode.currentTime) >= selectedNode.timeToShow) {
-
-            // }
-            setShowInfo(true);
-            setInteractiveItem(selectedNode);
-            if (Math.floor(videoNode.currentTime) >= selectedNode.timeToHide) {
-                setShowInfo(false);
-                setInteractiveItem(null);
-            }
-        }
-
-        if (percent === 100) {
-            console.log(result)
-            navigate("/result", { state: result });
-
-        }
-    };
-
-    const playHandler = () => {
-        setAppState({ ...appState, hideInstructions: true });
-        const videos = document.querySelectorAll("video");
-        Array.from(videos).forEach((video) => {
-            if (video.paused) {
-                video.play();
-                setPlaying(true);
-            } else {
-                video.pause();
-                setPlaying(false);
-            }
-        });
-        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-            setIsAutoPlay((prevState) => !prevState);
-            // alert("hello")
-        }
-    };
-    const progressHandler = (e = 20) => {
-
-        const progress = document.querySelector(".progress");
-        const videoTwo = document.getElementById("video_two");
-        // console.log("progress==>", e.nativeEvent.offsetX);
-
-        const scrubTime =
-            (e.nativeEvent.offsetX / progress.offsetWidth) * videoNode.duration;
-        videoNode.currentTime = scrubTime;
-        videoTwo.currentTime = scrubTime;
-
-    };
-    const initialIOSProgress = () => {
-
-        const progress = document.querySelector(".progress");
-        const videoTwo = document.getElementById("video_two");
-        // console.log("progress==>", e.nativeEvent.offsetX);
-
-
-        const scrubTime =
-            (10 / progress.offsetWidth) * videoNode.duration;
-        videoNode.currentTime = scrubTime;
-        videoTwo.currentTime = scrubTime;
-    };
-    const volumeHandler = (e) => {
-        setVolume(e.target.value);
-    };
-    const openModal = () => {
-        setShowModal(true);
-        const videos = document.querySelectorAll("video");
-        Array.from(videos).forEach((video) => {
-            video.pause();
-            setPlaying(false);
-        });
-    };
-    const onCloseHandler = () => {
-        setShowModal(false);
-        const videos = document.querySelectorAll("video");
-        Array.from(videos).forEach((video) => {
-            video.play();
-            setPlaying(true);
-        });
-    };
-    const initialPlayer = () => {
+  //check play event
+  useEffect(() => {
+    if (videoNode && videoNode2 && playable && playable2) {
+      videoNode.addEventListener("waiting", (...args) => {
+        videoNode2.pause();
         setLoading(true);
         setAppState({ ...appState, hideInstructions: true });
-        setTimeout(() => {
-            playHandler();
-            setLoading(false);
-        }, 2000);
-    };
+      });
+      videoNode2.addEventListener("waiting", (...args) => {
+        videoNode.pause();
+        setLoading(true);
+        setAppState({ ...appState, hideInstructions: true });
+      });
+      videoNode?.addEventListener("canplay", (...args) => {
+        if (playable && playable2) {
+          videoNode2?.play();
+          setLoading(false);
+          setPlaying(true);
+          setAppState({ ...appState, hideInstructions: true });
+        }
+      });
+      videoNode2?.addEventListener("canplay", (...args) => {
+        // setPlayable2(true);
+        if (playable && playable2) {
+          videoNode?.play();
+          setPlaying(true);
+          setLoading(false);
+          setAppState({ ...appState, hideInstructions: true });
+        }
+      });
+    }
+  }, [videoNode, videoNode2, playable, playable2]);
 
-    return (
-        <QuizContext.Provider value={{ questions, fullScreen, setFullScreen, setQuestions, quizAns, setQuizAns }}>
-            <div className="App" style={{ backgroundColor: "#28282b", height: "100vh" }}>
-                <Container style={{ height: "100%" }}>
+  useEffect(() => {
+    const videos = document.querySelectorAll("video");
+    Array.from(videos).forEach((video) => {
+      video.volume = volume;
+    });
+  }, [volume]);
 
-                    <Row className="justify-content-center" style={{ height: "100%", alignItems: "center" }}>
-                        <Col xl={12} sm={12} xs={12} md={12}>
-                            <div className="video_wrapper ">
+  const timeUpdateHandler = (e) => {
+    const percent = (videoNode.currentTime / videoNode.duration) * 100;
 
-                                {showModal && interactiveItem && (
-                                    <CustomModal
-                                        showModal={showModal}
-                                        setResult={setResult}
-                                        onCloseHandler={onCloseHandler}
-                                        interactiveItem={interactiveItem}
-                                    />
-                                )}
+    setVideoProgress(percent);
+    let selectedNode = findCurrentTimeToShow(Math.floor(videoNode.currentTime));
 
-                                {loading && <Loader />}
+    if (selectedNode) {
+      // if (Math.floor(videoNode.currentTime) >= selectedNode.timeToShow) {
 
-                                {intro && <IntroPage
-                                    appState={appState}
-                                    setIntro={setIntro}
-                                />}
+      // }
+      setShowInfo(true);
+      setInteractiveItem(selectedNode);
+      if (Math.floor(videoNode.currentTime) >= selectedNode.timeToHide) {
+        setShowInfo(false);
+        setInteractiveItem(null);
+      }
+    }
 
-                                {!intro && !auth &&
-                                    <LoginPage
-                                        initialPlayer={initialPlayer}
-                                        appState={appState}
-                                        setIntro={setIntro}
-                                        setLoading={setLoading}
-                                        setAuth={setAuth}
-                                    />}
+    if (percent === 100) {
+      props.setVideoEnd(true);
+      navigate("/result", { state: result });
+      // UnLock()
+    }
+  };
 
-                                <VideoPlayer
-                                    isAutoPlay={isAutoPlay}
-                                    appState={appState}
-                                    timeUpdateHandler={timeUpdateHandler}
-                                    setPlaying={setPlaying}
-                                />
+  const playHandler = () => {
+    setAppState({ ...appState, hideInstructions: true });
+    const videos = document.querySelectorAll("video");
+    Array.from(videos).forEach((video) => {
+      if (video.paused) {
+        video.play();
+        setPlaying(true);
+      } else {
+        video.pause();
+        setPlaying(false);
+      }
+    });
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      setIsAutoPlay((prevState) => !prevState);
+      // alert("hello")
+    }
+  };
+  const progressHandler = (e = 20) => {
+    const progress = document.querySelector(".progress");
+    const videoTwo = document.getElementById("video_two");
+    // console.log("progress==>", e.nativeEvent.offsetX);
 
-                                {showInfo && interactiveItem && (
-                                    <HotSpots
-                                        showInfo={showInfo}
-                                        openModal={openModal}
-                                        interactiveItem={interactiveItem}
-                                    />
-                                )}
-                            </div>
+    const scrubTime =
+      (e.nativeEvent.offsetX / progress.offsetWidth) * videoNode.duration;
+    videoNode.currentTime = scrubTime;
+    videoTwo.currentTime = scrubTime;
+  };
+  const initialIOSProgress = () => {
+    const progress = document.querySelector(".progress");
+    const videoTwo = document.getElementById("video_two");
+    // console.log("progress==>", e.nativeEvent.offsetX);
 
-                            {!showModal && appState.hideInstructions && !loading && (
-                                <ControlPanel
-                                    progressHandler={progressHandler}
-                                    videoProgress={videoProgress}
-                                    playable={playable}
-                                    playable2={playable2}
-                                    playing={playing}
-                                    playHandler={playHandler}
-                                    appState={appState}
-                                    setAppState={setAppState}
-                                    volume={volume}
-                                    setVolume={setVolume}
-                                    volumeHandler={volumeHandler}
-                                />
-                            )}
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
-        </QuizContext.Provider>
-    );
-}
+    const scrubTime = (10 / progress.offsetWidth) * videoNode.duration;
+    videoNode.currentTime = scrubTime;
+    videoTwo.currentTime = scrubTime;
+  };
+  const volumeHandler = (e) => {
+    setVolume(e.target.value);
+  };
+  const openModal = () => {
+    setShowModal(true);
+    const videos = document.querySelectorAll("video");
+    Array.from(videos).forEach((video) => {
+      video.pause();
+      setPlaying(false);
+    });
+  };
+  const onCloseHandler = () => {
+    setShowModal(false);
+    const videos = document.querySelectorAll("video");
+    Array.from(videos).forEach((video) => {
+      video.play();
+      setPlaying(true);
+    });
+  };
+  const initialPlayer = () => {
+    setLoading(true);
+    setAppState({ ...appState, hideInstructions: true });
+    setTimeout(() => {
+      playHandler();
+      setLoading(false);
+    }, 2000);
+  };
+
+  return (
+    <QuizContext.Provider
+      value={{
+        questions,
+        fullScreen,
+        setFullScreen,
+        setQuestions,
+        quizAns,
+        setQuizAns,
+      }}
+    >
+      <div
+        className="App"
+        style={{ backgroundColor: "#28282b", height: "100vh" }}
+      >
+        <Container style={{ height: "100%" }}>
+          <Row
+            className="justify-content-center"
+            style={{ height: "100%", alignItems: "center" }}
+          >
+            <Col xl={12} sm={12} xs={12} md={12}>
+              <div className="video_wrapper ">
+                {showModal && interactiveItem && (
+                  <CustomModal
+                    showModal={showModal}
+                    setResult={setResult}
+                    onCloseHandler={onCloseHandler}
+                    interactiveItem={interactiveItem}
+                  />
+                )}
+
+                {loading && <Loader />}
+
+                <IntroPage
+                  appState={appState}
+                  setIntro={setIntro}
+                />
+                {!intro && !auth && (
+                  <LoginPage
+                    initialPlayer={initialPlayer}
+                    appState={appState}
+                    setIntro={setIntro}
+                    setLoading={setLoading}
+                    setAuth={setAuth}
+                  />
+                )}
+                <VideoPlayer
+                  isAutoPlay={isAutoPlay}
+                  appState={appState}
+                  timeUpdateHandler={timeUpdateHandler}
+                  setPlaying={setPlaying}
+                />
+
+                {showInfo && interactiveItem && (
+                  <HotSpots
+                    showInfo={showInfo}
+                    openModal={openModal}
+                    interactiveItem={interactiveItem}
+                  />
+                )}
+              </div>
+
+              {!showModal && appState.hideInstructions && !loading && (
+                <ControlPanel
+                  progressHandler={progressHandler}
+                  videoProgress={videoProgress}
+                  playable={playable}
+                  playable2={playable2}
+                  playing={playing}
+                  playHandler={playHandler}
+                  appState={appState}
+                  setAppState={setAppState}
+                  volume={volume}
+                  setVolume={setVolume}
+                  volumeHandler={volumeHandler}
+                />
+              )}
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </QuizContext.Provider>
+  );
+};
 
 export default VideoPage;
-
-

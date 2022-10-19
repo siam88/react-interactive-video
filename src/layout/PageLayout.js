@@ -7,9 +7,7 @@ function PageLayout(props) {
     <>
       <div
         className="page_wrapper"
-        style={
-          props.visible ? { opacity: 0, zIndex: 0 } : { opacity: 1, zIndex: 1 }
-        }
+        style={props.visible  ? { opacity: 0, zIndex: 0 } : { opacity: 1, zIndex: 1 }}
       >
         {props.children}
       </div>

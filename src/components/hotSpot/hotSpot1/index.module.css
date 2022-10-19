@@ -6,10 +6,8 @@
   cursor: pointer;
 }
 .img_btn img {
-  width: 60%;
-  height: 120px;
+  width: 100px;
   border-radius: 50%;
-  border: 10px solid rgb(231, 228, 228);
 }
 @media screen and (max-width: 500px) {
   .img_btn img {

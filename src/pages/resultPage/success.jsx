@@ -1,7 +1,7 @@
 import React from "react";
 import PageLayout from "../../layout/PageLayout";
 import robiLogo from "../../assets/all-images/robi-logo.svg";
-import RegistrationBg from "../../assets/all-images/BTS-Registration-page-bg.png";
+import RegistrationBg from "../../assets/all-images/BTS - Registration page bg.png";
 import Congratulations from "../../assets/all-images/Congratulations.png";
 import successBtn from "../../assets/all-images/congratulations_btn.png";
 

@@ -2,7 +2,7 @@ import React from "react";
 import PageLayout from "../../layout/PageLayout";
 import unsuccess from "../../assets/all-images/Retry.png";
 import robiLogo from "../../assets/all-images/robi-logo.svg";
-import RegistrationBg from "../../assets/all-images/BTS-Registration-page-bg.png";
+import RegistrationBg from "../../assets/all-images/BTS - Registration page bg.png";
 import unsuccessBtn from "../../assets/all-images/unsuccess_btn.png";
 
 function Failed(props) {

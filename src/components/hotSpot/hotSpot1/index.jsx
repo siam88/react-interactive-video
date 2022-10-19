@@ -8,8 +8,6 @@ const HotSpots1 = (props) => {
             className={styles.img_btn}
 
         >
-
-
             <img src={hotspot1} alt="i am tamim" />
         </div>
     )
