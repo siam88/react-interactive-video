@@ -1,0 +1,113 @@
+.success_component {
+  margin-top: 7rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .congratulations {
+    width: 400px;
+  }
+  .btn_success {
+    width: 750px;
+  }
+  p {
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--black);
+    font-family: "Tatsam Bengali Light";
+    text-align: center;
+  }
+  .sub_title {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--black);
+    font-family: "Tatsam Bengali Medium";
+  }
+}
+
+/* ==================== media ============= */
+@media screen and (max-width: 1024px) {
+  .success_component {
+    margin-top: 3rem;
+  }
+}
+@media screen and (max-width: 991px) {
+  .success_component {
+    margin-top: 2rem;
+    .congratulations {
+      width: 250px;
+    }
+    .btn_success {
+      width: 500px;
+    }
+    p {
+      font-size: 30px;
+    }
+    .sub_title {
+      font-size: 35px;
+    }
+  }
+}
+
+/* ======= All Landscape Mobile view======= */
+@media screen and (max-width: 760px) {
+  .success_component {
+    margin-top: 1rem;
+    .congratulations {
+      width: 250px;
+    }
+    .btn_success {
+      width: 450px;
+    }
+    p {
+      font-size: 24px;
+    }
+    .sub_title {
+      font-size: 30px;
+    }
+  }
+}
+
+/* =========== All Mobile Horizontal view =========== */
+@media screen and (max-width: 576px) {
+  .success_component {
+    margin-top: 1rem;
+    .congratulations {
+      width: 200px;
+    }
+    .btn_success {
+      width: 350px;
+    }
+    p {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .sub_title {
+      font-size: 24px;
+    }
+  }
+}
+@media screen and (max-width: 420px) {
+  .success_component {
+    margin-top: 1rem;
+    .congratulations {
+      width: 150px;
+    }
+    .btn_success {
+      width: 300px;
+    }
+    p {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .sub_title {
+      font-size: 22px;
+    }
+  }
+}

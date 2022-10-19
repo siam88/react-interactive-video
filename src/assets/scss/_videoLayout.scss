@@ -1,0 +1,17 @@
+.back_bg {
+  background: url("../../assets/images/BTS---Web-background-Red.jpg") no-repeat
+    center;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  @extend .flex_center;
+  .main_wrapper_frame {
+    border: 1px solid white;
+    // max-width: 1000px;
+    // width: 100%;
+    max-height: 600px;
+    height: 100vh;
+    // width: 1000px;
+    // height: 600px;
+  }
+}

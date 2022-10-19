@@ -7,21 +7,23 @@ import md5 from 'md5'
 import { ResponseMsgFormatter } from '../../utils';
 import axios from 'axios';
 import { toast } from "react-toastify";
+import OverlayLayout from "../../layout/overlayLayout/OverlayLayout";
+import btnBack from '../../assets/all-images/btn_back.png'
+import PageTopImg from '../../assets/all-images/inner-img-Bandarban.png'
+import QuestionModal from "../questionModal/QuestionModal";
 
 const Modal = (props) => {
     const { questions, setQuizAns, quizAns } = useContext(QuizContext);
 
-    const ResumeVideo = async () => {
-        props.onCloseHandler()
-    }
+
 
     const onSubmitResult = async () => {
-        let didntAnsAll = false
+
         if (props.interactiveItem.id === 3) {
 
             let qsAndAnsSet = quizAns.questions.map((e, i) => {
                 if (!e.topicId) {
-                    didntAnsAll = true
+
                     return { topicId: questions[i].topic.id, questionId: questions[i].topic.question[0].id, optionId: 0, startTime: 0 }
 
                 } else {
@@ -46,13 +48,12 @@ const Modal = (props) => {
             };
             await axios.post(`${process.env.REACT_APP_SECRET_URL}/quiz/submit`, result, { headers: headers }
             ).then((res) => {
-                toast.success(res.data.message)
+                toast.success(res.data.data.rightAnswerCount)
 
                 if (res.data.statusCode === "400200") {
-                    if (!didntAnsAll) {
-                        props.setResult("passed")
+                    console.log("api call", res.data)
+                    props.setResult(res.data.data.status)
 
-                    }
                 }
             }).catch((err) => {
                 toast.error(
@@ -71,26 +72,75 @@ const Modal = (props) => {
 
     }
     return (
+        <QuestionModal />
+        // <OverlayLayout>
+        //     <div className="modal_component">
+        //         <div className="btn_back">
+        //             <img src={btnBack} alt="" />
+        //         </div>
+        //         <div className="inner_content_wrapper">
+        //             <div className="page_top_img">
+        //                 <img src={PageTopImg} alt="" />
+        //             </div>
+        //             <h2 className="heading">বান্দরবান</h2>
+        //             <p className="question">
+        //                 বান্দরবানের বগা লেক স্থানীয়ভাবে কী নামে পরিচিত?
+        //             </p>
 
-        <div
-            className={styles.modal_one}
-            style={{
-                backgroundImage: `url(${props.interactiveItem.modalBackground})`,
-                zIndex: props.showModal ? 10000 : 0,
-                opacity: props.showModal ? 1 : 0,
-            }}
-        >
-            {/* <div className={styles.close_btn}>
-                <button onClick={() => ResumeVideo()}>
-                    Back To
-                    <br /> Video
-                </button>
-            </div> */}
+        //             <div className="answer_wrapper">
+        //                 <button type="button" className="ans">
+        //                     রাজা শ্রীভবদেব
+        //                 </button>
+        //                 <button type="button" className="ans">
+        //                     রাজা রামমোহন
+        //                 </button>
+        //                 <button type="button" className="ans">
+        //                     রাজা লক্ষণ সেন
+        //                 </button>
+        //                 <button type="button" className="ans">
+        //                     রাজা শ্রীবল্লভ
+        //                 </button>
+        //             </div>
+        //             {/* ========== Submit Button ==========  */}
+        //             <div className="flex_center ">
+        //                 <button type="button" className="submit">
+        //                     Submit Answer
+        //                 </button>
+        //             </div>
+        //             {/* =========== Facebook ======= */}
+        //             <div className="facebook_link">
+        //                 {" "}
+        //                 <svg
+        //                     stroke="currentColor"
+        //                     fill="currentColor"
+        //                     stroke-width="0"
+        //                     viewBox="0 0 320 512"
+        //                     xmlns="http://www.w3.org/2000/svg"
+        //                 >
+        //                     {" "}
+        //                     <path
+        //                         fill="white"
+        //                         d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+        //                     ></path>
+        //                 </svg>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </OverlayLayout>
+        // <div
+        //     className={styles.modal_one}
+        //     style={{
+        //         backgroundImage: `url(${props.interactiveItem.modalBackground})`,
+        //         zIndex: props.showModal ? 10000 : 0,
+        //         opacity: props.showModal ? 1 : 0,
+        //     }}
+        // >
 
 
 
-            <Details interactiveItem={props.interactiveItem} questions={questions} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />
-        </div>
+
+        //     <Details interactiveItem={props.interactiveItem} questions={questions} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />
+        // </div>
 
     )
 }

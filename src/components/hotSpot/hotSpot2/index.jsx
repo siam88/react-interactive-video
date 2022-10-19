@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './index.module.css'
-import hotspot2 from '../../../assets/images/hotspot2.png'
+import hotspot2 from '../../../assets/all-images/hotspot2.png'
 
 
 const HotSpots2 = (props) => {

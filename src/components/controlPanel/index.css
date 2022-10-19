@@ -1,7 +1,7 @@
 .control_panel {
   width: 100%;
   background-color: black;
-  padding: 15px 25px;
+  padding: 5px 25px;
   margin-top: -7px;
 }
 .progress {
@@ -28,7 +28,7 @@
   cursor: pointer;
   text-align: center;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   margin-top: 5px;
 }
 .play_icon svg {

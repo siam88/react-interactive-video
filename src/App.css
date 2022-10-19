@@ -1,21 +1,15 @@
 .video_wrapper {
   position: relative;
 }
-.instruction_wrapper {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
+
 .login {
-  position: absolute;
+  /* position: absolute;
   top: 20%;
-  left: 40%;
+  left: 40%; */
 }
-.instruction_wrapper img {
-  height: 100%;
-}
+
 .info_btn {
-  color: black;
+  /*   color: black;
   display: inline-block;
   position: absolute;
   top: 14px;
@@ -23,46 +17,17 @@
   font-size: 21px;
   transition: all 2s;
   cursor: pointer;
-  font-weight: 700;
+  font-weight: 700; */
 }
 
-.initial_Play_btn {
-  position: absolute;
-  left: 45%;
-  bottom: 40%;
-
-  cursor: pointer;
-}
-
-.initial_Play_btn img {
-  width: 120px;
-}
-.modal-90w {
+/* .modal-90w {
   max-width: 60%;
 }
 
 .modal-90w .modal-body {
   padding: 0;
-}
-
-/* .modal-backdrop { */
-/* opacity: 0.8 !important;
-  background-color: #8a898e; */
-/* } */
-
-button {
-  background: grey;
-  color: white;
-  border: none;
-  padding: 22px;
-  transition: all 0.2s;
-  font-size: 14px;
-}
-
-button:hover {
-  background-color: black;
-}
-
+} */
+/* 
 .divider {
   display: grid;
   height: 100%;
@@ -70,56 +35,4 @@ button:hover {
   background-color: white;
   place-content: center;
 }
-.ball {
-  border-radius: 50%;
-  height: 60px;
-  border: 2px solid white;
-  /* all: unset; */
-}
-@media screen and (max-width: 400px) {
-  .initial_Play_btn {
-    position: absolute;
-    left: 45%;
-    bottom: 40%;
-
-    cursor: pointer;
-  }
-  .initial_Play_btn img {
-    width: 50px;
-  }
-  .ball {
-    height: 38px;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .initial_Play_btn {
-    position: absolute;
-    left: 45%;
-    bottom: 40%;
-
-    cursor: pointer;
-  }
-  .login {
-    /* position: absolute; */
-    top: 20%;
-    left: 10%;
-  }
-  .initial_Play_btn img {
-    width: 50px;
-  }
-  .modal-90w {
-    max-width: 100% !important;
-  }
-  button {
-    padding: 7px;
-    font-size: 12px;
-  }
-
-  .ball {
-    height: 40px;
-  }
-}
-video {
-  pointer-events: none;
-}
+ */

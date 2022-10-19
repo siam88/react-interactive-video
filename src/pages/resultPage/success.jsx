@@ -1,14 +1,33 @@
-import React from 'react'
+import React from "react";
+import PageLayout from "../../layout/PageLayout";
+import robiLogo from "../../assets/all-images/robi-logo.svg";
+import RegistrationBg from "../../assets/all-images/BTS-Registration-page-bg.png";
+import Congratulations from "../../assets/all-images/Congratulations.png";
+import successBtn from "../../assets/all-images/congratulations_btn.png";
 
-const Success = () => {
+function Success(props) {
     return (
-        <div style={{ textAlign: "center" }}>
-            <h1>অভিনন্দন   </h1>
-            <h2>আপনি সব প্রশ্নের সঠিক উত্তর দিয়েছেন</h2>
-            <h3>তামিমের অটোগ্রাফ ব্যাট বিজয়ীর তালিকা জানতে </h3>
-            <h4>চোখ রাখুন রবির ফেসবুক পেজে</h4>
+        <div>
+            <PageLayout>
+                <div className="intro_bg">
+                    <img src={RegistrationBg} alt="page background" />
+                </div>
+                <div className="robi_logo">
+                    <img src={robiLogo} alt="robi logo" />
+                </div>
+                <div className="success_component">
+                    <div className="congratulations">
+                        <img src={Congratulations} alt="" />
+                    </div>
+                    <div className="btn_success my-2 my-md-4">
+                        <img src={successBtn} alt="" />
+                    </div>
+                    <p className="mb-0">তামিমের অটোগ্রাফসহ ব্যাট জয়ীদের তালিকা জানতে</p>
+                    <h2 className="sub_title">চোখ রাখুন রবি ফেসবুক পেইজে।</h2>
+                </div>
+            </PageLayout>
         </div>
-    )
+    );
 }
 
-export default Success
+export default Success;

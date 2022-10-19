@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './index.module.css'
-import hotspot3 from '../../../assets/images/hotspot3.png'
+import hotspot3 from '../../../assets/all-images/hotspot3.png'
 
 
 

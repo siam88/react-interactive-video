@@ -1,7 +1,24 @@
-import React from 'react'
-import { BiPlay, BiPause, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
+import React, { useEffect, useContext } from 'react'
+import { BiPlay, BiExitFullscreen, BiPause, BiFullscreen, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
 import './index.css';
+import { Lock, UnLock, checkFullScreen } from '../../utils';
+import { QuizContext } from '../../contexts/quizContext';
+
 const ControlPanel = (props) => {
+    const { setFullScreen, fullScreen } = useContext(QuizContext)
+
+
+
+
+    const onEnterFullScreen = () => {
+        Lock()
+        setFullScreen(true)
+    }
+    const onExitFullScreen = () => {
+        UnLock()
+        setFullScreen(false)
+    }
+
     return (
         <div className="control_panel">
             <div className="progress" onClick={props.progressHandler}>
@@ -50,6 +67,9 @@ const ControlPanel = (props) => {
                         value={props.volume}
                         onChange={props.volumeHandler}
                     ></input>
+                </div>
+                <div style={{ width: "100%", textAlign: "right" }}>
+                    {!fullScreen ? <BiFullscreen onClick={() => onEnterFullScreen()} /> : <BiExitFullscreen onClick={() => onExitFullScreen()} />}
                 </div>
             </div>
         </div>

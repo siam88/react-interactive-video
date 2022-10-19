@@ -1,8 +1,6 @@
 import React from "react";
 import "./index.scss";
-import { Button } from "react-bootstrap";
-import topImg from "../../../assets/images/marineDriveBackground.jpg";
-import back_btn from "../../../assets/images/back-to-video.svg";
+import back_btn from "../../../assets/all-images/btn_back.png";
 
 const ModalTemp = ({ question, onSelectItem, onSubmitResult }) => {
   return (
@@ -12,7 +10,7 @@ const ModalTemp = ({ question, onSelectItem, onSubmitResult }) => {
           <div className="top_img">
             <img src={question?.topic?.image} alt="Modal Background" />
           </div>
-          {console.log({ question })}
+
           <h2 className="heading">{question?.topic?.title}</h2>
 
           <p className="question">{question?.topic?.question[0]?.title}</p>
@@ -27,7 +25,10 @@ const ModalTemp = ({ question, onSelectItem, onSubmitResult }) => {
                     topicId: question?.topic?.id,
                     questionId: question?.topic?.question[0]?.id,
                     optionId: e?.id,
-                    startTime: new Date(),
+                    startTime: new Date()
+                      .toISOString()
+                      .slice(0, 19)
+                      .replace("T", " "),
                   })
                 }
               >

@@ -1,4 +1,5 @@
 import React, { Suspense } from "react";
+import "./assets/scss/style.scss";
 import HomeLayout from "./layout";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter as Router } from "react-router-dom";

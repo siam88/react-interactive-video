@@ -1,17 +1,18 @@
-import "../App.css";
 import { useState, useEffect } from "react";
-import Loader from "../components/loader";
-import IntroPage from "../pages/IntroPage";
-import CustomModal from "./../components/modals/index";
+import Loader from "../../components/loader";
+import IntroPage from "../../pages/IntroPage";
+import LoginPage from "../../pages/LoginPage";
+import CustomModal from "../../components/modals";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import HotSpots from "../components/hotSpot";
-import ControlPanel from "../components/controlPanel";
-import { findCurrentTimeToShow } from "./../helpers/helpers";
-import VideoPlayer from "../components/videoPLayer";
-import { QuizContext } from '../contexts/quizContext';
+import HotSpots from "../../components/hotSpot";
+import ControlPanel from "../../components/controlPanel";
+import { findCurrentTimeToShow } from "../../helpers/helpers";
+import VideoPlayer from "../../components/videoPLayer";
+import { QuizContext } from '../../contexts/quizContext';
 import { useNavigate } from "react-router-dom";
+import "../../App.css";
 
 const VideoPage = (props) => {
     let navigate = useNavigate();
@@ -29,6 +30,10 @@ const VideoPage = (props) => {
     const [isAutoPlay, setIsAutoPlay] = useState(false);
     const [loading, setLoading] = useState(false);
     const [questions, setQuestions] = useState();
+    const [fullScreen, setFullScreen] = useState(false);
+    const [auth, setAuth] = useState(false);
+    const [intro, setIntro] = useState(true);
+    const [result, setResult] = useState()
     const [appState, setAppState] = useState({
         hideInstructions: false,
         muted: true,
@@ -172,23 +177,12 @@ const VideoPage = (props) => {
         }
 
         if (percent === 100) {
-            props.setVideoEnd(true)
-            navigate(`/result`);
-            unLock()
+            console.log(result)
+            navigate("/result", { state: result });
+
         }
     };
-    const unLock = () => {
-        window.screen.orientation.unlock();
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-        } else if (document.mozCancelFullscreen) {
-            document.mozCancelFullscreen();
-        } else if (document.msExitFullscreen) {
-            document.mozCancelFullscreen();
-        }
-    }
+
     const playHandler = () => {
         setAppState({ ...appState, hideInstructions: true });
         const videos = document.querySelectorAll("video");
@@ -259,18 +253,18 @@ const VideoPage = (props) => {
     };
 
     return (
-        <QuizContext.Provider value={{ questions, setQuestions, quizAns, setQuizAns }}>
+        <QuizContext.Provider value={{ questions, fullScreen, setFullScreen, setQuestions, quizAns, setQuizAns }}>
             <div className="App" style={{ backgroundColor: "#28282b", height: "100vh" }}>
-                <Container>
+                <Container style={{ height: "100%" }}>
 
-                    <Row className="justify-content-md-center">
-                        <Col xl={10} className="mt-4 mb-4">
+                    <Row className="justify-content-center" style={{ height: "100%", alignItems: "center" }}>
+                        <Col xl={12} sm={12} xs={12} md={12}>
                             <div className="video_wrapper ">
 
                                 {showModal && interactiveItem && (
                                     <CustomModal
                                         showModal={showModal}
-                                        setResult={props.setResult}
+                                        setResult={setResult}
                                         onCloseHandler={onCloseHandler}
                                         interactiveItem={interactiveItem}
                                     />
@@ -278,12 +272,19 @@ const VideoPage = (props) => {
 
                                 {loading && <Loader />}
 
-                                <IntroPage
-                                    initialPlayer={initialPlayer}
+                                {intro && <IntroPage
                                     appState={appState}
+                                    setIntro={setIntro}
+                                />}
 
-                                    questions={questions}
-                                />
+                                {!intro && !auth &&
+                                    <LoginPage
+                                        initialPlayer={initialPlayer}
+                                        appState={appState}
+                                        setIntro={setIntro}
+                                        setLoading={setLoading}
+                                        setAuth={setAuth}
+                                    />}
 
                                 <VideoPlayer
                                     isAutoPlay={isAutoPlay}
@@ -325,3 +326,5 @@ const VideoPage = (props) => {
 }
 
 export default VideoPage;
+
+

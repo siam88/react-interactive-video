@@ -1,87 +1,81 @@
-import { useState, useContext } from 'react'
-import playIcon from "../assets/icons/play.png";
-import instructionMsgImg from "../assets/images/intro_page.gif";
-import { toast } from "react-toastify";
-import axios from "axios";
-import Cookies from "js-cookie";
-import { ResponseMsgFormatter } from '../utils';
-import Loader from './../components/loader/index';
-import { QuizContext } from '../contexts/quizContext';
+import React, { useEffect, useState } from 'react';
+import Introbg from "../assets/all-images/Intro-Bg.png";
+import robiLogo from "../assets/all-images/robi-logo.svg";
+import playIcon from "../assets/all-images/play-btn.png";
+import ball from "../assets/all-images/ball.png";
+import ballWithMen from "../assets/all-images/ball-with-men.svg";
+import khelaPaltabe from "../assets/all-images/khela-paltabe-robi.png";
+import PageLayout from "../layout/PageLayout";
+import { MobileCheck, Lock, UnLock } from '../utils'
 
-const IntroPage = (props) => {
+const IntroComp = (props) => {
+    const [instruction1, setInstruction1] = useState(false)
 
-    const [loading, setLoading] = useState(false)
-    const { setQuestions, setQuizAns, quizAns } = useContext(QuizContext)
-    const onPlayVideo = async () => {
-        setLoading(true)
-        const token = Cookies.get(process.env.REACT_APP_GET_SECRET_TOKEN);
-        const headers = {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-        };
-        await axios.get(`${process.env.REACT_APP_SECRET_URL}/request/quiz`, { headers: headers }
-        ).then((res) => {
-            if (res.data.statusCode === "400200") {
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setInstruction1(state => !state);
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
 
-                setQuestions(res.data.data.questions)
-                setQuizAns({ ...quizAns, refId: res.data.data.refId });
-                setLoading(false)
-                props.initialPlayer()
-                console.log(res.data.data.questions)
-                // toast.success("Video is playing")
-                Cookies.set(process.env.REACT_APP_POST_SECRET_TOKEN, res.data.data.token, {
-                    expires: 864000,
-                });
-            } else {
-                toast.error(
-                    "Something went wrong"
-                )
-                setLoading(false)
-            }
-        }).catch((err) => {
-            setLoading(false)
-            toast.error(
-                err.response.data.message
-                    ? ResponseMsgFormatter(err.response.data.message)
-                    : "Something went wrong"
-            )
+
+
+    const onStart = () => {
+        if (MobileCheck()) {
+            // Lock()
         }
-
-
-        );
+        props.setIntro(false)
     }
-
-
-
-
     return (
-        <>
-            {loading && <Loader />}
-
-            <div
-                className="instruction_wrapper"
-                style={
-                    props.appState.hideInstructions
-                        ? { opacity: 0, zIndex: 0 }
-                        : { opacity: 1, zIndex: 1 }
-                }
-            >
-                <img
-                    style={{ width: "100%" }}
-                    src={instructionMsgImg}
-                    alt="instruction massage for Interactive video"
-                />
-
-                <div className="initial_Play_btn" style={{ opacity: 1 }}>
-                    <img
-                        src={playIcon}
-                        alt="i am tamim"
-                        onClick={() => onPlayVideo()}
-                    />
-                </div>
+        <PageLayout visible={props.appState.hideInstructions}>
+            <div className="intro_bg">
+                <img src={Introbg} alt="page background" />
             </div>
-        </>
-    )
+            <div className="robi_logo">
+                <img src={robiLogo} alt="robi logo" />
+            </div>
+            <div className="initial_Play_btn" style={{ opacity: 1 }} onClick={() => onStart()} >
+                <img src={playIcon} alt="Play Video" />
+            </div>
+            <div className="khelaPaltabe">
+                <img src={khelaPaltabe} alt="Intro Page Background" />
+            </div>
+
+            {instruction1 ?
+                <>
+                    {/* ======== Bottom 1st content ======== */}
+                    <div className="bottom_content d-flex align-items-center ">
+                        <div className="ball_icon">
+                            <img src={ball} alt="" />
+                        </div>
+                        <div className="text_content">
+                            <p className="mb-2">হটস্পটে ক্লিক করে</p>
+                            <h3 className="heading">জিতে নিন তামিমের সিগনেচারসহ ব্যাট</h3>
+                        </div>
+                    </div>
+                </>
+                :
+                <>
+                    {/* ======== Bottom 2st content ======== */}
+                    <div className="bottom_content d-flex align-items-center ">
+                        <div className="ball_with_men">
+                            <img src={ballWithMen} alt="" />
+                        </div>
+                        <div className="text_content">
+                            <p className="mb-2">হটস্পটে ক্লিক করে</p>
+                            <h3 className="heading">জিতে নিন তামিমের সিগনেচারসহ ব্যাট</h3>
+                        </div>
+                    </div>
+                </>
+            }
+
+
+
+
+
+
+        </PageLayout>
+    );
 }
 
-export default IntroPage
+export default IntroComp;

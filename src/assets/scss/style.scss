@@ -1,0 +1,51 @@
+/* ============= Font Family Nunito ============ */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Nunito", "Helvetica Neue";
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+  &:hover {
+    color: unset;
+  }
+}
+
+figure {
+  margin-bottom: 0;
+}
+
+@import "fontFace";
+@import "globalVariable";
+@import "color";
+@import "introPage";
+@import "registration";
+@import "success";
+@import "faild";
+@import "questionModal";
+@import "siam";
+
+// @import "termsConditions";
+
+// @import "socialMedia";
+// @import "customCheckbox";
+
+/* 
+============== Media Size ===========
+
+@media screen and (max-width: 1366px)
+@media screen and (max-width: 1024px)
+@media screen and (max-width: 991px)
+@media screen and (max-width: 760px)
+@media screen and (max-width: 576px)
+@media screen and (max-width: 420px)
+
+*/

@@ -1,0 +1,97 @@
+.unsuccess_component {
+  margin-top: 7rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .unsuccess_messages {
+    width: 350px;
+  }
+
+  .title {
+    font-size: 38px;
+    font-weight: 900;
+    color: var(--black);
+    font-family: "Tatsam Bengali Medium";
+    margin: 2rem 0;
+  }
+  p {
+    font-size: 38px;
+    font-weight: 600;
+    color: var(--black);
+    font-family: "Tatsam Bengali Light";
+  }
+  .sub_title {
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--black);
+    font-family: "Tatsam Bengali Medium";
+  }
+  .btn_unsuccess {
+    width: 600px;
+  }
+}
+
+/* ==================== media ============= */
+@media screen and (max-width: 1024px) {
+  .unsuccess_component {
+    margin-top: 3rem;
+  }
+}
+@media screen and (max-width: 991px) {
+  .unsuccess_component {
+    margin-top: 3rem;
+    .unsuccess_messages {
+      width: 250px;
+    }
+
+    .title {
+      font-size: 28px;
+      margin: 1rem 0;
+    }
+    .btn_unsuccess {
+      width: 500px;
+    }
+  }
+}
+
+/* ======= All Landscape Mobile view======= */
+@media screen and (max-width: 760px) {
+  .unsuccess_component {
+    margin-top: 2rem;
+    .unsuccess_messages {
+      width: 150px;
+    }
+
+    .title {
+      font-size: 22px;
+    }
+    .btn_unsuccess {
+      width: 400px;
+    }
+  }
+}
+
+/* =========== All Mobile Horizontal view =========== */
+@media screen and (max-width: 420px) {
+  .unsuccess_component {
+    margin-top: 0.5rem;
+    .unsuccess_messages {
+      width: 150px;
+    }
+
+    .title {
+      font-size: 20px;
+      margin: 0.65rem 0;
+    }
+    .btn_unsuccess {
+      width: 300px;
+    }
+  }
+}

@@ -1,0 +1,255 @@
+.video_wrapper {
+  position: relative;
+}
+
+.page_wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  .intro_bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .robi_logo {
+    width: 100px;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .initial_Play_btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+  .khelaPaltabe {
+    position: absolute;
+    left: 10%;
+    top: 16%;
+    width: 600px;
+  }
+  .bottom_content {
+    position: absolute;
+    bottom: 6rem;
+    left: 10rem;
+    .ball_with_men {
+      margin-right: 2rem;
+      width: 100px;
+      cursor: pointer;
+    }
+    .ball_icon {
+      position: relative;
+      margin-right: 2rem;
+      width: 100px;
+      cursor: pointer;
+      &::before,
+      &::after {
+        position: absolute;
+        content: "";
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-radius: 5px;
+      }
+      &::before {
+        left: -1rem;
+        border-right: 10px solid var(--redPrimary);
+      }
+      &::after {
+        right: -1rem;
+        border-left: 10px solid var(--redPrimary);
+      }
+    }
+    .text_content {
+      text-align: center;
+      p {
+        font-size: 24px;
+        font-family: "Tatsam Bengali Medium";
+      }
+      .heading {
+        font-size: 32px;
+        color: var(--redPrimary);
+        font-family: "Tatsam Bengali Bold";
+      }
+    }
+  }
+}
+
+/* ============= Media ============= */
+
+@media screen and (max-width: 1366px) {
+  .page_wrapper {
+    .bottom_content {
+      bottom: 4.5rem;
+      left: 5rem;
+    }
+  }
+}
+@media screen and (max-width: 1024px) {
+  .page_wrapper {
+    .initial_Play_btn {
+      width: 80px;
+    }
+    .khelaPaltabe {
+      width: 450px;
+    }
+    .bottom_content {
+      bottom: 4rem;
+      left: 5rem;
+      .ball_with_men,
+      .ball_icon {
+        width: 90px;
+      }
+      .text_content {
+        p {
+          font-size: 20px;
+        }
+        .heading {
+          font-size: 28px;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 991px) {
+  .page_wrapper {
+    .robi_logo {
+      width: 60px;
+      top: 1rem;
+      right: 1rem;
+    }
+    .initial_Play_btn {
+      width: 60px;
+    }
+    .khelaPaltabe {
+      width: 350px;
+    }
+    .bottom_content {
+      bottom: 3rem;
+      left: 3rem;
+      .ball_with_men,
+      .ball_icon {
+        width: 50px;
+      }
+      .text_content {
+        p {
+          font-size: 18px;
+        }
+        .heading {
+          font-size: 23px;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 760px) {
+  .page_wrapper {
+    .robi_logo {
+      width: 50px;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+    .initial_Play_btn {
+      width: 50px;
+    }
+    .khelaPaltabe {
+      width: 260px;
+    }
+    .bottom_content {
+      bottom: 1.5rem;
+      left: 1.5rem;
+      .ball_with_men,
+      .ball_icon {
+        margin-right: 1.5rem;
+        width: 40px;
+      }
+      .text_content {
+        p {
+          font-size: 15px;
+        }
+        .heading {
+          font-size: 17px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .page_wrapper {
+    .robi_logo {
+      width: 50px;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+    .initial_Play_btn {
+      width: 50px;
+    }
+    .khelaPaltabe {
+      top: 10%;
+      width: 230px;
+    }
+    .bottom_content {
+      bottom: 1rem;
+      left: 1.5rem;
+      .ball_with_men,
+      .ball_icon {
+        width: 30px;
+      }
+      .text_content {
+        p {
+          font-family: "Tatsam Bengali Medium";
+          font-size: 15px;
+        }
+        .heading {
+          font-family: "Tatsam Bengali Medium";
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 420px) {
+  .page_wrapper {
+    .robi_logo {
+      width: 50px;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+    .initial_Play_btn {
+      width: 50px;
+    }
+    .khelaPaltabe {
+      top: 10%;
+      width: 180px;
+    }
+    .bottom_content {
+      bottom: 1rem;
+      left: 1.5rem;
+      .ball_with_men,
+      .ball_icon {
+        width: 30px;
+      }
+      .text_content {
+        p {
+          font-family: "Tatsam Bengali Medium";
+          font-size: 14px;
+        }
+        .heading {
+          font-family: "Tatsam Bengali Medium";
+          font-size: 11px;
+        }
+      }
+    }
+  }
+}
