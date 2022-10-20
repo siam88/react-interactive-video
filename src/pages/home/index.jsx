@@ -263,7 +263,12 @@ const VideoPage = () => {
             className="justify-content-center"
             style={{ height: "100%", alignItems: "center" }}
           >
-            <Col xl={showModal && interactiveItem ? 12 : 11} sm={showModal && interactiveItem ? 12 : 11} xs={showModal && interactiveItem ? 12 : 11} md={showModal && interactiveItem ? 12 : 10}>
+            <Col
+              xl={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 11}
+              sm={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 11}
+              xs={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 11}
+              md={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 10}
+            >
               <div className="video_wrapper ">
                 {showModal && interactiveItem && (
                   <CustomModal
