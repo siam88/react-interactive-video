@@ -31,9 +31,12 @@
   justify-content: left;
   margin-top: 5px;
 }
-.play_icon svg {
-  font-size: 30px;
+.control_Icon {
+  font-size: x-large;
 }
+/* .play_icon svg {
+  font-size: 30px;
+} */
 .slider {
   -webkit-appearance: none;
   width: auto;

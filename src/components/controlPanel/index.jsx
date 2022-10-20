@@ -29,18 +29,19 @@ const ControlPanel = (props) => {
             </div>
             <div className="play_icon">
                 {props.playable && props.playable2 && props.playing ? (
-                    <BiPause onClick={props.playHandler} style={{ color: "white" }} />
+                    <BiPause onClick={props.playHandler} className={'control_Icon'} />
                 ) : (
                     <>
                         <BiPlay
                             onClick={props.playHandler}
-                            style={{ color: "white" }}
+                            className={'control_Icon'}
                         />
                     </>
                 )}
                 <div style={{ display: "flex", alignItems: "center" }}>
                     {props.appState.muted ? (
                         <BiVolumeMute
+                            className={'control_Icon'}
                             style={{ color: "white" }}
                             onClick={() => {
                                 props.setAppState({ ...props.appState, muted: false });
@@ -50,6 +51,7 @@ const ControlPanel = (props) => {
                     ) : (
                         <BiVolumeLow
                             style={{ color: "white" }}
+                            className={'control_Icon'}
                             onClick={() => {
                                 props.setAppState({ ...props.appState, muted: true });
                                 props.setVolume(0);
@@ -69,7 +71,7 @@ const ControlPanel = (props) => {
                     ></input>
                 </div>
                 <div style={{ width: "100%", textAlign: "right" }}>
-                    {!fullScreen ? <BiFullscreen onClick={() => onEnterFullScreen()} /> : <BiExitFullscreen onClick={() => onExitFullScreen()} />}
+                    {!fullScreen ? <BiFullscreen className={'control_Icon'} onClick={() => onEnterFullScreen()} /> : <BiExitFullscreen className={'control_Icon'} onClick={() => onExitFullScreen()} />}
                 </div>
             </div>
         </div>
