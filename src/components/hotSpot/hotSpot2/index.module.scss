@@ -1,0 +1,29 @@
+.img_btn {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  left: 50px;
+  top: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // border: 1px solid yellow;
+  // background-color: yellowgreen;
+  .inner_img {
+    margin-top: 2.25rem;
+    margin-left: 0.7rem;
+    height: 110px;
+    width: 110px;
+    // background-color: red;
+    border: 5px solid white;
+    border-radius: 50%;
+    background: url("../../../assets/all-images/tamim_name.png") no-repeat
+      center center;
+  }
+  &:hover {
+    background: url("../../../assets/all-images/hot-spots-hover-icon.svg")
+      no-repeat center;
+  }
+}
