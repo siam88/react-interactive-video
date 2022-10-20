@@ -12,9 +12,7 @@
   opacity: 1;
 }
 .loader {
-  margin-left: 32vw;
-  margin-top: 35vh;
-  /* margin-bottom: 50vh; */
+  margin: 35vh 29.5vw;
 }
 .progress {
   --r1: 154%;
@@ -49,13 +47,15 @@
 
 @media screen and (max-width: 1600px) {
   .loader {
-    margin-left: 39vw;
-    margin-top: 45vh;
+    margin: 40vh 35.5vw;
   }
 }
 @media screen and (max-width: 500px) {
   .loader {
-    margin-left: 40vw;
-    margin-top: 10vh;
+    margin: 10vh 36.5vw;
+  }
+  .progress {
+    width: 50px;
+    height: 50px;
   }
 }

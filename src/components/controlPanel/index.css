@@ -23,6 +23,13 @@
   flex-basis: 50%;
 }
 
+.icon_group {
+  color: #ffc600;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  justify-content: left;
+}
 .play_icon {
   color: #ffc600;
   cursor: pointer;
@@ -33,7 +40,9 @@
 }
 .control_Icon {
   font-size: x-large;
+  color: whitesmoke;
 }
+
 /* .play_icon svg {
   font-size: 30px;
 } */

@@ -3,7 +3,7 @@ import { BiPlay, BiExitFullscreen, BiPause, BiFullscreen, BiVolumeLow, BiVolumeM
 import './index.css';
 import { Lock, UnLock, checkFullScreen } from '../../utils';
 import { QuizContext } from '../../contexts/quizContext';
-
+import { FaPlay, FaExpand, FaVolumeMute, FaPause, FaVolumeDown } from 'react-icons/fa'
 const ControlPanel = (props) => {
     const { setFullScreen, fullScreen } = useContext(QuizContext)
 
@@ -29,27 +29,32 @@ const ControlPanel = (props) => {
             </div>
             <div className="play_icon">
                 {props.playable && props.playable2 && props.playing ? (
-                    <BiPause onClick={props.playHandler} className={'control_Icon'} />
+                    <FaPause
+                        style={{ marginRight: "15px" }}
+                        onClick={props.playHandler}
+                        className={'control_Icon'}
+                    />
                 ) : (
                     <>
-                        <BiPlay
+                        <FaPlay
+                            style={{ marginRight: "15px" }}
                             onClick={props.playHandler}
-                            className={'control_Icon'}
+                            className={'control_Icon '}
                         />
                     </>
                 )}
                 <div style={{ display: "flex", alignItems: "center" }}>
                     {props.appState.muted ? (
-                        <BiVolumeMute
-                            className={'control_Icon'}
-                            style={{ color: "white" }}
+                        <FaVolumeMute
+                            className={'control_Icon '}
+
                             onClick={() => {
                                 props.setAppState({ ...props.appState, muted: false });
                                 props.setVolume(1);
                             }}
                         />
                     ) : (
-                        <BiVolumeLow
+                        <FaVolumeDown
                             style={{ color: "white" }}
                             className={'control_Icon'}
                             onClick={() => {
@@ -60,18 +65,19 @@ const ControlPanel = (props) => {
                     )}
 
                     <input
+                        style={{ marginLeft: "5px" }}
                         type="range"
                         className="slider"
                         id="custom_range"
                         min="0"
                         max="1"
                         step="0.05"
-                        value={props.volume}
+                        value={props.appState.muted ? 0 : props.volume}
                         onChange={props.volumeHandler}
                     ></input>
                 </div>
                 <div style={{ width: "100%", textAlign: "right" }}>
-                    {!fullScreen ? <BiFullscreen className={'control_Icon'} onClick={() => onEnterFullScreen()} /> : <BiExitFullscreen className={'control_Icon'} onClick={() => onExitFullScreen()} />}
+                    {!fullScreen ? <FaExpand className={'control_Icon'} onClick={() => onEnterFullScreen()} /> : <BiExitFullscreen className={'control_Icon'} onClick={() => onExitFullScreen()} />}
                 </div>
             </div>
         </div>

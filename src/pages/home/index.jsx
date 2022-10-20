@@ -14,7 +14,7 @@ import { QuizContext } from "../../contexts/quizContext";
 import { useNavigate } from "react-router-dom";
 import "../../App.css";
 
-const VideoPage = (props) => {
+const VideoPage = () => {
   let navigate = useNavigate();
 
   const [playing, setPlaying] = useState(false);
@@ -263,9 +263,8 @@ const VideoPage = (props) => {
             className="justify-content-center"
             style={{ height: "100%", alignItems: "center" }}
           >
-            <Col xl={12} sm={showModal && interactiveItem ? 12 : 11} xs={12} md={12}>
+            <Col xl={showModal && interactiveItem ? 12 : 11} sm={showModal && interactiveItem ? 12 : 11} xs={showModal && interactiveItem ? 12 : 11} md={showModal && interactiveItem ? 12 : 10}>
               <div className="video_wrapper ">
-
                 {showModal && interactiveItem && (
                   <CustomModal
                     showModal={showModal}
