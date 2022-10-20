@@ -42,7 +42,9 @@ const IntroPage = (props) => {
       setPhoneError("Please Input your 11 digit Robi Number");
     }
   };
-
+  const onHandleTC = () => {
+    navigate(`/terms-and-conditions`);
+  }
   const onHandleLogin = async () => {
     // e.preventDefault()
     props.setLoading(true);
@@ -149,9 +151,12 @@ const IntroPage = (props) => {
             onChange={(e) => onChangeNumber(e)}
             value={phone}
           />
-          <div className="btn_reg ">
-            <img src={btnReg} alt="" onClick={() => onHandleLogin()} />
+          {!(name.length > 1 && phone.length === 11 && nameError.length === 0 && phoneError.length === 0 && checked) ? <div className="btn_reg disabled " >
+            <img src={btnReg} alt="" />
           </div>
+            : <div className="btn_reg  " >
+              <img src={btnReg} alt="" onClick={() => onHandleLogin()} />
+            </div>}
           <div className="term_wrapper d-flex align-items-center">
             <input
               type="checkbox"
@@ -161,7 +166,7 @@ const IntroPage = (props) => {
               onChange={() => setChecked(!checked)}
             />
             <label htmlFor="terms" className="terms_condition">
-              আমি <a href="#">শর্তাবলীর</a> সাথে একমত
+              আমি <span style={{ color: "#c70a18", cursor: "pointer" }} onClick={() => onHandleTC()}>শর্তাবলীর</span> সাথে একমত
             </label>
           </div>
         </div>
