@@ -173,7 +173,7 @@ const VideoPage = (props) => {
     }
 
     if (percent === 100) {
-      props.setVideoEnd(true);
+
       navigate("/result", { state: result });
       // UnLock()
     }
@@ -265,6 +265,7 @@ const VideoPage = (props) => {
           >
             <Col xl={12} sm={showModal && interactiveItem ? 12 : 11} xs={12} md={12}>
               <div className="video_wrapper ">
+
                 {showModal && interactiveItem && (
                   <CustomModal
                     showModal={showModal}

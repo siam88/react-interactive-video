@@ -29,7 +29,7 @@ const Modals = (props) => {
 
 
 
-            
+
             let result = {
                 refId: quizAns.refId,
                 answers: qsAndAnsSet,
@@ -45,7 +45,7 @@ const Modals = (props) => {
                 toast.success(res.data.data.rightAnswerCount)
 
                 if (res.data.statusCode === "400200") {
-                    
+                    console.log("==>", res.data.data.status)
                     props.setResult(res.data.data.status)
 
                 }
@@ -69,16 +69,16 @@ const Modals = (props) => {
 
 
 
-  return (
-    <OverlayLayout visible={props.showModal} ModalBg={props.interactiveItem.modalBackground}>
-      <div className="modal_component">
-        <div className="btn_back"  onClick={() => onSubmitResult()}>
-          <img src={btnBack} alt="" />
-        </div>
-        <Details interactiveItem={props.interactiveItem} questions={questions} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />
-      </div>
-    </OverlayLayout>
-  );
+    return (
+        <OverlayLayout visible={props.showModal} ModalBg={props.interactiveItem.modalBackground}>
+            <div className="modal_component">
+                <div className="btn_back" onClick={() => onSubmitResult()}>
+                    <img src={btnBack} alt="" />
+                </div>
+                <Details interactiveItem={props.interactiveItem} questions={questions} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />
+            </div>
+        </OverlayLayout>
+    );
 };
 
 export default React.memo(Modals)
