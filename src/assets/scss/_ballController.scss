@@ -1,40 +1,46 @@
 .divider {
-    display: grid;
-    height: 100%;
-    width: 6px;
-    background-color: white;
-    place-content: center;
-    .ball_controller {
-      position: relative;
-      .ball {
-        border-radius: 50%;
-        height: 50px;
-        width: auto;
-      }
+  display: grid;
+  height: 100%;
+  width: 6px;
+  background-color: var(--white);
+  opacity: 0.9;
+  place-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  .ball_controller {
+    position: relative;
+    .ball {
+      border-radius: 50%;
+      height: 50px;
+      width: auto;
     }
   }
-  
-  .ball_controller::after {
-    position: absolute;
-    content: "";
-    border: solid red;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
-    transform: rotate(-45deg);
-    top: 40%;
-    right: -9px;
-  }
-  
-  .ball_controller::before {
-    position: absolute;
-    content: "";
-    border: solid red;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
-    transform: rotate(135deg);
-    top: 40%;
-    left: -9px;
-  }
-  
+}
+
+.ball_controller::after {
+  position: absolute;
+  content: "";
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-radius: 5px;
+  right: -1rem;
+  border-left: 10px solid var(--redPrimary);
+}
+
+.ball_controller::before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-radius: 5px;
+  left: -1rem;
+  border-right: 10px solid var(--redPrimary);
+}

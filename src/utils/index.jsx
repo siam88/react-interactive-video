@@ -21,7 +21,9 @@ export const ResponseMsgFormatter = (obj) => {
 
     return errorMsg
 }
+export const RequestDeviceOrientation = () => {
 
+}
 export const Lock = (orientation = 'landscape') => {
 
     let de = document.documentElement;

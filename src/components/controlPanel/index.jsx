@@ -1,12 +1,17 @@
 import React, { useEffect, useContext } from 'react'
-import { BiPlay, BiExitFullscreen, BiPause, BiFullscreen, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
 import './index.css';
 import { Lock, UnLock, checkFullScreen } from '../../utils';
 import { QuizContext } from '../../contexts/quizContext';
-
+import { FaPlay, FaExpand, FaVolumeMute, FaPause, FaVolumeDown, FaCompress } from 'react-icons/fa'
 const ControlPanel = (props) => {
     const { setFullScreen, fullScreen } = useContext(QuizContext)
 
+
+    useEffect(() => {
+        if (checkFullScreen) {
+            setFullScreen(true)
+        }
+    }, [])
 
 
 
@@ -18,7 +23,9 @@ const ControlPanel = (props) => {
         UnLock()
         setFullScreen(false)
     }
-
+    function handleKeyPress(e) {
+        console.log("You pressed a key.", e)
+    }
     return (
         <div className="control_panel">
             <div className="progress" onClick={props.progressHandler}>
@@ -29,27 +36,35 @@ const ControlPanel = (props) => {
             </div>
             <div className="play_icon">
                 {props.playable && props.playable2 && props.playing ? (
-                    <BiPause onClick={props.playHandler} style={{ color: "white" }} />
+                    <FaPause
+                        style={{ marginRight: "15px" }}
+                        onClick={props.playHandler}
+                        className={'control_Icon'}
+                    />
                 ) : (
                     <>
-                        <BiPlay
+                        <FaPlay
+                            style={{ marginRight: "15px" }}
                             onClick={props.playHandler}
-                            style={{ color: "white" }}
+                            className={'control_Icon '}
+                            onKeyPress={(e) => handleKeyPress(e)}
                         />
                     </>
                 )}
                 <div style={{ display: "flex", alignItems: "center" }}>
                     {props.appState.muted ? (
-                        <BiVolumeMute
-                            style={{ color: "white" }}
+                        <FaVolumeMute
+                            className={'control_Icon '}
+
                             onClick={() => {
                                 props.setAppState({ ...props.appState, muted: false });
                                 props.setVolume(1);
                             }}
                         />
                     ) : (
-                        <BiVolumeLow
+                        <FaVolumeDown
                             style={{ color: "white" }}
+                            className={'control_Icon'}
                             onClick={() => {
                                 props.setAppState({ ...props.appState, muted: true });
                                 props.setVolume(0);
@@ -58,18 +73,19 @@ const ControlPanel = (props) => {
                     )}
 
                     <input
+                        style={{ marginLeft: "5px" }}
                         type="range"
                         className="slider"
                         id="custom_range"
                         min="0"
                         max="1"
                         step="0.05"
-                        value={props.volume}
+                        value={props.appState.muted ? 0 : props.volume}
                         onChange={props.volumeHandler}
                     ></input>
                 </div>
                 <div style={{ width: "100%", textAlign: "right" }}>
-                    {!fullScreen ? <BiFullscreen onClick={() => onEnterFullScreen()} /> : <BiExitFullscreen onClick={() => onExitFullScreen()} />}
+                    {!fullScreen ? <FaExpand className={'control_Icon'} onClick={() => onEnterFullScreen()} /> : <FaCompress className={'control_Icon'} onClick={() => onExitFullScreen()} />}
                 </div>
             </div>
         </div>

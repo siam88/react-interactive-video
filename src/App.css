@@ -1,38 +1,9 @@
+.main_bg_content {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #cbcbcb;
+}
 .video_wrapper {
   position: relative;
 }
-
-.login {
-  /* position: absolute;
-  top: 20%;
-  left: 40%; */
-}
-
-.info_btn {
-  /*   color: black;
-  display: inline-block;
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  font-size: 21px;
-  transition: all 2s;
-  cursor: pointer;
-  font-weight: 700; */
-}
-
-/* .modal-90w {
-  max-width: 60%;
-}
-
-.modal-90w .modal-body {
-  padding: 0;
-} */
-/* 
-.divider {
-  display: grid;
-  height: 100%;
-  width: 6px;
-  background-color: white;
-  place-content: center;
-}
- */

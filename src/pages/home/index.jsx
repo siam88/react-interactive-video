@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Loader from "../../components/loader";
-import IntroPage from "../../pages/IntroPage";
-import LoginPage from "../../pages/LoginPage";
+import IntroPage from "./introPage/IntroPage";
+import LoginPage from "./LoginPage";
 import CustomModal from "../../components/modals";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -9,18 +9,22 @@ import Container from "react-bootstrap/Container";
 import HotSpots from "../../components/hotSpot";
 import ControlPanel from "../../components/controlPanel";
 import { findCurrentTimeToShow } from "../../helpers/helpers";
-import VideoPlayer from "../../components/videoPLayer";
+import TermsAndCondition from '../home/T&CPage'
 import { QuizContext } from "../../contexts/quizContext";
 import { useNavigate } from "react-router-dom";
 import "../../App.css";
+import ballImage from "../../assets/all-images/ball.png";
+import { UnLock, checkFullScreen } from '../../utils'
+import {
+  ReactCompareSlider,
 
-const VideoPage = (props) => {
+} from "react-compare-slider";
+const VideoPage = () => {
   let navigate = useNavigate();
 
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
   const [videoNode2, setVideoNode2] = useState();
-  const [interactiveItem, setInteractiveItem] = useState();
   const [videoProgress, setVideoProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [showInfo, setShowInfo] = useState(false);
@@ -31,7 +35,12 @@ const VideoPage = (props) => {
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState();
   const [fullScreen, setFullScreen] = useState(false);
-  const [result, setResult] = useState();
+  const [interactiveItem, setInteractiveItem] = useState();
+
+  const [result, setResult] = useState({
+    resultSubmission: false,
+    result: false
+  });
   const [intro, setIntro] = useState(true);
   const [auth, setAuth] = useState(false);
 
@@ -90,9 +99,8 @@ const VideoPage = (props) => {
         }
       });
       if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-        // setIsAutoPlay(true);
+        setIsAutoPlay(true);
         setPlayable2(true);
-
         setAppState({ ...appState, muted: true });
       }
       console.log({ videoNode });
@@ -104,15 +112,25 @@ const VideoPage = (props) => {
     }
   }, [videoNode, videoNode2, playable, playable2]);
 
+  const initialPlayer = () => {
+    setLoading(true);
+    setAppState({ ...appState, hideInstructions: true });
+
+    setTimeout(() => {
+      playHandler();
+      setLoading(false);
+    }, 3000);
+  };
+
   useEffect(() => {
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      if (videoNode || videoNode2) {
+      if (videoNode && videoNode2) {
         // videoNode.currentTime = 0;
         // videoNode2.currentTime = 0;
-        initialIOSProgress();
+        progressHandler();
       }
     }
-  }, [isAutoPlay]);
+  }, []);
 
   //check play event
   useEffect(() => {
@@ -159,11 +177,8 @@ const VideoPage = (props) => {
 
     setVideoProgress(percent);
     let selectedNode = findCurrentTimeToShow(Math.floor(videoNode.currentTime));
-
     if (selectedNode) {
-      // if (Math.floor(videoNode.currentTime) >= selectedNode.timeToShow) {
 
-      // }
       setShowInfo(true);
       setInteractiveItem(selectedNode);
       if (Math.floor(videoNode.currentTime) >= selectedNode.timeToHide) {
@@ -173,10 +188,15 @@ const VideoPage = (props) => {
     }
 
     if (percent === 100) {
-      props.setVideoEnd(true);
-      navigate("/result", { state: result });
-      // UnLock()
+      // if (result.resultSubmission) {
+      //   navigate("/result", { state: result.result });
+      // }
+      navigate("/result", { state: result.result });
+      if (checkFullScreen) {
+        UnLock()
+      }
     }
+
   };
 
   const playHandler = () => {
@@ -193,14 +213,11 @@ const VideoPage = (props) => {
     });
     if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
       setIsAutoPlay((prevState) => !prevState);
-      // alert("hello")
     }
   };
-  const progressHandler = (e = 20) => {
+  const progressHandler = (e = 5) => {
     const progress = document.querySelector(".progress");
     const videoTwo = document.getElementById("video_two");
-    // console.log("progress==>", e.nativeEvent.offsetX);
-
     const scrubTime =
       (e.nativeEvent.offsetX / progress.offsetWidth) * videoNode.duration;
     videoNode.currentTime = scrubTime;
@@ -234,14 +251,7 @@ const VideoPage = (props) => {
       setPlaying(true);
     });
   };
-  const initialPlayer = () => {
-    setLoading(true);
-    setAppState({ ...appState, hideInstructions: true });
-    setTimeout(() => {
-      playHandler();
-      setLoading(false);
-    }, 2000);
-  };
+
 
   return (
     <QuizContext.Provider
@@ -255,15 +265,20 @@ const VideoPage = (props) => {
       }}
     >
       <div
-        className="App"
-        style={{ backgroundColor: "#28282b", height: "100vh" }}
+        className="main_bg_content"
+
       >
         <Container style={{ height: "100%" }}>
           <Row
             className="justify-content-center"
             style={{ height: "100%", alignItems: "center" }}
           >
-            <Col xl={12} sm={12} xs={12} md={12}>
+            <Col
+              xl={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 11}
+              sm={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 11}
+              xs={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 11}
+              md={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 10}
+            >
               <div className="video_wrapper ">
                 {showModal && interactiveItem && (
                   <CustomModal
@@ -271,6 +286,7 @@ const VideoPage = (props) => {
                     setResult={setResult}
                     onCloseHandler={onCloseHandler}
                     interactiveItem={interactiveItem}
+                    result={result}
                   />
                 )}
 
@@ -280,6 +296,8 @@ const VideoPage = (props) => {
                   appState={appState}
                   setIntro={setIntro}
                 />
+                <TermsAndCondition appState={appState} />
+
                 {!intro && !auth && (
                   <LoginPage
                     initialPlayer={initialPlayer}
@@ -289,11 +307,98 @@ const VideoPage = (props) => {
                     setAuth={setAuth}
                   />
                 )}
-                <VideoPlayer
-                  isAutoPlay={isAutoPlay}
-                  appState={appState}
-                  timeUpdateHandler={timeUpdateHandler}
-                  setPlaying={setPlaying}
+                <ReactCompareSlider
+                  onlyHandleDraggable={true}
+                  handle={
+                    <>
+                      <div className="divider">
+                        <div className='ball_controller'>
+                          <img src={ballImage} alt="" className="ball" loading="lazy" />
+                        </div>
+
+                      </div>
+                    </>
+                  }
+                  // handle={
+                  //   // <ReactCompareSliderHandle
+                  //   //   buttonStyle={{
+                  //   //     backdropFilter: undefined,
+                  //   //     background: "green",
+                  //   //     border: 1,
+                  //   //     height: "0",
+
+                  //   //     color: "yellow",
+                  //   //   }}
+                  //   //   linesStyle={{
+                  //   //     background: "green",
+                  //   //   }}
+                  //   // />
+                  //   <div
+                  //     style={{
+                  //       display: "grid",
+                  //       height: "100%",
+                  //       placeContent: "center",
+                  //     }}
+                  //   >
+                  //     <button
+                  //       style={{
+                  //         all: "unset",
+                  //         borderRadius: "50%",
+                  //         fontSize: 50,
+                  //       }}
+                  //     >
+                  //       💥
+                  //     </button>
+                  //   </div>
+                  // }
+                  itemOne={
+                    <>
+                      <video
+                        playsInline
+                        autoPlay={isAutoPlay}
+                        muted={appState.muted}
+                        width={"100%"}
+                        id="video_one"
+                        onTimeUpdate={timeUpdateHandler}
+                        onEnded={() => setPlaying(false)}
+                        preload="auto"
+                        onwaiting={() => {
+                          console.log(" video ,i am waiting");
+                        }}
+                        onStalled={(e) => console.log("hello", e)}
+                      // onCanPlayThrough={(e) => console.log("helllo", e)}
+                      // autoPlay={readyState1}
+                      // muted="muted"
+                      >
+                        <source
+                          src="https://d2uz5qswi21q1o.cloudfront.net/bts/5mb_Chroma.mp4"
+                          type="video/mp4"
+                        />
+                      </video>
+                    </>
+                  }
+                  itemTwo={
+                    <>
+                      <video
+                        autoPlay={isAutoPlay}
+                        muted={appState.muted}
+                        playsInline
+                        width={"100%"}
+                        id="video_two"
+                        preload="auto"
+                        // autoPlay={readyState2}
+                        // muted="muted"
+                        onwaiting={() => {
+                          console.log(" video 2,i am waiting");
+                        }}
+                      >
+                        <source
+                          src="https://d2uz5qswi21q1o.cloudfront.net/bts/5mb_tvc.mp4"
+                          type="video/mp4"
+                        />
+                      </video>{" "}
+                    </>
+                  }
                 />
 
                 {showInfo && interactiveItem && (

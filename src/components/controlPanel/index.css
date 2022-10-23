@@ -23,6 +23,13 @@
   flex-basis: 50%;
 }
 
+.icon_group {
+  color: #ffc600;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  justify-content: left;
+}
 .play_icon {
   color: #ffc600;
   cursor: pointer;
@@ -31,9 +38,14 @@
   justify-content: left;
   margin-top: 5px;
 }
-.play_icon svg {
-  font-size: 30px;
+.control_Icon {
+  font-size: x-large;
+  color: whitesmoke;
 }
+
+/* .play_icon svg {
+  font-size: 30px;
+} */
 .slider {
   -webkit-appearance: none;
   width: auto;

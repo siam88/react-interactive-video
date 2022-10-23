@@ -1,12 +1,17 @@
 import React from "react";
-import PageTopImg from "../../../assets/all-images/innner-img-tamim.png";
+// import PageTopImg from "../../../assets/all-images/innner-img-tamim.png";
 
 const ModalTemp = ({ question, onSelectItem, onSubmitResult }) => {
   return (
     <div className="inner_content_wrapper">
       <div className="page_top_img">
-        <img src={PageTopImg} alt="" />
+        <img
+          src={question?.topic?.image}
+          alt={question?.topic?.title}
+          loading="lazy"
+        />
       </div>
+
       <h2 className="heading">{question?.topic?.title}</h2>
       <p className="question">{question?.topic?.question[0]?.title}</p>
 

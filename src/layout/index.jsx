@@ -1,22 +1,17 @@
-import React from 'react'
-import VideoPage from '../pages/VideoPage';
-import { useState } from 'react';
-import LoginPage from '../pages/LoginPage';
-import Loader from './../components/loader';
+import React, { useEffect } from 'react'
 import { Routes, Route, } from "react-router-dom";
-import TAndCPage from '../pages/T&CPage';
+import TAndCPage from '../pages/home/T&CPage';
 import ResultPage from './../pages/resultPage';
 import Home from './../pages/home';
+import { RequestDeviceOrientation } from '../utils'
 
 const Layout = () => {
-    const [auth, setAuth] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [videoEnd, setVideoEnd] = useState(false)
-    const [result, setResult] = useState()
+
+
 
     return (
         <>
-           <Routes >
+            <Routes >
                 <Route path="/" element={<Home />} />
                 <Route path="/result" element={<ResultPage />} />
                 <Route path="/terms-and-conditions" element={<TAndCPage />} />
