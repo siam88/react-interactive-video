@@ -6,26 +6,29 @@ import RegistrationBg from "../../assets/all-images/BTS---Registration-page-bg.j
 import unsuccessBtn from "../../assets/all-images/unsuccess_btn.png";
 
 function Failed(props) {
+
     return (
-        <div>
-            <PageLayout>
-                <div className="intro_bg">
-                    <img src={RegistrationBg} alt="page background" loading="lazy" />
+
+        <PageLayout>
+            <div className="intro_bg bg-info ">
+                <img src={RegistrationBg} alt="page background" loading="lazy" />
+            </div>
+            <div className="robi_logo">
+                <img src={robiLogo} alt="robi logo" loading="lazy" />
+            </div>
+            <div className="unsuccess_component ">
+                <div className="unsuccess_messages">
+                    {/* {props.resultSubmission && <img src={unsuccess} alt="" loading="lazy" />} */}
+                    <img src={unsuccess} alt="" loading="lazy" />
+
                 </div>
-                <div className="robi_logo">
-                    <img src={robiLogo} alt="robi logo" loading="lazy" />
+                {props.resultSubmission ? <h2 className="title ">আপনার প্রশ্নের উত্তর সঠিক হয়নি।</h2> : <h2 className="title ">আপনি নিয়ম অনুসারে কুইজে অংশগ্রহণ করেন নি</h2>}
+                <div className="btn_unsuccess" onClick={() => props.onRestart()}>
+                    <img src={unsuccessBtn} alt="" loading="lazy" />
                 </div>
-                <div className="unsuccess_component">
-                    <div className="unsuccess_messages">
-                        <img src={unsuccess} alt="" loading="lazy" />
-                    </div>
-                    <h2 className="title">আপনার প্রশ্নের উত্তর সঠিক হয়নি।</h2>
-                    <div className="btn_unsuccess" onClick={() => props.onRestart()}>
-                        <img src={unsuccessBtn} alt="" loading="lazy" />
-                    </div>
-                </div>
-            </PageLayout>
-        </div>
+            </div>
+        </PageLayout>
+
     );
 }
 

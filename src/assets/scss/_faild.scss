@@ -1,17 +1,17 @@
 .unsuccess_component {
-  margin-top: 7rem;
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 0;
   right: 0;
   bottom: 0;
-  overflow: hidden;
   padding: 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
+  transform: translateY(-50%);
+
   .unsuccess_messages {
-    width: 350px;
+    width: 200px;
   }
 
   .title {
@@ -20,6 +20,7 @@
     color: var(--black);
     font-family: "Tatsam Bengali Medium";
     margin: 2rem 0;
+    text-align: center;
   }
   p {
     font-size: 38px;
@@ -41,17 +42,9 @@
 
 /* ==================== media ============= */
 @media screen and (max-width: 1024px) {
-  .unsuccess_component {
-    margin-top: 3rem;
-  }
 }
 @media screen and (max-width: 991px) {
   .unsuccess_component {
-    margin-top: 3rem;
-    .unsuccess_messages {
-      width: 250px;
-    }
-
     .title {
       font-size: 28px;
       margin: 1rem 0;
@@ -65,7 +58,6 @@
 /* ======= All Landscape Mobile view======= */
 @media screen and (max-width: 760px) {
   .unsuccess_component {
-    margin-top: 2rem;
     .unsuccess_messages {
       width: 150px;
     }
@@ -82,7 +74,6 @@
 /* =========== All Mobile Horizontal view =========== */
 @media screen and (max-width: 420px) {
   .unsuccess_component {
-    margin-top: 0.5rem;
     .unsuccess_messages {
       width: 150px;
     }

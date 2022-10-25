@@ -6,7 +6,7 @@ import PageLayout from "../../../layout/PageLayout";
 import RegistrationBg from "../../../assets/all-images/BTS---Registration-page-bg.jpg";
 import btnReg from "../../../assets/all-images/btn-registration.png";
 import robiLogo from "../../../assets/all-images/robi-logo.svg";
-import { QuizContext } from "../../../contexts/quizContext";
+import { QuizContext, UserContext } from "../../../contexts/quizContext";
 import { useNavigate } from "react-router-dom";
 import { ResponseMsgFormatter, Lock, MobileCheck, CheckIOS } from "../../../utils";
 import TermsAndCondition from '../T&CPage'
@@ -22,6 +22,7 @@ const IntroPage = (props) => {
 
   let navigate = useNavigate();
   const { setQuestions, setQuizAns, quizAns } = useContext(QuizContext);
+  const { setUserInfo } = useContext(UserContext);
 
 
 
@@ -61,6 +62,7 @@ const IntroPage = (props) => {
     await axios
       .post(`${process.env.REACT_APP_SECRET_URL}/login`, postData)
       .then((res) => {
+
         if (res.data.statusCode === "400200") {
           Cookies.set(
             process.env.REACT_APP_GET_SECRET_TOKEN,
@@ -69,7 +71,8 @@ const IntroPage = (props) => {
               expires: res.data.data.expires_in / 86400,
             }
           );
-
+          props.setUser(postData)
+          setUserInfo(postData)
           props.setAuth(true);
           props.setLoading(false);
           // toast.success(res.data.message)
@@ -156,12 +159,14 @@ const IntroPage = (props) => {
             className="input_field "
             placeholder="আপনার নাম সাবমিট করুন"
             value={name}
+            autocomplete="on"
             onChange={(e) => onChangeName(e)}
           />
           <input
             style={{ border: phoneError.length > 0 && "1px solid red" }}
             type="text"
             className="input_field"
+            autocomplete="on"
             placeholder="মোবাইল নাম্বার লিখুন"
             onChange={(e) => onChangeNumber(e)}
             value={phone}

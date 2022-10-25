@@ -10,6 +10,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  .hover_whitetext {
+    visibility: visible;
+    opacity: 1;
+  }
   .hover_text {
     visibility: hidden;
     opacity: 0;
@@ -31,6 +35,10 @@
     .hover_text {
       visibility: visible;
       opacity: 1;
+    }
+    .hover_whitetext {
+      visibility: hidden;
+      opacity: 0;
     }
     .image_border {
       background-color: var(--redPrimary);

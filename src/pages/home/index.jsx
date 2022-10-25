@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import Loader from "../../components/loader";
 import IntroPage from "./introPage/IntroPage";
 import LoginPage from "./LoginPage";
@@ -11,7 +11,7 @@ import ControlPanel from "../../components/controlPanel";
 import { findCurrentTimeToShow } from "../../helpers/helpers";
 import TermsAndCondition from '../home/T&CPage'
 import { QuizContext } from "../../contexts/quizContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../../App.css";
 import ballImage from "../../assets/all-images/ball.png";
 import { UnLock, checkFullScreen } from '../../utils'
@@ -19,9 +19,12 @@ import {
   ReactCompareSlider,
 
 } from "react-compare-slider";
+import { UserContext } from "../../contexts/quizContext";
+
 const VideoPage = () => {
   let navigate = useNavigate();
-
+  let location = useLocation();
+  const { userInfo } = useContext(UserContext);
   const [playing, setPlaying] = useState(false);
   const [videoNode, setVideoNode] = useState();
   const [videoNode2, setVideoNode2] = useState();
@@ -36,7 +39,7 @@ const VideoPage = () => {
   const [questions, setQuestions] = useState();
   const [fullScreen, setFullScreen] = useState(false);
   const [interactiveItem, setInteractiveItem] = useState();
-
+  const [user, setUser] = useState()
   const [result, setResult] = useState({
     resultSubmission: false,
     result: false
@@ -85,6 +88,7 @@ const VideoPage = () => {
 
     setVideoNode(video);
     setVideoNode2(video2);
+
     // initializer();
   }, []);
 
@@ -103,7 +107,7 @@ const VideoPage = () => {
         setPlayable2(true);
         setAppState({ ...appState, muted: true });
       }
-      console.log({ videoNode });
+
       videoNode2.addEventListener("loadeddata", (...args) => {
         if (videoNode2.readyState >= 2) {
           setPlayable2(true);
@@ -191,7 +195,13 @@ const VideoPage = () => {
       // if (result.resultSubmission) {
       //   navigate("/result", { state: result.result });
       // }
-      navigate("/result", { state: result.result });
+
+      navigate("/result", {
+        state: {
+          result: result,
+          userInfo: user
+        }
+      });
       if (checkFullScreen) {
         UnLock()
       }
@@ -274,12 +284,15 @@ const VideoPage = () => {
             style={{ height: "100%", alignItems: "center" }}
           >
             <Col
-              xl={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 11}
-              sm={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 11}
-              xs={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 11}
-              md={(showModal && interactiveItem) || (!intro && !auth) ? 12 : 10}
+              xl={intro || !auth || (showModal && interactiveItem) ? 12 : 11}
+              sm={intro || !auth || (showModal && interactiveItem) ? 12 : 11}
+              xs={intro || !auth || (showModal && interactiveItem) ? 12 : 11}
+              md={intro || !auth || (showModal && interactiveItem) ? 12 : 10}
+
             >
+
               <div className="video_wrapper ">
+
                 {showModal && interactiveItem && (
                   <CustomModal
                     showModal={showModal}
@@ -295,16 +308,22 @@ const VideoPage = () => {
                 <IntroPage
                   appState={appState}
                   setIntro={setIntro}
+                  userInfo={location?.state?.userInfo}
+                  initialPlayer={initialPlayer}
+                  setLoading={setLoading}
+                  setAuth={setAuth}
                 />
                 <TermsAndCondition appState={appState} />
 
-                {!intro && !auth && (
+                {!userInfo && !intro && !auth && (
                   <LoginPage
+                    setUser={setUser}
                     initialPlayer={initialPlayer}
                     appState={appState}
                     setIntro={setIntro}
                     setLoading={setLoading}
                     setAuth={setAuth}
+
                   />
                 )}
                 <ReactCompareSlider
@@ -363,7 +382,7 @@ const VideoPage = () => {
                         onEnded={() => setPlaying(false)}
                         preload="auto"
                         onwaiting={() => {
-                          console.log(" video ,i am waiting");
+                          // console.log(" video ,i am waiting");
                         }}
                         onStalled={(e) => console.log("hello", e)}
                       // onCanPlayThrough={(e) => console.log("helllo", e)}
@@ -389,7 +408,7 @@ const VideoPage = () => {
                         // autoPlay={readyState2}
                         // muted="muted"
                         onwaiting={() => {
-                          console.log(" video 2,i am waiting");
+                          // console.log(" video 2,i am waiting");
                         }}
                       >
                         <source

@@ -10,6 +10,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  .hover_whitetext {
+    visibility: visible;
+    opacity: 1;
+  }
   .hover_text {
     visibility: hidden;
     opacity: 0;
@@ -28,6 +32,10 @@
     transition: all 0.3s ease;
   }
   &:hover {
+    .hover_whitetext {
+      visibility: hidden;
+      opacity: 0;
+    }
     .hover_text {
       visibility: visible;
       opacity: 1;
@@ -45,6 +53,7 @@
     top: 0rem;
     left: 0rem;
     scale: 0.7;
+    
   }
 }
 

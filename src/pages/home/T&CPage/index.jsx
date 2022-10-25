@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import TCbg from "../../../assets/all-images/BTS---T_C-page-bg.jpg";
 import robiLogo from "../../../assets/all-images/robi-logo.svg";
 import Modal from 'react-bootstrap/Modal';
-// import { MobileCheck, Lock, UnLock } from "../../../utils";
+import { MobileCheck, Lock, UnLock } from "../../../utils";
 
+import { IoIosCloseCircle } from 'react-icons/io';
 const TermsAndConditions = (props) => {
 
 
@@ -19,25 +20,32 @@ const TermsAndConditions = (props) => {
         onHide={() => props.setShow(false)}
         dialogClassName="modal-90w"
         aria-labelledby="example-custom-modal-styling-title"
-        fullscreen={true}
+        size="xl"
       >
 
 
-        <Modal.Header closeButton />
+
 
         <Modal.Body>
+          {/* <IoCloseCircle /> */}
           <div
-            style={{ height: "100vh" }}
+            style={{ height: "95vh" }}
             className="page_wrapper">
-            <div className="intro_bg">
+            <div className='closeBtn'>
+              <IoIosCloseCircle color="red" onClick={() => props.setShow(false)} />
+            </div>
+
+            <div className="intro_bg ">
+
               <img src={TCbg} alt="page background" loading="lazy" />
             </div>
-            <div className="robi_logo">
-              <img src={robiLogo} alt="robi logo" loading="lazy" />
-            </div>
-            <h2 className="t_c_heading">শর্তাবলী</h2>
+            {!MobileCheck() && <div className="robi_logo mt-2">
 
-            <div className="t_c_content">
+              <img src={robiLogo} alt="robi logo" loading="lazy" />
+            </div>}
+            <h2 className="t_c_heading mt-2">শর্তাবলী</h2>
+
+            <div className="t_c_content ">
               <ul>
                 <li>
                   প্রতিবার ইউজার পেইজ রিফ্রেশ করলে তাকে নাম ও মোবাইল নাম্বার দিয়ে
@@ -80,6 +88,7 @@ const TermsAndConditions = (props) => {
                 <li>প্রতিযোগিতাটি একটি সীমিত সময়ের জন্য চলবে।</li>
               </ul>
             </div>
+
           </div>
         </Modal.Body>
 

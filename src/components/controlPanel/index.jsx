@@ -1,8 +1,9 @@
 import React, { useEffect, useContext } from 'react'
 import './index.css';
-import { Lock, UnLock, checkFullScreen } from '../../utils';
+import { Lock, UnLock, checkFullScreen, CheckIOS } from '../../utils';
 import { QuizContext } from '../../contexts/quizContext';
-import { FaPlay, FaExpand, FaVolumeMute, FaPause, FaVolumeDown, FaCompress } from 'react-icons/fa'
+import { FaPlay, FaExpand, FaVolumeMute, FaPause, FaVolumeDown, FaCompress, } from 'react-icons/fa'
+
 const ControlPanel = (props) => {
     const { setFullScreen, fullScreen } = useContext(QuizContext)
 
@@ -24,7 +25,7 @@ const ControlPanel = (props) => {
         setFullScreen(false)
     }
     function handleKeyPress(e) {
-        console.log("You pressed a key.", e)
+
     }
     return (
         <div className="control_panel">
@@ -84,9 +85,9 @@ const ControlPanel = (props) => {
                         onChange={props.volumeHandler}
                     ></input>
                 </div>
-                <div style={{ width: "100%", textAlign: "right" }}>
+                {!CheckIOS() && <div style={{ width: "100%", textAlign: "right" }}>
                     {!fullScreen ? <FaExpand className={'control_Icon'} onClick={() => onEnterFullScreen()} /> : <FaCompress className={'control_Icon'} onClick={() => onExitFullScreen()} />}
-                </div>
+                </div>}
             </div>
         </div>
     )

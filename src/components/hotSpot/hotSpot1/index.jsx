@@ -1,14 +1,19 @@
 import React from "react";
 import styles from "./index.module.scss";
 
-import hotspotBtnImg from "../../../assets/all-images/hotspot-img-bandorbon.png";
+import hotspotBtnImg from "../../../assets/all-images/hotspot-img-cox's-bazar.png";
 import hotspotOuterText from "../../../assets/all-images/hotspot-button-text.png";
+import hotspotOuterWhiteText from "../../../assets/all-images/hotspot-button-whitetext.png";
 
 const HotSpots1 = (props) => {
   return (
-    <>
-      <div className={styles.img_btn_wrapper}>
+    <div className={styles.img_btn_wrapper}>
         <div className={styles.image_border}></div>
+        <img
+          className={styles.hover_whitetext}
+          src={hotspotOuterWhiteText}
+          alt="i am tamim"
+        />
         <img
           className={styles.hover_text}
           src={hotspotOuterText}
@@ -16,7 +21,6 @@ const HotSpots1 = (props) => {
         />
         <img src={hotspotBtnImg} alt="i am tamim" loading="lazy" />
       </div>
-    </>
   );
 };
 
