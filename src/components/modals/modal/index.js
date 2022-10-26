@@ -58,7 +58,7 @@ const ModalTemp = ({ question, onSelectItem, onSubmitResult }) => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=https://agamirrobi.com/share`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=react-interactive-video.vercel.app/share`}
             target="_blank"
             rel="noreferrer"
           >
