@@ -1,0 +1,117 @@
+.t_c_heading {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  display: inline-block;
+  font-size: 32px;
+  font-family: "Tatsam Bengali Bold";
+  color: var(--white);
+  border-radius: 30px;
+  padding: 12px 50px;
+  border: 2px solid var(--redBorder);
+  background-color: var(--redPrimary);
+}
+
+.closeBtn {
+  position: absolute;
+  top: -1%;
+  right: 0%;
+  cursor: pointer;
+  // overflow: visible;
+  z-index: 100;
+  font-size: 1.5rem;
+  // margin-bottom: 110px;
+}
+.t_c_content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 8rem 2rem 6rem 4rem;
+  // overflow: hidden;
+
+  ul {
+    li {
+      position: relative;
+      font-size: 22px;
+      font-family: "Tatsam Bengali Light";
+      color: var(--black);
+      margin-bottom: 1rem;
+      &::after {
+        position: absolute;
+        content: "";
+        width: 12px;
+        height: 2px;
+        background-color: var(--black);
+        left: -20px;
+        top: 0.75rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .t_c_content {
+    ul {
+      li {
+        font-size: 20px;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .t_c_heading {
+    top: 2rem;
+    left: 2.25rem;
+    font-size: 22px;
+    padding: 10px 40px;
+  }
+  .t_c_content {
+    margin: 6rem 2rem 2rem 3rem;
+
+    ul {
+      li {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 991px) {
+  .t_c_heading {
+    top: 1rem;
+    left: 1.5rem;
+    font-size: 20px;
+    padding: 7px 40px;
+  }
+  .t_c_content {
+    margin: 4rem 2rem 2rem 2rem;
+    ul {
+      li {
+        font-size: 15px;
+        margin-bottom: 0.125rem;
+      }
+    }
+  }
+}
+@media screen and (max-width: 760px) {
+  .t_c_heading {
+    top: 0.75rem;
+    left: 0.75rem;
+    font-size: 18px;
+    padding: 6px 25px;
+  }
+  .t_c_content {
+    margin: 3.65rem 0.6rem 1.5rem 0.5rem;
+    overflow: auto;
+    ul {
+      li {
+        font-size: 15px;
+        margin-bottom: 0.125rem;
+      }
+    }
+  }
+}

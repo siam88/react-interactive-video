@@ -14,7 +14,7 @@ const Modals = (props) => {
     const { questions, setQuizAns, quizAns } = useContext(QuizContext);
 
     const onSubmitResult = async () => {
-        console.log("hello")
+
         if (props.interactiveItem.id === 3) {
 
             let qsAndAnsSet = quizAns.questions.map((e, i) => {
@@ -45,8 +45,8 @@ const Modals = (props) => {
                 toast.success(res.data.data.rightAnswerCount)
 
                 if (res.data.statusCode === "400200") {
-                    console.log("==>", res.data.data.status)
-                    props.setResult(res.data.data.status)
+
+                    props.setResult({ ...props.result, result: res.data.data.status, resultSubmission: true })
 
                 }
             }).catch((err) => {
@@ -73,7 +73,7 @@ const Modals = (props) => {
         <OverlayLayout visible={props.showModal} ModalBg={props.interactiveItem.modalBackground}>
             <div className="modal_component">
                 <div className="btn_back" onClick={() => onSubmitResult()}>
-                    <img src={btnBack} alt="" />
+                    <img src={btnBack} alt="" loading="lazy" />
                 </div>
                 <Details interactiveItem={props.interactiveItem} questions={questions} onSelectItem={onSelectItem} onSubmitResult={onSubmitResult} />
             </div>

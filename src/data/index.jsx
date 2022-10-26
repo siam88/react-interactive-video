@@ -5,16 +5,13 @@ import HotSpot4 from '../components/hotSpot/hotSpot4'
 
 
 
-// import MarineDriveBackground from '../assets/images/marineDriveBackground.jpg'
-// import MainamatiBg from '../assets/images/mainamatibground.png'
-// import HardingeBridgeBg from '../assets/images/hardingeBridgeBground.png'
-// import BandorbanBground from '../assets/images/bandorbanBground.png'
 
 
-import ModalBgTamim from "../assets/all-images/overlay-bg-Tamim.png";
-import ModalBgBandarban from "../assets/all-images/overlay-bg-Bandarban.png";
-import ModalBgCox from "../assets/all-images/overlay-bg-Cox_s-Bazar.png";
-import ModalBgMoynamoti from "../assets/all-images/overlay-bg-moynamoti.png";
+
+import ModalBgTamim from "../assets/all-images/overlay-bg-Tamim.jpg";
+import ModalBgBandarban from "../assets/all-images/overlay-bg-Bandarban.jpg";
+import ModalBgCox from "../assets/all-images/overlay-bg-Cox_s-Bazar.jpg";
+import ModalBgMoynamoti from "../assets/all-images/overlay-bg-moynamoti.jpg";
 
 
 

@@ -1,12 +1,18 @@
 import React, { useEffect, useContext } from 'react'
-import { BiPlay, BiExitFullscreen, BiPause, BiFullscreen, BiVolumeLow, BiVolumeMute } from "react-icons/bi";
 import './index.css';
-import { Lock, UnLock, checkFullScreen } from '../../utils';
+import { Lock, UnLock, checkFullScreen, CheckIOS } from '../../utils';
 import { QuizContext } from '../../contexts/quizContext';
-import { FaPlay, FaExpand, FaVolumeMute, FaPause, FaVolumeDown } from 'react-icons/fa'
+import { FaPlay, FaExpand, FaVolumeMute, FaPause, FaVolumeDown, FaCompress, } from 'react-icons/fa'
+
 const ControlPanel = (props) => {
     const { setFullScreen, fullScreen } = useContext(QuizContext)
 
+
+    useEffect(() => {
+        if (checkFullScreen) {
+            setFullScreen(true)
+        }
+    }, [])
 
 
 
@@ -18,7 +24,9 @@ const ControlPanel = (props) => {
         UnLock()
         setFullScreen(false)
     }
+    function handleKeyPress(e) {
 
+    }
     return (
         <div className="control_panel">
             <div className="progress" onClick={props.progressHandler}>
@@ -40,6 +48,7 @@ const ControlPanel = (props) => {
                             style={{ marginRight: "15px" }}
                             onClick={props.playHandler}
                             className={'control_Icon '}
+                            onKeyPress={(e) => handleKeyPress(e)}
                         />
                     </>
                 )}
@@ -76,9 +85,9 @@ const ControlPanel = (props) => {
                         onChange={props.volumeHandler}
                     ></input>
                 </div>
-                <div style={{ width: "100%", textAlign: "right" }}>
-                    {!fullScreen ? <FaExpand className={'control_Icon'} onClick={() => onEnterFullScreen()} /> : <BiExitFullscreen className={'control_Icon'} onClick={() => onExitFullScreen()} />}
-                </div>
+                {!CheckIOS() && <div style={{ width: "100%", textAlign: "right" }}>
+                    {!fullScreen ? <FaExpand className={'control_Icon'} onClick={() => onEnterFullScreen()} /> : <FaCompress className={'control_Icon'} onClick={() => onExitFullScreen()} />}
+                </div>}
             </div>
         </div>
     )

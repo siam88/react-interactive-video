@@ -1,29 +1,72 @@
-.img_btn {
+.img_btn_wrapper {
   position: absolute;
-  width: 200px;
-  height: 200px;
-  left: 50px;
-  top: 50px;
+  bottom: 3rem;
+  left: 2.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
+  border-radius: 50%;
+  width: 160px;
+  height: 160px;
   display: flex;
   justify-content: center;
   align-items: center;
-  // border: 1px solid yellow;
-  // background-color: yellowgreen;
-  .inner_img {
-    margin-top: 2.25rem;
-    margin-left: 0.7rem;
-    height: 110px;
-    width: 110px;
-    // background-color: red;
-    border: 5px solid white;
+  .hover_whitetext {
+    visibility: visible;
+    opacity: 1;
+  }
+  .hover_text {
+    visibility: hidden;
+    opacity: 0;
+  }
+  img {
+    position: absolute;
+    top: -6.25px;
+  }
+  .image_border {
+    position: absolute;
+    width: 132px;
+    height: 132px;
+    background-color: var(--white);
     border-radius: 50%;
-    background: url("../../../assets/all-images/tamim_name.png") no-repeat
-      center center;
+    z-index: 0;
+    transition: all 0.3s ease;
   }
   &:hover {
-    background: url("../../../assets/all-images/hot-spots-hover-icon.svg")
-      no-repeat center;
+    .hover_text {
+      visibility: visible;
+      opacity: 1;
+    }
+    .hover_whitetext {
+      visibility: hidden;
+      opacity: 0;
+    }
+    .image_border {
+      background-color: var(--redPrimary);
+    }
+  }
+}
+
+/* =========== Media =========== */
+
+@media screen and (max-width: 1024px) {
+  .img_btn_wrapper {
+    bottom: 0rem;
+    left: 0rem;
+    scale: 0.7;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .img_btn_wrapper {
+    bottom: -1rem;
+    left: -1rem;
+    scale: 0.6;
+  }
+}
+@media screen and (max-width: 576px) {
+  .img_btn_wrapper {
+    bottom: -2rem;
+    left: -2rem;
+    scale: 0.4;
   }
 }

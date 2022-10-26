@@ -1,17 +1,16 @@
 .success_component {
-  margin-top: 7rem;
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 0;
   right: 0;
   bottom: 0;
-  overflow: hidden;
   padding: 1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
+  transform: translateY(-50%);
   .congratulations {
-    width: 400px;
+    width: 300px;
   }
   .btn_success {
     width: 750px;
@@ -34,12 +33,10 @@
 /* ==================== media ============= */
 @media screen and (max-width: 1024px) {
   .success_component {
-    margin-top: 3rem;
   }
 }
 @media screen and (max-width: 991px) {
   .success_component {
-    margin-top: 2rem;
     .congratulations {
       width: 250px;
     }
@@ -58,7 +55,6 @@
 /* ======= All Landscape Mobile view======= */
 @media screen and (max-width: 760px) {
   .success_component {
-    margin-top: 1rem;
     .congratulations {
       width: 250px;
     }
@@ -77,7 +73,6 @@
 /* =========== All Mobile Horizontal view =========== */
 @media screen and (max-width: 576px) {
   .success_component {
-    margin-top: 1rem;
     .congratulations {
       width: 200px;
     }
@@ -95,7 +90,6 @@
 }
 @media screen and (max-width: 420px) {
   .success_component {
-    margin-top: 1rem;
     .congratulations {
       width: 150px;
     }

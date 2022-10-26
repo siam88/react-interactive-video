@@ -1,25 +1,24 @@
-import React from 'react'
-import VideoPage from '../pages/VideoPage';
-import { useState } from 'react';
-import LoginPage from '../pages/LoginPage';
-import Loader from './../components/loader';
-import { Routes, Route, } from "react-router-dom";
-import TAndCPage from '../pages/T&CPage';
+import React, { useEffect } from 'react'
+import { Routes, Route, Navigate } from "react-router-dom";
+import TAndCPage from '../pages/home/T&CPage';
 import ResultPage from './../pages/resultPage';
 import Home from './../pages/home';
 
+
 const Layout = () => {
-    const [auth, setAuth] = useState(false)
-    const [loading, setLoading] = useState(false)
-    const [videoEnd, setVideoEnd] = useState(false)
-    const [result, setResult] = useState()
+
+
 
     return (
         <>
-           <Routes >
+            <Routes >
                 <Route path="/" element={<Home />} />
                 <Route path="/result" element={<ResultPage />} />
-                <Route path="/terms-and-conditions" element={<TAndCPage />} />
+                {/* <Route path="/terms-and-conditions" element={<TAndCPage />} /> */}
+                <Route
+                    path="*"
+                    element={<Navigate to="/" replace />}
+                />
             </Routes>
         </>
 
