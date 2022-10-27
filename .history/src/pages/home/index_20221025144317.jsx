@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import Loader from "../../components/loader";
-import IntroPage from "./introPage";
+import IntroPage from "./introPage/IntroPage";
 import LoginPage from "./LoginPage";
 import CustomModal from "../../components/modals";
 import Row from "react-bootstrap/Row";
