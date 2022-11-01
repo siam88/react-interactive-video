@@ -7,7 +7,6 @@ import RegistrationBg from "../../../assets/all-images/BTS---Registration-page-b
 import btnReg from "../../../assets/all-images/btn-registration.png";
 import robiLogo from "../../../assets/all-images/robi-logo.svg";
 import { QuizContext, UserContext } from "../../../contexts/quizContext";
-import { useNavigate } from "react-router-dom";
 import { ResponseMsgFormatter, Lock, MobileCheck, CheckIOS } from "../../../utils";
 import TermsAndCondition from '../T&CPage'
 
@@ -20,7 +19,6 @@ const IntroPage = (props) => {
   const [phoneError, setPhoneError] = useState("");
   const [show, setShow] = useState(false);
 
-  let navigate = useNavigate();
   const { setQuestions, setQuizAns, quizAns } = useContext(QuizContext);
   const { setUserInfo } = useContext(UserContext);
 
