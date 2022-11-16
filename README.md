@@ -1,3 +1,4 @@
+[![wakatime](https://wakatime.com/badge/github/siam88/react-interactive-video.svg)](https://wakatime.com/badge/github/siam88/react-interactive-video)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
