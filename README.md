@@ -1,71 +1,94 @@
 [![wakatime](https://wakatime.com/badge/github/siam88/react-interactive-video.svg)](https://wakatime.com/badge/github/siam88/react-interactive-video)
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## React Interactive Video
 
-## Available Scripts
+React Interactive Video is a library that enables you to create interactive videos using React.
 
-In the project directory, you can run:
+### Getting Started
 
-### `npm start`
+To get started with React Interactive Video, you can clone the repository from GitHub:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+git clone https://github.com/siam88/react-interactive-video.git
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+React Interactive Video requires the following dependencies to be installed:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React (>=16.8.0)
+- react-dom (>=16.8.0)
+- video.js (>=7.5.4)
+- prop-types (>=15.7.2)
 
-a### `npm run build`
+You can install these dependencies using npm:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm install --save react react-dom video.js prop-types
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To install React Interactive Video, you can run the following command:
 
-### `npm run eject`
+```
+npm install --save react-interactive-video
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Usage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To use React Interactive Video, you can import it in your React component:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```javascript
+import React from 'react';
+import InteractiveVideo from 'react-interactive-video';
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+const videoJsOptions = {
+  autoplay: true,
+  controls: true,
+  sources: [{
+    src: 'https://example.com/path/to/video.mp4',
+    type: 'video/mp4',
+  }],
+};
 
-## Learn More
+const hotspots = [{
+  startTime: 5,
+  endTime: 10,
+  top: '10%',
+  left: '10%',
+  width: '30%',
+  height: '30%',
+  onClick: () => console.log('Hotspot clicked!'),
+}];
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+const App = () => (
+  <InteractiveVideo videoJsOptions={videoJsOptions} hotspots={hotspots} />
+);
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+export default App;
+```
 
-### Code Splitting
+In the above example, `videoJsOptions` are the options for the video player, and `hotspots` are the interactive elements that will be overlaid on the video.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Props
 
-### Analyzing the Bundle Size
+React Interactive Video accepts the following props:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `videoJsOptions`: Options for the video player. Required.
+- `hotspots`: An array of hotspot objects. Each hotspot object should have the following properties:
+  - `startTime`: The start time of the hotspot in seconds. Required.
+  - `endTime`: The end time of the hotspot in seconds. Required.
+  - `top`: The top position of the hotspot as a percentage of the video height. Required.
+  - `left`: The left position of the hotspot as a percentage of the video width. Required.
+  - `width`: The width of the hotspot as a percentage of the video width. Required.
+  - `height`: The height of the hotspot as a percentage of the video height. Required.
+  - `onClick`: A function that will be called when the hotspot is clicked. Optional.
 
-### Making a Progressive Web App
+### Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Contributions to React Interactive Video are welcome! To contribute, please fork the repository and submit a pull request.
 
-### Advanced Configuration
+### License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+React Interactive Video is licensed under the MIT License. See the `LICENSE` file for more information.
